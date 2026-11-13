@@ -1,3 +1,9 @@
+**Canonical Reserve Link Audited:** [`https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb`](https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb) (`Reserve #93 - KING`)  
+**Live Leaderboard:** [`https://ssr.fun/leaderboard`](https://ssr.fun/leaderboard) • **Campaign Hub:** [`https://ssr.fun/#/campaign`](https://ssr.fun/#/campaign)  
+**Official X:** [`@strategicsuperr`](https://x.com/strategicsuperr)
+
+---
+
 # SSR.FUN Beta Launch Challenge — Investment Thesis & Technical Beta QA Audit
 
 **Author:** Royal Mac (`@royalmmac` / X: [`@Royalmmac`](https://x.com/Royalmmac))  
