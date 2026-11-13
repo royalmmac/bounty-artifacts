@@ -1,3 +1,9 @@
+**Official Campaign Hashtags:** `#StablecoinsonRaenest` • `#RaenestBounty`  
+**Official X Mentions:** [`@RaenestApp`](https://x.com/RaenestApp) • [`@SuperteamBR`](https://x.com/SuperteamBR)  
+**Published Medium Article:** [`https://medium.com/@royalmmac/how-brazilian-freelancers-and-remote-engineers-are-using-raenest-solana-stablecoins-to-beat-70734932d8af`](https://medium.com/@royalmmac/how-brazilian-freelancers-and-remote-engineers-are-using-raenest-solana-stablecoins-to-beat-70734932d8af)
+
+---
+
 # How Brazilian Freelancers and Remote Engineers Are Using Raenest + Solana Stablecoins to Beat Cross-Border Banking Friction
 
 **Author:** Marco Aurélio Sugamele (`@royalmmac` | X: [`@Royalmmac`](https://x.com/Royalmmac))  
@@ -94,3 +100,9 @@ Ready to manage your money without borders, receive USDC/USDT and SOL seamlessly
    👉 [**https://referral.raenest.com/WzbV/i?referral_code=community**](https://referral.raenest.com/WzbV/i?referral_code=community)
 2. **Deposit USDT, USDC, or SOL** into your Raenest crypto wallet via supported networks like Solana.
 3. **Activate your Raenest Vault** to earn **up to 7% APY** on eligible USDT/USDC balances and spend globally with your **Raenest Virtual or Physical Card**!
+
+
+---
+
+**Campaign Tags:** `#StablecoinsonRaenest` `#RaenestBounty` `@RaenestApp` `@SuperteamBR`  
+**Unique Referral Link (`code: community` | Tag `@royalmmac`):** [`https://referral.raenest.com/WzbV/i?referral_code=community`](https://referral.raenest.com/WzbV/i?referral_code=community)
