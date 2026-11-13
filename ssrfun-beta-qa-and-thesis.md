@@ -1,7 +1,8 @@
 # SSR.FUN Beta Launch Challenge — Investment Thesis & Technical Beta QA Audit
 
-**Author:** Royal Mac (`@royalmmac` / X: `@Royalmmac`)  
-**Solana Wallet:** `CxmYSV2LXkkFJHr5zTPBHkLSaY9c2bcbXNdCjcYjgW4G`  
+**Author:** Royal Mac (`@royalmmac` / X: [`@Royalmmac`](https://x.com/Royalmmac))  
+**X Thesis Post:** [`https://x.com/Royalmmac/status/2121123929565569133`](https://x.com/Royalmmac/status/2121123929565569133)  
+**Solana Wallets:** `HB14GABfpAZLZdj1eWeXyrojgfoSGQeiiF5naC66MNvq` (Superteam Earn) / `CxmYSV2LXkkFJHr5zTPBHkLSaY9c2bcbXNdCjcYjgW4G` (Operational)  
 **Track Focus:** Best Beta Contributor ($50 USDC) & Reserve Investment Thesis
 
 ---
@@ -17,37 +18,52 @@ Crypto-native investors and remote professionals on Solana face a structural cap
 ### 3. Reserve Strategy Thesis: "Solana Alpha + Global Macro Shield (60/40 Onchain Barbell)"
 Our thesis for a flagship Reserve on SSR.FUN structures capital into a self-rebalancing barbell:
 - **60% Core Macro & Equity Anchor (Tokenized Equities & T-Bill/Index ETFs):** Captures steady compounding from US large-cap tech equities (NVDA, QQQ, SPY) and short-duration yield ETFs, dampening volatility during crypto market corrections.
-- **40% High-Conviction Solana Ecosystem Growth (SOL + Liquid Infrastructure):** Captures asymmetric upside from Solana's high-throughput DeFi and x402 agentic payment rails.
-- **Why it wins on SSR.FUN:** Investors mint a single Reserve token in one Solana transaction instead of executing 8 separate swaps across fragmented venues, with transparent onchain NAV tracking and instant redemption.
+- **40% High-Conviction Solana Ecosystem Growth (SOL + Liquid Infrastructure):** Captures asymmetric upside from Solana's high-throughput DeFi (`SOL`, `JUP`, `JTO`) and x402 agentic payment rails.
+- **Why it wins on SSR.FUN:** Investors mint a single Reserve token in one Solana transaction instead of executing multiple separate swaps across fragmented venues, with transparent onchain NAV tracking and instant redemption.
 
 ---
 
-## Part 2: Reproducible Beta QA & Edge Security Audit (`ssr.fun`)
+## Part 2: Reproducible Beta QA & Root-Cause Forensics (`ssr.fun`)
 
-During live beta inspection of `https://ssr.fun` (tested from Brazil via Vercel Edge PoP `gru1`), we conducted an HTTP edge, security header, and routing audit to help the SSR.FUN engineering team harden the launchpad.
+During live beta inspection of `https://ssr.fun` (tested via Vercel Edge PoP `gru1`), we conducted a full-stack bundle, API, and routing audit across `/`, `/leaderboard`, `/docs`, `/r/:reserve`, and `/api/mainnet/*` to give the SSR.FUN engineering team immediately actionable fixes.
 
-### Finding #1 (High — Availability / Edge Caching): `coming-soon.html` Maintenance Gate & CDN Header Conflict
-- **Reproducible Evidence:**
-  - Request: `GET https://ssr.fun`
-  - Edge Trace ID: `X-Vercel-Id: gru1::cpx45-1794545025479-4533b6f6a92c`
-  - ETag: `W/"fa5b0c912df2b340b22787bf2d032304"` (`Last-Modified: Fri, 13 Nov 2026 04:18:32 GMT`)
-  - Headers returned:
-    ```http
-    HTTP/1.1 200 OK
-    Content-Disposition: inline; filename="coming-soon.html"
-    Cache-Control: no-store
-    X-Vercel-Cache: HIT
-    Age: 1513
-    ```
-- **Impact:**
-  1. Currently, `https://ssr.fun`, `https://ssr.fun/#/campaign`, and `https://ssr.fun/leaderboard` serve the static `coming-soon.html` landing page (`<title>SSR.FUN — Coming Soon</title>`), preventing beta testers in this window from accessing the in-app wallet sign-up and bottom-right feedback widget.
-  2. Although the response header instructs browsers `Cache-Control: no-store`, the Vercel Edge CDN is serving a cached `X-Vercel-Cache: HIT` response (`Age: 1513`). When toggling between maintenance mode (`coming-soon.html`) and the live dApp, stale edge cache entries can serve `coming-soon.html` to users even after a new deployment is promoted.
-- **Recommended Fix:** Add `CDN-Cache-Control: no-store` or `Vercel-CDN-Cache-Control: max-age=0, must-revalidate` on the root HTML rewrite rule in `vercel.json` so deployments invalidate `gru1` and global PoPs immediately.
+### Finding #1 (Critical — Broken Funnel): Root `/` Overwritten with `coming-soon.html` While `/api/mainnet/campaign-leaderboard` is `phase: "live"`
+- **Reproducible Root-Cause Forensics:**
+  1. `GET https://ssr.fun/leaderboard` loads `/assets/leaderboard-lvjdhEed.js`, which polls `GET https://ssr.fun/api/mainnet/campaign-leaderboard`.
+  2. The live API confirms the Beta Campaign is **actively running** (`"phase": "live"`, `startTs: 1794319200`, `endTs: 1796911200`), with only **2 Reserves** (`FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb` / Reserve #93 `KING` and `A3tRdnc1s7fiwvkmVwm6s7wAmF3fML56Pz7QdhpbHJvX` / Reserve #94 `CORE`) and **6 trader wallets** entered before the root route was replaced:
+     ```json
+     {
+       "phase": "live",
+       "startTs": 1794319200,
+       "endTs": 1796911200,
+       "entries": 2,
+       "traderEntries": 6,
+       "volumeLeader": {
+         "kind": "reserve",
+         "id": "FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb",
+         "value": 17.000483992367762
+       }
+     }
+     ```
+  3. However, `GET https://ssr.fun/` currently serves the static `coming-soon.html` file (`Content-Disposition: inline; filename="coming-soon.html"`, `ETag: W/"fa5b0c912df2b340b22787bf2d032304"`), even though the React runtime bundles (`/assets/src-BHNgQCbg.js`, `/assets/calculations-DqZBs07a.js`, `/assets/docs-CoIMeMwd.js`) remain deployed on the same Vercel deployment.
+  4. **Cascade Failure Across Live Routes:**
+     - Clicking **"Sign up"** (`<a class="handle" href="/#/campaign">`) on `https://ssr.fun/leaderboard` navigates to `https://ssr.fun/#/campaign`, which resolves to `/` (`coming-soon.html`) and drops the `#/campaign` route because the React SPA entry point is not mounted on `/`.
+     - Opening any live Reserve share URL from the leaderboard—such as `https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb`—correctly renders SSR OpenGraph tags (`KingintheNorth Reserve (KING)`), but immediately executes:
+       ```html
+       <meta http-equiv="refresh" content="0; url=https://ssr.fun/#/dtr/mainnet-beta-93" />
+       <script>window.location.replace("https://ssr.fun/#/dtr/mainnet-beta-93");</script>
+       ```
+       which redirects the user straight into the static `coming-soon.html` wall instead of Reserve `#93`.
+- **Recommended Fix:**
+  - Restore the main Vite/Rolldown SPA `index.html` entry at `/` (or mount the dApp at `/app` and update `/r/:reserve` redirects and `/leaderboard` links to point to `/app#/dtr/...` and `/app#/campaign` if `/` is intentionally gated).
+  - Add `Vercel-CDN-Cache-Control: max-age=0, must-revalidate` on `/` so toggling `coming-soon.html` does not leave stale `X-Vercel-Cache: HIT` responses (`Age: 1513`) cached at edge PoPs.
+
+---
 
 ### Finding #2 (Medium — Wallet Security): Missing Clickjacking (`frame-ancestors`) & MIME-Sniffing Headers on Signing Surface
 - **Reproducible Evidence:**
-  - The production response headers include `Strict-Transport-Security: max-age=63072000` and `Access-Control-Allow-Origin: *`, but omit `X-Frame-Options`, `Content-Security-Policy: frame-ancestors 'none'`, and `X-Content-Type-Options: nosniff`.
-- **Impact:** Because users connect Solana wallets and sign messages/transactions on `ssr.fun/#/campaign`, allowing the dApp to be framed inside third-party sites exposes users to UI redressing (clickjacking) attacks.
+  - Production response headers across `/`, `/leaderboard`, and `/docs` include `Strict-Transport-Security: max-age=63072000` and `Access-Control-Allow-Origin: *`, but omit `X-Frame-Options`, `Content-Security-Policy: frame-ancestors 'none'`, and `X-Content-Type-Options: nosniff`.
+- **Impact:** Because users connect Solana wallets and sign messages/transactions on `ssr.fun/#/campaign` and `ssr.fun/#/dtr/...`, allowing the dApp to be framed inside third-party sites exposes users to UI redressing (clickjacking) attacks.
 - **Recommended Fix:** Add the following security headers in `vercel.json`:
   ```json
   {
@@ -64,7 +80,9 @@ During live beta inspection of `https://ssr.fun` (tested from Brazil via Vercel 
   }
   ```
 
-### Finding #3 (Low/UX — Social Growth & Viral Sharing): Hash Routing (`/#/campaign`) Strips Dynamic OpenGraph Cards on X
-- **Observation:** The campaign entry uses hash-fragment routing (`https://ssr.fun/#/campaign`), whereas the leaderboard uses path routing (`https://ssr.fun/leaderboard`).
-- **Impact:** Social crawlers (X/Twitter Cardbot, Telegram, Discord) never send URL fragments (`#...`) to the server. When Reserve creators share links formatted as `https://ssr.fun/#/reserve/<id>`, X cannot render dynamic PnL or Reserve preview cards, reducing click-through rates for the PnL & Volume tracks.
-- **Recommended Fix:** Use standard History API path routing (`/campaign`, `/reserve/:id`) backed by a Vercel rewrite (`"source": "/(.*)", "destination": "/index.html"`) and dynamic `/api/og` meta tag injection for Reserve and PnL share links.
+---
+
+### Finding #3 (Low/UX — Leaderboard & Share Link Consistency): Direct `#/dtr/...` Links Bypass `/r/:reserve` OpenGraph Previews
+- **Observation:** The serverless endpoint `/r/:reserve` (e.g. `https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb`) properly injects dynamic OpenGraph and Twitter `summary_large_image` tags (`/api/mainnet/reserve-image?id=103357c17a663c48`), before redirecting via client JS to `https://ssr.fun/#/dtr/mainnet-beta-93`.
+- **Impact:** Once a user lands on `https://ssr.fun/#/dtr/mainnet-beta-93` and copies the URL from their browser address bar to share their thesis on X (as required by Step 3 of the Beta Campaign), X's crawler strips `#/dtr/mainnet-beta-93` and fetches `/` instead—losing the dynamic Reserve card image and description.
+- **Recommended Fix:** Provide a prominent **"Share on X"** button inside the Reserve view that pre-populates the tweet intent with the canonical `https://ssr.fun/r/<reserve_pubkey>` shortlink rather than the browser's `location.href` (`/#/dtr/...`).
