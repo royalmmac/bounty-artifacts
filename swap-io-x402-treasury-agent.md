@@ -1,3 +1,19 @@
+**1080p Narrated Pitch Video on X (`@swapdotio` & `@Superteam`):** [`https://x.com/Royalmmac/status/2121123499494256753`](https://x.com/Royalmmac/status/2121123499494256753)  
+**Published Medium Article:** [`https://medium.com/@royalmmac/building-an-autonomous-treasury-rebalancer-on-solana-with-swap-ios-a11e01b24d55`](https://medium.com/@royalmmac/building-an-autonomous-treasury-rebalancer-on-solana-with-swap-ios-a11e01b24d55)  
+**Live Onchain Solscan Verification (x402 Recipient & Gasless PayAI Facilitator):**  
+- Recipient (`payTo`): [`https://solscan.io/account/BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD`](https://solscan.io/account/BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD)  
+- Gasless Facilitator (`feePayer`): [`https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4`](https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4)  
+
+---
+
+# Building an Autonomous Treasury Rebalancer on Solana with Swap.io's x402 Agent API
+
+Watch our 2-minute narrated pitch video on X: https://x.com/Royalmmac/status/2121123499494256753
+Try Swap.io on Solana: https://swap.io
+Open-source verification & code repository: https://github.com/royalmmac/bounty-artifacts/blob/main/swap-io-x402-treasury-agent.md
+
+---
+
 # FreelanceSplitBot: Pay-Per-Quote Telegram Treasury Agent Powered by Swap.io & x402
 
 **Author:** Royal Mac (`@royalmmac` | X: `@Royalmmac`)  
