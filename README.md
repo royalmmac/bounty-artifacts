@@ -1,4 +1,4 @@
-# 🏆 Web3 Research, Technical Architecture & Forensic QA Artifacts (`@royalmmac`)
+# Web3 Research, Technical Architecture & Forensic QA Artifacts (`@royalmmac`)
 
 **Author:** Marco Aurélio Sugamele (`@royalmmac` | X: [`@Royalmmac`](https://x.com/Royalmmac) | Medium: [`@royalmmac`](https://medium.com/@royalmmac))  
 **Superteam Earn Profile:** [`https://superteam.fun/earn/t/royalmmac`](https://superteam.fun/earn/t/royalmmac)  
@@ -11,7 +11,7 @@ This repository hosts original Full HD (`1920x1080`) architectural infographics,
 
 | # | Ecosystem / Bounty | Technical Report (`.md`) | Full HD Infographic (`.png`) | Live X Thread / Video |
 | :- | :--- | :--- | :--- | :--- |
-| **01** | **Raenest Global Platform** (`#StablecoinsonRaenest` `#RaenestBounty`) | [`raenest-cross-border-guide.md`](./raenest-cross-border-guide.md) | Track A Guide & Audit | [X Thread](https://x.com/Royalmmac/status/2121124522334236868) • [Medium](https://medium.com/@royalmmac/how-brazilian-freelancers-and-remote-engineers-are-using-raenest-solana-stablecoins-to-beat-70734932d8af) |
+| **01** | **Raenest Global Platform** (`#StablecoinsonRaenest` `#RaenestBounty`) | [`raenest-cross-border-guide.md`](./raenest-cross-border-guide.md) | Track A Guide & Audit | [X Thread](https://x.com/Royalmmac/status/2121124522334236868) • [Substack](https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote) |
 | **02** | **Swap.io x402 Agent API** (`FreelanceSplitBot`) | [`swap-io-x402-treasury-agent.md`](./swap-io-x402-treasury-agent.md) | 1080p MP4 + x402 Trace | [1080p Video on X](https://x.com/Royalmmac/status/2121123499494256753) • [Medium](https://medium.com/@royalmmac/building-an-autonomous-treasury-rebalancer-on-solana-with-swap-ios-a11e01b24d55) |
 | **03** | **SSR.FUN Onchain Reserves** (`Best Beta Contributor QA`) | [`ssrfun-beta-qa-and-thesis.md`](./ssrfun-beta-qa-and-thesis.md) | Mainnet Telemetry & QA | [X Thesis Thread](https://x.com/Royalmmac/status/2121123929565569133) |
 | **04** | **ChimpX & Mojo AI** (`$CHIMP Fair Launch on Raydium`) | [`chimpx-mojo-ai-fair-launch-analysis.md`](./chimpx-mojo-ai-fair-launch-analysis.md) | [`chimp_fair_launch_infographic.png`](./chimp_fair_launch_infographic.png) | [8-Tweet X Thread](https://x.com/Royalmmac/status/2121288435617219039) • [Medium](https://medium.com/@royalmmac/why-the-chimp-fair-launch-on-raydium-sets-a-new-standard-for-defi-token-launches-on-solanaauthor-946eff3cc4ca) |
