@@ -1,6 +1,6 @@
 **Official Campaign Hashtags:** `#StablecoinsonRaenest` • `#RaenestBounty`  
 **Official X Mentions:** [`@RaenestApp`](https://x.com/RaenestApp) • [`@SuperteamBR`](https://x.com/SuperteamBR)  
-**Published Medium Article:** [`https://medium.com/@royalmmac/how-brazilian-freelancers-and-remote-engineers-are-using-raenest-solana-stablecoins-to-beat-70734932d8af`](https://medium.com/@royalmmac/how-brazilian-freelancers-and-remote-engineers-are-using-raenest-solana-stablecoins-to-beat-70734932d8af)
+**Published Substack Article:** [`https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote`](https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote)
 
 ---
 
