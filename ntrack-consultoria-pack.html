@@ -3,105 +3,467 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>N/Track Consultoria Empresarial — Pack Oficial de 8 Carrosséis Estratégicos (Instagram)</title>
+  <title>N/Track Consultoria — Prancha de Aprovação · 08 Carrosséis Instagram (4:5)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Poppins:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0a1628;
-      --card: #11223d;
-      --cyan: #00d2ff;
-      --gold: #f59e0b;
-      --emerald: #10b981;
-      --text: #f8fafc;
-      --muted: #94a3b8;
+      --paper: #F3F2EE;
+      --surface: #FFFFFF;
+      --ink: #1A1A1A;
+      --ink-muted: #5A5D64;
+      --border: #DCDAD2;
+      --ntrack-teal: #054759;
+      --ntrack-teal-dark: #033240;
+      --ntrack-yellow: #FCDC5E;
+      --ntrack-offwhite: #FAF9F5;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: #060d18; color: var(--text); padding-top: 64px; }
-    body.unlocked #demo-bar { display: none !important; }
-    body.unlocked { padding-top: 0; }
-    body.unlocked .watermark { display: none !important; }
-
-    #demo-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-      background: linear-gradient(90deg, #0f172a, #064e3b);
-      border-bottom: 1px solid var(--emerald);
-      padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
-      font-size: 0.85rem;
+    body {
+      font-family: 'Work Sans', -apple-system, sans-serif;
+      background-color: var(--paper);
+      color: var(--ink);
+      line-height: 1.5;
+      padding-top: 64px;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Top Studio Proof Bar */
+    #studio-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      z-index: 9000;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .studio-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .studio-logo-wrap {
+      background: var(--ntrack-teal);
+      padding: 6px 14px;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+    }
+    .studio-logo-wrap img {
+      height: 24px;
+      width: auto;
+      display: block;
+    }
+    .studio-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--ink-muted);
+      letter-spacing: -0.01em;
+    }
+    .studio-meta strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .studio-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .btn {
-      padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 0.82rem;
-      border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-    .btn-pix { background: var(--emerald); color: #03150e; }
-    .btn-key { background: transparent; border: 1px solid #fbbf24; color: #fbbf24; }
+    .btn-primary {
+      background: var(--ink);
+      color: #FFFFFF;
+      border: 1px solid var(--ink);
+    }
+    .btn-primary:hover {
+      background: #333333;
+    }
+    .btn-outline {
+      background: #FFFFFF;
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--ink);
+    }
 
-    .container { max-width: 1260px; margin: 0 auto; padding: 32px 20px; }
-    .hero-box {
-      background: linear-gradient(135deg, #0d1f3a, #0a1424);
-      border: 1px solid #1e3a5f; border-radius: 16px; padding: 28px; margin-bottom: 30px;
+    /* Main Container */
+    .workspace {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 40px 28px 96px;
     }
-    .carousel-block {
-      background: #0b1526; border: 1px solid #1e293b; border-radius: 16px;
-      padding: 24px; margin-bottom: 28px;
+
+    /* Editorial Spec Sheet Header */
+    .spec-sheet {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 32px 36px;
+      margin-bottom: 36px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 32px;
+      align-items: end;
     }
-    .carousel-header {
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-      margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #1e293b;
+    @media (max-width: 900px) {
+      .spec-sheet { grid-template-columns: 1fr; }
+      #studio-bar { height: auto; padding: 12px 16px; flex-wrap: wrap; }
+      body { padding-top: 108px; }
     }
-    .slides-row {
-      display: grid; grid-template-columns: repeat(5, minmax(210px, 1fr)); gap: 14px; overflow-x: auto; padding-bottom: 8px;
+    .spec-kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ntrack-teal);
+      margin-bottom: 10px;
+      font-weight: 600;
     }
-    .slide-card {
+    .spec-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .spec-desc {
+      font-size: 14.5px;
+      color: var(--ink-muted);
+      max-width: 680px;
+    }
+    .spec-table {
+      border-top: 1px solid var(--border);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+    }
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .spec-row span:first-child { color: var(--ink-muted); }
+    .spec-row span:last-child { color: var(--ink); font-weight: 500; }
+
+    /* Carousel Section (Artboard Strip) */
+    .carousel-section {
+      margin-bottom: 48px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .carousel-topbar {
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #FAF9F6;
+    }
+    .carousel-id {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .num-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--ntrack-teal);
+      color: var(--ntrack-yellow);
+      padding: 4px 9px;
+      border-radius: 2px;
+    }
+    .carousel-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .pillar-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Figma-like Canvas Strip for 4:5 Instagram Slides */
+    .canvas-strip {
+      background: #E7E5DF;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 1100px) {
+      .canvas-strip {
+        grid-template-columns: repeat(5, minmax(220px, 1fr));
+        overflow-x: auto;
+      }
+    }
+    /* 4:5 Portrait Instagram Artboard */
+    .artboard {
       aspect-ratio: 4 / 5;
-      background: linear-gradient(160deg, #0f2442 0%, #081221 100%);
-      border: 1px solid #234575; border-radius: 12px; padding: 18px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      position: relative; overflow: hidden;
+      min-height: 295px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: outline 0.12s;
     }
-    .slide-top { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--cyan); font-weight: 800; letter-spacing: 0.5px; }
-    .slide-title { font-size: 0.98rem; font-weight: 800; color: #fff; line-height: 1.3; margin: 10px 0 8px; }
-    .slide-body { font-size: 0.8rem; color: #cbd5e1; line-height: 1.45; }
-    .slide-footer { font-size: 0.68rem; color: #64748b; display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px; }
+    .artboard:hover {
+      outline: 2px solid var(--ntrack-teal);
+    }
+    /* 3 Authentic N/Track Artboard Themes based on ntrack.com.br */
+    .theme-teal {
+      background: var(--ntrack-teal);
+      color: #FFFFFF;
+    }
+    .theme-teal .ab-num { color: var(--ntrack-yellow); border-bottom-color: rgba(255,255,255,0.18); }
+    .theme-teal .ab-body { color: rgba(255,255,255,0.86); }
+    .theme-teal .ab-foot { color: rgba(255,255,255,0.55); border-top-color: rgba(255,255,255,0.15); }
+    .theme-teal .ab-accent-bar { background: var(--ntrack-yellow); }
+
+    .theme-paper {
+      background: var(--ntrack-offwhite);
+      color: var(--ink);
+    }
+    .theme-paper .ab-num { color: var(--ntrack-teal); border-bottom-color: #DCDAD2; }
+    .theme-paper .ab-body { color: #3D4046; }
+    .theme-paper .ab-foot { color: #787B82; border-top-color: #E2E0D8; }
+    .theme-paper .ab-accent-bar { background: var(--ntrack-teal); }
+
+    .theme-dark {
+      background: #1A1A1A;
+      color: #FFFFFF;
+    }
+    .theme-dark .ab-num { color: var(--ntrack-yellow); border-bottom-color: rgba(255,255,255,0.15); }
+    .theme-dark .ab-body { color: #D0D2D6; }
+    .theme-dark .ab-foot { color: rgba(255,255,255,0.5); border-top-color: rgba(255,255,255,0.12); }
+    .theme-dark .ab-accent-bar { background: var(--ntrack-yellow); }
+
+    .theme-yellow {
+      background: var(--ntrack-yellow);
+      color: #1A1A1A;
+    }
+    .theme-yellow .ab-num { color: var(--ntrack-teal); border-bottom-color: rgba(0,0,0,0.15); }
+    .theme-yellow .ab-body { color: #1A1A1A; font-weight: 500; }
+    .theme-yellow .ab-foot { color: #054759; border-top-color: rgba(0,0,0,0.12); }
+    .theme-yellow .ab-accent-bar { background: #1A1A1A; }
+
+    .ab-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding-bottom: 10px;
+      border-bottom: 1px solid;
+      display: flex;
+      justify-content: space-between;
+    }
+    .ab-mid {
+      margin: auto 0;
+      padding: 12px 0;
+    }
+    .ab-accent-bar {
+      width: 24px;
+      height: 3px;
+      margin-bottom: 12px;
+    }
+    .ab-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 15.5px;
+      font-weight: 700;
+      line-height: 1.24;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .ab-body {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 12.2px;
+      line-height: 1.48;
+    }
+    .ab-foot {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5px;
+      padding-top: 9px;
+      border-top: 1px solid;
+      display: flex;
+      justify-content: space-between;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    [contenteditable="true"]:focus {
+      outline: 1px dashed currentColor;
+      outline-offset: 3px;
+    }
+
+    /* Subtle Studio Proof Stamp */
     .watermark {
-      position: absolute; inset: 0; pointer-events: none;
-      display: flex; align-items: center; justify-content: center;
-      transform: rotate(-28deg); font-size: 0.95rem; font-weight: 900;
-      color: rgba(255, 255, 255, 0.11); text-transform: uppercase; letter-spacing: 2px;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-28deg);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(128, 128, 128, 0.16);
+      border-top: 1px solid rgba(128, 128, 128, 0.12);
+      border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+      padding: 4px 0;
+      width: 140%;
+      text-align: center;
+      user-select: none;
     }
-    .caption-box {
-      margin-top: 14px; background: #060c16; border: 1px solid #1e293b;
-      padding: 14px; border-radius: 10px; font-size: 0.84rem; color: #cbd5e1;
+    body.unlocked .watermark,
+    body.unlocked #studio-bar {
+      display: none !important;
+    }
+    body.unlocked { padding-top: 0; }
+
+    /* Caption Drawer */
+    .caption-drawer {
+      padding: 18px 28px;
+      background: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .caption-content {
+      font-size: 13.5px;
+      color: #2C2E33;
+      max-width: 960px;
+    }
+    .caption-content strong {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(26, 26, 26, 0.65);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-sheet {
+      background: #FFFFFF;
+      border: 1px solid var(--ink);
+      max-width: 500px;
+      width: 100%;
+      padding: 32px;
+    }
+    .pix-code {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      padding: 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      word-break: break-all;
+      color: var(--ink);
+      margin: 14px 0;
     }
   </style>
 </head>
 <body>
 
-  <div id="demo-bar">
-    <div>
-      🎯 <strong>ENTREGA PRONTA — N/TRACK CONSULTORIA (FLORIANÓPOLIS/SC)</strong> • 8 Carrosséis Completos (40 Slides Editáveis + Legendas)
+  <div id="studio-bar">
+    <div class="studio-left">
+      <div class="studio-logo-wrap">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,fit=crop/YX41198KwjI5lBMz/a4ce092c-e21e-481a-b615-61916350623d-AMqaazBDpEuEVjKO.png" alt="N/Track Consultoria Empresarial">
+      </div>
+      <div class="studio-meta">
+        <strong>PRANCHA DE REVISÃO #NT-08</strong> · 8 Carrosséis Instagram (40 pranchas 1080×1350px · 4:5)
+      </div>
     </div>
-    <div style="display:flex; gap:8px;">
-      <button class="btn btn-pix" onclick="unlockPromptPix()">⚡ Liberar Pack Completo Sem Marca d'Água (R$ 350 via Pix)</button>
-      <button class="btn btn-key" onclick="unlockWithKey()">🔑 Inserir Chave</button>
+    <div class="studio-actions">
+      <button class="btn btn-outline" onclick="window.print()">Exportar PDF / Prova</button>
+      <button class="btn btn-outline" onclick="promptUnlock()">Inserir código de liberação</button>
+      <button class="btn btn-primary" onclick="openCheckout()">Liberar arquivos finais · R$ 350</button>
     </div>
   </div>
 
-  <div class="container">
-    <div class="hero-box">
-      <div style="color:var(--cyan); font-weight:800; font-size:0.8rem; text-transform:uppercase; margin-bottom:6px;">
-        PROJETO DESENVOLVIDO SOB MEDIDA PARA N/TRACK CONSULTORIA EMPRESARIAL
+  <main class="workspace">
+    <section class="spec-sheet">
+      <div>
+        <div class="spec-kicker">Direção de Arte & Conteúdo Estratégico · Florianópolis / SC</div>
+        <h1 class="spec-title">Caderno Editorial — 8 Carrosséis de Gestão e Finanças (N/Track)</h1>
+        <p class="spec-desc">
+          Material desenvolvido sobre os 6 módulos oficiais da <strong>N/Track Consultoria Empresarial</strong> (Comercial, Financeiro, Analytics, Pessoas, Planejamento e Marketing), utilizando a paleta proprietária do site (<code>#054759</code> Petrol Teal, <code>#FCDC5E</code> Amarelo N/Track e tipografia <code>Poppins</code> + <code>Work Sans</code>). Qualquer texto abaixo pode ser clicado e editado diretamente na prancha antes da exportação.
+        </p>
       </div>
-      <h1 style="font-size:1.8rem; margin-bottom:10px;">Pack Estratégico: 8 Carrosséis de Gestão & Finanças para PMEs (40 Slides + Copy)</h1>
-      <p style="color:var(--muted); font-size:0.95rem;">
-        Alinhado aos 6 módulos oficiais da <strong>N/Track Consultoria</strong> (<em>Comercial, Financeiro, Analytics, Pessoas, Planejamento e Marketing</em>). Clique em qualquer texto dos slides abaixo para editar ao vivo antes de exportar.
+      <div class="spec-table">
+        <div class="spec-row"><span>CLIENTE</span><span>N/Track Consultoria Empresarial</span></div>
+        <div class="spec-row"><span>ESCOPO</span><span>08 Carrosséis (40 Pranchas + Copy)</span></div>
+        <div class="spec-row"><span>FORMATO NATIVO</span><span>1080 × 1350 px (Proporção 4:5 Vertical)</span></div>
+        <div class="spec-row"><span>TIPOGRAFIA</span><span>Poppins SemiBold / Work Sans Regular</span></div>
+        <div class="spec-row"><span>STATUS DO LOTE</span><span>Pronto para publicação imediata</span></div>
+      </div>
+    </section>
+
+    <div id="carousels-mount"></div>
+  </main>
+
+  <!-- Checkout Modal -->
+  <div class="modal-backdrop" id="checkout-modal">
+    <div class="modal-sheet">
+      <div class="spec-kicker">Liberação de Arquivos Finais</div>
+      <h3 style="font-family:'Poppins',sans-serif; font-size:20px; margin-bottom:8px;">Pack Completo N/Track (8 Carrosséis)</h3>
+      <p style="font-size:13.5px; color:var(--ink-muted); margin-bottom:16px;">
+        Remove a marca de revisão das 40 pranchas, libera a exportação limpa em alta resolução e entrega os arquivos editáveis por <strong>R$ 350,00</strong> via Pix direto.
       </p>
-      <div id="pix-area" style="display:none; margin-top:18px; background:#060d18; border:1px solid var(--emerald); padding:16px; border-radius:12px;">
-        <div style="font-weight:800; color:var(--emerald); margin-bottom:6px;">⚡ PIX COPIA E COLA (R$ 350,00 — Entrega Imediata Sem Taxas da Plataforma):</div>
-        <input id="ntrack-pix" readonly style="width:100%; padding:10px; background:#0f172a; color:#38bdf8; border:1px solid #334155; border-radius:6px; font-family:monospace;">
-        <button class="btn btn-pix" style="margin-top:8px;" onclick="copyNtrackPix()">📋 Copiar Código Pix (R$ 350,00)</button>
+      <div style="text-align:center; padding:16px; border:1px solid var(--border); background:#FAF9F6;">
+        <img id="pix-qr" alt="QR Code Pix" style="width:176px; height:176px; display:block; margin:0 auto 10px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;">Valor: R$ 350,00 · Chave Pix Copia e Cola</div>
+        <div class="pix-code" id="pix-payload"></div>
+        <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="copyPix()">Copiar código Pix</button>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:14px; border-top:1px solid var(--border); font-size:12px; color:var(--ink-muted);">
+        <span>Envio imediato do código após comprovante</span>
+        <button class="btn btn-outline" onclick="closeCheckout()">Fechar</button>
       </div>
     </div>
-
-    <div id="carousels-root"></div>
   </div>
 
   <script>
@@ -117,188 +479,203 @@ function crc16ccitt(str) {
   }
   return crc.toString(16).toUpperCase().padStart(4, "0");
 }
-function emvField(id, val) {
-  const len = String(val.length).padStart(2, "0");
-  return id + len + val;
+function f(id, val) {
+  return id + String(val.length).padStart(2, "0") + val;
 }
-function generatePixPayload(pixKey, merchantName, merchantCity, amount, txid = "OSINT2026") {
-  const gui = emvField("00", "br.gov.bcb.pix");
-  const key = emvField("01", pixKey);
-  const mai = emvField("26", gui + key);
-  const mcc = emvField("52", "0000");
-  const curr = emvField("53", "986");
-  const amt = emvField("54", Number(amount).toFixed(2));
-  const country = emvField("58", "BR");
-  const name = emvField("59", merchantName.slice(0, 25));
-  const city = emvField("60", merchantCity.slice(0, 15));
-  const adf = emvField("62", emvField("05", txid));
-  const payloadNoCrc = "000201" + mai + mcc + curr + amt + country + name + city + adf + "6304";
-  return payloadNoCrc + crc16ccitt(payloadNoCrc);
+function buildPixPayload(amount, txid) {
+  const gui = f("00", "br.gov.bcb.pix");
+  const key = f("01", "0d698c3a-7f75-418e-9d09-6be18fb9a718");
+  const mai = f("26", gui + key);
+  const amt = f("54", Number(amount).toFixed(2));
+  const add = f("62", f("05", txid || "PROJETO"));
+  const base = f("00", "01") + mai + f("52", "0000") + f("53", "986") + amt + f("58", "BR") + f("59", "MARCO AURELIO") + f("60", "SAO PAULO") + add + "6304";
+  return base + crc16ccitt(base);
 }
 
-    const SECRET = "NTRACK-2026-VIP";
-    if (new URLSearchParams(location.search).get("key") === SECRET || localStorage.getItem("ntrack_unlocked") === "1") {
-      document.body.classList.add("unlocked");
-    }
 
-    const carousels = [
+    const CAROUSELS = [
       {
-        pillar: "MÓDULO 1 • FINANCEIRO",
-        title: "Carrossel #1: 5 Vazamentos Silenciosos no Fluxo de Caixa que Drenam o Lucro de PMEs",
-        caption: "Sua empresa vende bem o mês inteiro, mas quando chega o dia 30 o caixa está sempre no limite? 📊 Na N/Track Consultoria, vemos esse cenário toda semana em pequenas e médias empresas. Arraste para o lado e identifique onde o seu lucro está escapando. 👉 Quer um diagnóstico financeiro prático do seu negócio? Clique no link da bio e fale com nossos consultores.",
+        num: "01",
+        pillar: "Módulo Financeiro",
+        title: "Faturamento alto, caixa sufocado: os 3 ralos invisíveis da sua PME",
+        caption: "Faturar R$ 200 mil, R$ 500 mil ou R$ 1 milhão por mês e ainda sentir o fluxo de caixa no limite no dia 25 não é problema de vendas — é falta de estrutura financeira operacional. Na N/Track Consultoria, auditamos e estancamos os 3 pontos cegos que drenam a margem líquida da sua empresa. Agende um diagnóstico gratuito pelo link da bio. #GestaoFinanceira #FluxoDeCaixa #ConsultoriaEmpresarial #PMEs #NTrack",
         slides: [
-          ["CAPA • FINANÇAS PME", "Faturar muito não significa ter dinheiro em caixa.", "Descubra os 5 vazamentos invisíveis que corroem a margem das pequenas e médias empresas."],
-          ["01 • MISTURA DE CAIXA", "Contas dos sócios pagas pelo CNPJ", "Sem pró-labore definido e separação rígida, você nunca sabe o lucro operacional real da operação."],
-          ["02 • CAPITAL DE GIRO", "Descasa entre prazo de recebimento e pagamento", "Você vende parcelado em 4x, mas paga fornecedor e folha à vista — financiando o cliente no cheque especial."],
-          ["03 • PRECIFICAÇÃO CEGA", "Copiar o preço do concorrente sem calcular a Margem", "Se você não desconta impostos, taxas de cartão, comissões e custos variáveis, cada venda pode gerar prejuízo."],
-          ["CTA • N/TRACK CONSULTORIA", "Quer organizar seu financeiro com método prático?", "A N/Track é o braço direito do empresário. Chame no link da bio e agende seu Diagnóstico Empresarial."]
+          { theme: "theme-teal", h: "Sua empresa fatura bem, mas o caixa vive no limite?", b: "Descubra por que negócios com vendas em alta quebram por falta de visibilidade financeira operacional." },
+          { theme: "theme-paper", h: "1. Precificação sem margem de contribuição real", b: "Vender mais de um produto ou serviço com margem mal calculada apenas acelera o prejuízo operacional todo mês." },
+          { theme: "theme-paper", h: "2. Descasamento entre prazo de recebimento e pagamento", b: "Você paga fornecedor e folha em 15 dias e recebe do cliente em 60. Sem capital de giro planejado, você financia a operação no cheque especial." },
+          { theme: "theme-dark", h: "3. DRE gerencial confundido com extrato bancário", b: "Saldo positivo na conta hoje não significa lucro líquido. Sem regime de competência claro, o empresário distribui o próprio capital de giro." },
+          { theme: "theme-yellow", h: "Assuma o comando real do seu lucro com a N/Track", b: "Estruturamos seu Módulo Financeiro com DRE, fluxo de caixa projetado e metas claras. Toque no link da bio e solicite um diagnóstico." }
         ]
       },
       {
-        pillar: "MÓDULO 2 • COMERCIAL",
-        title: "Carrossel #2: Como Transformar uma Equipe Tiradora de Pedidos em uma Máquina Comercial",
-        caption: "Sua empresa depende do humor dos vendedores ou de indicações aleatórias para bater meta? 🚀 Estruturar o Comercial exige processo, funil claro e indicadores diários. Veja nos slides como a Metodologia N/Track estrutura o setor comercial da sua PME.",
+        num: "02",
+        pillar: "Módulo Comercial",
+        title: "Como transformar um time comercial reativo em máquina previsível",
+        caption: "Se você não sabe responder agora quanto sua empresa vai vender nos próximos 30 dias, você não tem um processo comercial — você depende da sorte e do improviso. Veja como o Módulo Comercial da N/Track estrutura funil, metas e conversão previsível. #GestaoComercial #VendasB2B #ProcessoComercial #NTrackConsultoria",
         slides: [
-          ["CAPA • COMERCIAL", "Sua equipe vende de forma assertiva ou apenas responde cotações?", "O passo a passo para ter previsibilidade de receita na sua empresa."],
-          ["01 • PROCESSO DEFINIDO", "Sem script e etapas de funil, cada vendedor faz do seu jeito", "Mapeie cada etapa: Prospecção → Qualificação → Proposta → Fechamento → Pós-venda."],
-          ["02 • FOLLOW-UP ATIVO", "80% das vendas B2B e serviços fecham após o 4º contato", "A maioria das PMEs desiste no primeiro 'vou pensar'. Cadência estruturada recupera até 30% dos orçamentos."],
-          ["03 • METAS E COMISSÃO", "Remuneração alinhada à margem, não apenas ao volume bruto", "Premie quem vende com saúde financeira e retenção para a empresa."],
-          ["CTA • N/TRACK CONSULTORIA", "Estruture seu Comercial com quem entende de PMEs", "Fale com a N/Track no WhatsApp da bio e destrave as vendas da sua operação."]
+          { theme: "theme-dark", h: "Se você não sabe quanto vai vender este mês, você não tem processo.", b: "Depender do talento individual do vendedor sem playbook e sem funil auditado deixa o faturamento refém da sorte." },
+          { theme: "theme-paper", h: "O erro clássico: cobrar resultado apenas no dia 30", b: "Meta não se cobra no fim do mês. O gestor acompanha indicadores antecedentes: volume de prospecção, propostas enviadas e taxa de conversão por etapa." },
+          { theme: "theme-paper", h: "Playbook e Script: o padrão inegociável", b: "Como seu time qualifica o lead? Como contorna objeção de preço? Sem roteiro documentado, cada atendimento vira uma aposta." },
+          { theme: "theme-teal", h: "CRM vivo vs. planilha esquecida", b: "Implantamos rituais semanais de pipeline para que nenhuma oportunidade esfrie por falta de follow-up estruturado." },
+          { theme: "theme-yellow", h: "Construa previsibilidade comercial com a N/Track", b: "Estruture metas, comissionamento e funil de vendas sob medida para sua empresa. Link na bio para diagnóstico." }
         ]
       },
       {
-        pillar: "MÓDULO 3 • ANALYTICS & KPIS",
-        title: "Carrossel #3: Os 4 Indicadores que Todo Dono de PME Precisa Analisar Toda Segunda-Feira",
-        caption: "Quem gerencia apenas olhando o saldo bancário está dirigindo pelo retrovisor. 📈 Com dashboards claros e indicadores-chave (KPIs), você antecipa gargalos antes que virem crise.",
+        num: "03",
+        pillar: "Módulo Analytics",
+        title: "5 indicadores que todo dono de empresa precisa ler toda segunda-feira",
+        caption: "Quem gerencia olhando apenas para o retrovisor do mês passado descobre os desvios tarde demais. Conheça os 5 KPIs essenciais que implementamos no Módulo Analytics da N/Track para decisões baseadas em dados reais. #BusinessIntelligence #KPIs #GestaoPorDados #AnalyticsEmpresarial #NTrack",
         slides: [
-          ["CAPA • ANALYTICS", "Você decide com base em dados ou no 'eu acho'?", "Os 4 indicadores obrigatórios no painel de controle de toda PME lucrativa."],
-          ["01 • MARGEM DE CONTRIBUIÇÃO", "Quanto sobra das vendas para pagar o custo fixo?", "Mostra exatamente quais produtos ou serviços realmente colocam dinheiro no bolso."],
-          ["02 • PONTO DE EQUILÍBRIO", "Em que dia do mês sua empresa começa a dar lucro?", "Saber a meta mínima necessária para cobrir 100% da estrutura traz clareza imediata."],
-          ["03 • CAC vs. LTV", "Quanto custa atrair um cliente vs. quanto ele deixa ao longo do tempo", "O termômetro que diz se o seu crescimento é sustentável ou está queimando caixa."],
-          ["CTA • N/TRACK CONSULTORIA", "Tenha Dashboards executivos prontos para decidir", "A N/Track desenvolve seus indicadores-chave sob medida. Toque no link da bio!"]
+          { theme: "theme-teal", h: "Você decide olhando para dados ou para o 'feeling'?", b: "Cinco indicadores que separam empresários no controle de gestores que só apagam incêndio a semana inteira." },
+          { theme: "theme-paper", h: "01. Margem de Contribuição por Linha de Receita", b: "Qual produto ou serviço realmente paga a estrutura fixa e deixa dinheiro limpo no caixa ao final do ciclo?" },
+          { theme: "theme-paper", h: "02. CAC vs. LTV (Custo de Aquisição vs. Valor Vitalício)", b: "Quanto custa trazer um cliente novo e quantas vezes ele recompra de você ao longo de 12 meses?" },
+          { theme: "theme-dark", h: "03. Ponto de Equilíbrio Operacional (Break-even)", b: "Em que dia do mês sua empresa termina de pagar os custos fixos e passa a gerar lucro líquido verdadeiro?" },
+          { theme: "theme-yellow", h: "Tenha um painel executivo de verdade na sua empresa", b: "O Módulo Analytics da N/Track transforma dados soltos em decisões seguras. Agende uma conversa pelo link da bio." }
         ]
       },
       {
-        pillar: "MÓDULO 4 • PESSOAS & LIDERANÇA",
-        title: "Carrossel #4: Preso no Operacional? Como Delegar com Segurança na Sua PME",
-        caption: "Se a sua empresa para quando você tira 3 dias de folga, você ainda não tem um negócio — tem um emprego de 14 horas por dia. Veja como estruturar processos e pessoas.",
+        num: "04",
+        pillar: "Módulo Pessoas",
+        title: "Sua empresa trava quando você tira 10 dias de férias?",
+        caption: "Se toda decisão operacional precisa passar pela sua mesa, você não tem uma equipe autônoma — você centralizou o gargalo em si mesmo. Veja como estruturamos papéis, rotinas e avaliação de desempenho no Módulo Pessoas da N/Track. #GestaoDePessoas #LiderancaEmpresarial #Processos #CulturaDeResultado #NTrack",
         slides: [
-          ["CAPA • GESTÃO DE PESSOAS", "Se você parar hoje, sua empresa continua rodando?", "Como sair do incêndio operacional e assumir o papel estratégico de diretor."],
-          ["01 • CLAREZA DE PAPÉIS", "Quem faz tudo acaba não sendo responsável por nada", "Defina descrições de cargo claras, rotinas diárias e metas individuais objetivas."],
-          ["02 • PROCESSOS DOCUMENTADOS", "Tire o conhecimento da cabeça das pessoas", "Pop's e checklists simples reduzem erros operacionais e aceleram o treinamento de novos contratados."],
-          ["03 • RITUais DE GESTÃO", "Reuniões rápidas de 15 minutos com pauta e indicador", "Acompanhamento semanal evita surpresas no fim do mês e cria cultura de responsabilidade."],
-          ["CTA • N/TRACK CONSULTORIA", "Construa uma equipe autônoma e produtiva", "Conheça a Consultoria Integrada N/Track pelo link da bio."]
+          { theme: "theme-paper", h: "Se você sair 10 dias de férias hoje, sua empresa continua crescendo?", b: "Quando tudo depende do dono para funcionar, o negócio atingiu o teto da sua capacidade física." },
+          { theme: "theme-teal", h: "O sintoma: 'Ninguém faz como eu faço'", b: "A equipe não falha por falta de vontade — falha porque não existe descrição de cargo clara, processo desenhado e meta individual." },
+          { theme: "theme-paper", h: "Organograma funcional e matriz de responsabilidades", b: "Cada colaborador precisa saber exatamente pelo que responde e qual indicador mede o sucesso da sua função toda semana." },
+          { theme: "theme-dark", h: "Rituais de gestão e PDI estruturado", b: "Reuniões semanais de 30 minutos com pauta fixa substituem dezenas de interrupções diárias no WhatsApp." },
+          { theme: "theme-yellow", h: "Liberte sua agenda para o estratégico com a N/Track", b: "Desenvolvemos lideranças e processos para sua empresa crescer sem depender de microgerenciamento. Link na bio." }
         ]
       },
       {
-        pillar: "MÓDULO 5 • PLANEJAMENTO ESTRATÉGICO",
-        title: "Carrossel #5: Plano de Crescimento Prático: Como Dobrar a Eficiência sem Dobrar o Custo Fixo",
-        caption: "Crescer sem planejamento costuma aumentar o faturamento e diminuir o lucro líquido. Descubra como escalar com estrutura enxuta.",
+        num: "05",
+        pillar: "Módulo Planejamento",
+        title: "Planejamento Estratégico sem execução é só papel na gaveta",
+        caption: "Mais de 80% das PMEs definem metas no início do ano e abandonam o plano antes de abril porque não desdobram objetivos anuais em planos de ação semanais. Conheça a metodologia de execução assistida da N/Track. #PlanejamentoEstrategico #OKRs #GestaoDeResultados #Execucao #NTrackConsultoria",
         slides: [
-          ["CAPA • PLANEJAMENTO", "Crescer desorganizado é o caminho mais rápido para o endividamento.", "Como planejar os próximos 12 meses da sua empresa com pés no chão."],
-          ["01 • DIAGNÓSTICO 360º", "Identifique o gargalo principal atual", "Antes de investir mais em estrutura, corrija os vazamentos de margem e conversão."],
-          ["02 • PLANO EM PLANOS DE AÇÃO", "Meta sem dono e sem prazo é apenas desejo", "Quebre objetivos anuais em entregas quinzenais auditáveis com a equipe."],
-          ["03 • ORÇAMENTO MATRICIAL", "Controle de despesas linha a linha", "Cada real gasto precisa ter retorno claro em eficiência, retenção ou aquisição."],
-          ["CTA • N/TRACK CONSULTORIA", "Planeje o próximo nível da sua empresa em SC", "Chame a N/Track no WhatsApp e agende uma conversa executiva."]
+          { theme: "theme-dark", h: "Por que 80% dos planejamentos estratégicos morrem na gaveta?", b: "Definir onde você quer chegar em 12 meses é fácil. O desafio real é traduzir a meta anual na rotina de terça-feira às 9h." },
+          { theme: "theme-paper", h: "Metas anuais precisam de quebras trimestrais e mensais", b: "Um objetivo de crescer 40% no ano só acontece quando desdobrado em alavancas mensais de vendas, margem e capacidade produtiva." },
+          { theme: "theme-paper", h: "Plano de ação 5W2H com dono e prazo claro", b: "Iniciativa sem responsável único e sem data de entrega não é plano — é intenção." },
+          { theme: "theme-teal", h: "Acompanhamento quinzenal de desvios de rota", b: "Na N/Track, sentamos ao seu lado para auditar o que saiu do trilho e corrigir a rota dentro do próprio mês." },
+          { theme: "theme-yellow", h: "Tire seu plano de crescimento do papel hoje", b: "Conheça o Módulo Planejamento da N/Track Consultoria Empresarial. Fale com nossos especialistas no link da bio." }
         ]
       },
       {
-        pillar: "MÓDULO 6 • PRECIFICAÇÃO & LUCRO",
-        title: "Carrossel #6: O Guia Definitivo do DRE Gerencial para Donos de Pequenas e Médias Empresas",
-        caption: "A contabilidade fiscal atende ao governo; o DRE Gerencial atende ao bolso do empresário. Entenda a estrutura em 5 passos simples.",
+        num: "06",
+        pillar: "Módulo Marketing",
+        title: "Marketing que gera curtida não paga boleto: como alinhar Marketing e Vendas",
+        caption: "Investir em tráfego pago e redes sociais sem medir custo por oportunidade qualificada e retorno sobre o investimento (ROI) é queimar caixa no escuro. Veja como conectamos Marketing e Comercial na N/Track. #MarketingEstrategico #ROI #GeracaoDeDemanda #GestaoEmpresarial #NTrack",
         slides: [
-          ["CAPA • DRE GERENCIAL", "Sua contabilidade te entrega guias de imposto ou visão de lucro?", "Por que toda PME precisa de um DRE Gerencial atualizado todo mês."],
-          ["01 • RECEITA LÍQUIDA", "Faturamento Bruto menos Impostos e Devoluções", "É a partir daqui que a realidade do seu negócio começa a ser medida."],
-          ["02 • CUSTOS VARIÁVEIS", "Mercadoria, insumos, comissões e taxas de recebimento", "Tudo que sobe proporcionalmente quando você vende mais."],
-          ["03 • EBITDA / GERAÇÃO DE CAIXA", "O resultado operacional real antes do financeiro", "Mostra se o coração do seu negócio é saudável e gerador de riqueza."],
-          ["CTA • N/TRACK CONSULTORIA", "Implante o DRE Gerencial na sua empresa", "A N/Track implementa e acompanha lado a lado com você. Link na bio!"]
+          { theme: "theme-teal", h: "Você sabe quanto cada R$ 1 investido em marketing trouxe de volta para o caixa?", b: "Curtidas e visualizações são métricas de vaidade quando o funil não converte atenção em contratos assinados." },
+          { theme: "theme-paper", h: "Posicionamento claro para o cliente ideal (ICP)", b: "Quando sua comunicação tenta falar com todo mundo, ela atrai apenas curiosos que brigam por preço baixo." },
+          { theme: "theme-paper", h: "Acordo de nível de serviço (SLA) entre Marketing e Vendas", b: "De nada adianta gerar leads se o comercial demora 6 horas para fazer o primeiro contato qualificado." },
+          { theme: "theme-dark", h: "Funil completo medido de ponta a ponta", b: "Rastreamos custo por lead, custo por reunião realizada e retorno sobre o investimento em cada canal de aquisição." },
+          { theme: "theme-yellow", h: "Transforme seu marketing em centro de receita", b: "Agende seu diagnóstico com a N/Track Consultoria pelo link da bio e estruture seu crescimento." }
         ]
       },
       {
-        pillar: "MÓDULO 7 • MARKETING & POSICIONAMENTO",
-        title: "Carrossel #7: Por Que Clientes Escolhem Pelo Menor Preço? (E Como Sair Dessa Guerra)",
-        caption: "Quando o cliente não percebe diferencial claro na sua entrega, a única comparação que sobra é o preço. Veja como alinhar Marketing e Comercial.",
+        num: "07",
+        pillar: "Metodologia N/Track",
+        title: "Por que a consultoria tradicional falha (e como a N/Track faz diferente)",
+        caption: "Empresário não precisa de um PDF de 120 páginas dizendo o que está errado — precisa de método prático implementado lado a lado com a equipe. Entenda o modelo de consultoria mão na massa da N/Track. #ConsultoriaDeGestao #MetodologiaNTrack #PMEsBrasil #Florianopolis #GestaoEmpresarial",
         slides: [
-          ["CAPA • MARKETING & VALOR", "Cansado de ouvir 'está caro' dos clientes?", "Como posicionar sua empresa para atrair clientes que valorizam qualidade e margem."],
-          ["01 • PROPOSTA DE VALOR CLARA", "Qual dor específica e urgente sua empresa resolve?", "Comunique resultado e segurança, não apenas características técnicas."],
-          ["02 • PROVA SOCIAL E AUTORIDADE", "Mostre bastidores, método e casos reais", "Confiança reduz o ciclo de vendas e aumenta a taxa de fechamento."],
-          ["03 • ALINHAMENTO MARKETING + VENDAS", "Tráfego sem atendimento rápido queima orçamento", "Integre seus canais de captação com um script comercial consultivo."],
-          ["CTA • N/TRACK CONSULTORIA", "Transforme sua marca e suas vendas", "Fale com os especialistas da N/Track pelo link da bio."]
+          { theme: "theme-paper", h: "Cansado de diagnósticos teóricos que ninguém consegue aplicar na prática?", b: "A consultoria tradicional entrega um relatório complexo e vai embora. Na N/Track, nós entramos na operação com você." },
+          { theme: "theme-teal", h: "Passo 1: Diagnóstico profundo e priorização de caixa", b: "Identificamos imediatamente os gargalos financeiros e comerciais que trazem retorno mais rápido para o negócio." },
+          { theme: "theme-paper", h: "Passo 2: Ferramentas práticas e processos enxutos", b: "Sem burocracia desnecessária. Implantamos controles e indicadores que sua equipe realmente consegue preencher e usar." },
+          { theme: "theme-dark", h: "Passo 3: Rituais de acompanhamento e transferência de cultura", b: "Treinamos você e seus líderes para ler os números, cobrar resultados e manter a evolução contínua." },
+          { theme: "theme-yellow", h: "Solicite uma sessão diagnóstica com a N/Track", b: "Toque no link da bio ou chame nossa equipe no WhatsApp para avaliar o momento atual da sua empresa." }
         ]
       },
       {
-        pillar: "MÓDULO 8 • CONSULTORIA INTEGRADA N/TRACK",
-        title: "Carrossel #8: Checklist de Maturidade Empresarial: 6 Sinais de que Sua Empresa Precisa de Gestão Integrada",
-        caption: "Mais que uma consultoria, queremos ser o seu braço direito nessa jornada. Confira os 6 sinais de que chegou a hora de profissionalizar a gestão da sua PME.",
+        num: "08",
+        pillar: "Diagnóstico Executivo",
+        title: "Checklist: 4 sinais claros de que sua empresa cresceu mais rápido que a gestão",
+        caption: "Crescer em vendas sem estruturar processos, finanças e equipe é o caminho mais curto para o esgotamento do sócio. Identifique quantos desses 4 sinais estão presentes hoje na sua operação. #SociosDeEmpresa #CrescimentoEmpresarial #GestaoProfissional #NTrackConsultoria",
         slides: [
-          ["CAPA • GESTÃO INTEGRADA", "6 sinais de que sua empresa cresceu mais rápido que a sua gestão", "Faça o teste rápido arrastando para o lado →"],
-          ["SINAIS 1 E 2", "1. Vende bem, mas não vê a cor do dinheiro
-2. Sócios sobrecarregados no operacional", "Sintomas clássicos de falta de processos financeiros e delegação estruturada."],
-          ["SINAIS 3 E 4", "3. Vendas instáveis mês a mês
-4. Falta de indicadores claros (KPIs)", "Sem funil comercial e sem painel de dados, cada mês é uma aposta."],
-          ["SINAIS 5 E 6", "5. Alta rotatividade ou retrabalho na equipe
-6. Dificuldade para planejar investimentos", "Problemas em uma área sempre impactam as outras — por isso a gestão precisa ser integrada."],
-          ["CTA • N/TRACK CONSULTORIA", "Vamos juntos tornar sua gestão mais organizada e lucrativa?", "Toque no link da bio e fale com a equipe da N/Track Consultoria!"]
+          { theme: "theme-dark", h: "Sua empresa cresceu, mas sua tranquilidade diminuiu?", b: "Confira 4 sinais clássicos de que o faturamento avançou mais rápido do que a estrutura de gestão do negócio." },
+          { theme: "theme-paper", h: "Sinal 1: Mais funcionários, mas a mesma sensação de sobrecarga", b: "A folha de pagamento aumentou, porém os problemas operacionais continuam caindo no colo dos sócios todos os dias." },
+          { theme: "theme-paper", h: "Sinal 2: Vendas maiores e lucro líquido estagnado", b: "O volume de trabalho dobrou, mas a sobra real de caixa no fim do trimestre continua igual ou menor." },
+          { theme: "theme-teal", h: "Sinal 3: Falta de clareza sobre onde cortar custos ou investir", b: "Sem centro de custos estruturado, qualquer corte é feito no escuro e qualquer investimento vira risco alto." },
+          { theme: "theme-yellow", h: "Estruture os 6 pilares da sua empresa com a N/Track", b: "Clique no link da bio e agende seu diagnóstico gratuito com nossos consultores." }
         ]
       }
     ];
 
-    document.getElementById("carousels-root").innerHTML = carousels.map((c, idx) => `
-      <div class="carousel-block">
-        <div class="carousel-header">
-          <div>
-            <span style="color:var(--cyan);font-size:0.75rem;font-weight:800;">${c.pillar}</span>
-            <h2 style="font-size:1.2rem;margin-top:4px;">${c.title}</h2>
-          </div>
-          <span style="background:#1e293b;color:#38bdf8;padding:5px 10px;border-radius:6px;font-size:0.76rem;font-weight:700;">5 Slides Editáveis • 1080x1350</span>
-        </div>
-        <div class="slides-row">
-          ${c.slides.map((s, sIdx) => `
-            <div class="slide-card">
-              <div class="watermark">PRÉVIA N/TRACK</div>
-              <div>
-                <div class="slide-top">
-                  <span>${s[0]}</span>
-                  <span>0${sIdx+1}/05</span>
-                </div>
-                <div class="slide-title" contenteditable="true">${s[1]}</div>
-                <div class="slide-body" contenteditable="true">${s[2]}</div>
-              </div>
-              <div class="slide-footer">
-                <span>N/TRACK CONSULTORIA</span>
-                <span>ntrack.com.br</span>
-              </div>
+    function renderCarousels() {
+      const mount = document.getElementById("carousels-mount");
+      mount.innerHTML = CAROUSELS.map((c, idx) => `
+        <article class="carousel-section">
+          <div class="carousel-topbar">
+            <div class="carousel-id">
+              <span class="num-tag">CARROSSEL ${c.num}</span>
+              <span class="carousel-name">${c.title}</span>
             </div>
-          `).join("")}
-        </div>
-        <div class="caption-box">
-          <strong>📝 Legenda Pronta para Publicação (Instagram):</strong><br>
-          <span contenteditable="true">${c.caption}</span>
-        </div>
-      </div>
-    `).join("");
+            <span class="pillar-label">${c.pillar} · 5 Pranchas 1080×1350</span>
+          </div>
+          <div class="canvas-strip">
+            ${c.slides.map((s, sIdx) => `
+              <div class="artboard ${s.theme}">
+                <div class="watermark">PROVA DE REVISÃO · N/TRACK</div>
+                <div class="ab-num">
+                  <span>N/TRACK CONSULTORIA</span>
+                  <span>0${sIdx + 1} / 05</span>
+                </div>
+                <div class="ab-mid">
+                  <div class="ab-accent-bar"></div>
+                  <div class="ab-title" contenteditable="true">${s.h}</div>
+                  <div class="ab-body" contenteditable="true">${s.b}</div>
+                </div>
+                <div class="ab-foot">
+                  <span>@ntrackconsultoria</span>
+                  <span>${sIdx === 4 ? "LINK NA BIO →" : "DESLIZE →"}</span>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+          <div class="caption-drawer">
+            <div class="caption-content">
+              <strong>Legenda da Publicação (Editável)</strong>
+              <p id="cap-${idx}" contenteditable="true">${c.caption}</p>
+            </div>
+            <button class="btn btn-outline" onclick="copyCaption(${idx}, this)">Copiar legenda</button>
+          </div>
+        </article>
+      `).join("");
+    }
 
-    function unlockPromptPix() {
-      const area = document.getElementById("pix-area");
-      area.style.display = "block";
-      document.getElementById("ntrack-pix").value = generatePixPayload("0d698c3a-7f75-418e-9d09-6be18fb9a718", "MARCO AURELIO", "ATIBAIA", 350.00, "NTRACKPACK");
-      area.scrollIntoView({ behavior: "smooth" });
+    function copyCaption(idx, btn) {
+      const txt = document.getElementById("cap-" + idx).innerText;
+      navigator.clipboard.writeText(txt);
+      const old = btn.innerText;
+      btn.innerText = "Copiado";
+      setTimeout(() => btn.innerText = old, 1800);
     }
-    function copyNtrackPix() {
-      const el = document.getElementById("ntrack-pix");
-      el.select();
-      navigator.clipboard.writeText(el.value);
-      alert("Código Pix Copia e Cola (R$ 350,00) copiado!");
+
+    function openCheckout() {
+      const code = buildPixPayload(350.00, "NTRACK350");
+      document.getElementById("pix-payload").innerText = code;
+      document.getElementById("pix-qr").src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(code);
+      document.getElementById("checkout-modal").classList.add("active");
     }
-    function unlockWithKey() {
-      const k = prompt("Digite a Chave de Liberação N/Track:");
-      if (k && k.trim().toUpperCase() === SECRET) {
-        localStorage.setItem("ntrack_unlocked", "1");
+    function closeCheckout() {
+      document.getElementById("checkout-modal").classList.remove("active");
+    }
+    function copyPix() {
+      navigator.clipboard.writeText(document.getElementById("pix-payload").innerText);
+      alert("Código Pix Copia e Cola copiado.");
+    }
+    function promptUnlock() {
+      const k = prompt("Informe o código de liberação:");
+      if (k && k.trim().toUpperCase() === "NTRACK-2026-VIP") {
         document.body.classList.add("unlocked");
-        alert("Marca d'água removida! Todos os 8 carrosséis estão liberados.");
+        localStorage.setItem("ntrack_unlocked", "1");
       } else if (k) {
-        alert("Chave inválida.");
+        alert("Código inválido.");
       }
+    }
+
+    renderCarousels();
+    if (new URLSearchParams(location.search).get("key") === "NTRACK-2026-VIP" || localStorage.getItem("ntrack_unlocked") === "1") {
+      document.body.classList.add("unlocked");
     }
   </script>
 </body>
