@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contabilidade Prime — Assessoria Contábil, Fiscal, MEI & Abertura de Empresas</title>
+  <style>
+    :root { --navy:#0b192c; --gold:#d97706; --emerald:#10b981; --bg:#f8fafc; --text:#0f172a; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; padding-top:52px; }
+    #cms-bar { position:fixed; top:0; left:0; right:0; z-index:9999; background:#0b192c; color:#fff; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; font-size:0.84rem; border-bottom:2px solid var(--gold); }
+    .btn { padding:9px 16px; border-radius:8px; font-weight:700; border:none; cursor:pointer; text-decoration:none; display:inline-block; font-size:0.86rem; }
+    .btn-gold { background:var(--gold); color:#fff; }
+    .btn-wa { background:#10b981; color:#fff; }
+    header { background:#fff; border-bottom:1px solid #e2e8f0; padding:16px 20px; position:sticky; top:52px; z-index:100; }
+    .container { max-width:1160px; margin:0 auto; padding:0 20px; }
+    .nav-row { display:flex; justify-content:space-between; align-items:center; }
+    nav { display:flex; gap:20px; }
+    nav a { color:#334155; text-decoration:none; font-weight:600; font-size:0.92rem; }
+    .hero { background:linear-gradient(135deg,#0b192c,#1e3a5f); color:#fff; padding:72px 0; }
+    .grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22px; margin-top:28px; }
+    .card { background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:26px; box-shadow:0 4px 16px rgba(0,0,0,0.04); }
+    section { padding:64px 0; }
+    body.editing [contenteditable="true"] { outline:2px dashed #d97706; background:rgba(217,119,6,0.08); padding:2px 4px; border-radius:4px; }
+    .wa-float { position:fixed; bottom:22px; right:22px; background:#10b981; color:#fff; padding:14px 20px; border-radius:999px; font-weight:800; text-decoration:none; box-shadow:0 8px 25px rgba(16,185,129,0.4); }
+  </style>
+</head>
+<body>
+  <div id="cms-bar">
+    <div>✅ <strong>PROTÓTIPO PRONTO (#797983)</strong> • Site Contábil Completo + Blog + Modo Editor Fácil (Troque Textos e Fotos Sozinha!)</div>
+    <button class="btn btn-gold" onclick="toggleEdit()">✏️ Ativar Modo Edição Fácil (Trocar Textos na Tela)</button>
+  </div>
+  <header>
+    <div class="container nav-row">
+      <div style="font-weight:900;font-size:1.25rem;color:var(--navy);" contenteditable="false" class="ed">📊 SEU ESCRITÓRIO CONTÁBIL</div>
+      <nav>
+        <a href="#inicio">Início</a>
+        <a href="#quem-somos">Quem Somos</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#blog">Blog Contábil</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <a href="#contato" class="btn btn-wa">💬 Falar no WhatsApp</a>
+    </div>
+  </header>
+  <section class="hero" id="inicio">
+    <div class="container">
+      <span style="background:rgba(217,119,6,0.25);color:#fbbf24;padding:4px 12px;border-radius:999px;font-size:0.8rem;font-weight:700;">CONTABILIDADE CONSULTIVA & DIGITAL</span>
+      <h1 class="ed" style="font-size:2.6rem;margin:14px 0;max-width:740px;">Contabilidade Descomplicada, Próxima e Segura para a Sua Empresa Crescer.</h1>
+      <p class="ed" style="color:#cbd5e1;font-size:1.1rem;max-width:640px;margin-bottom:24px;">Cuidamos da abertura do seu CNPJ, folha de pagamento, impostos e planejamento tributário com atendimento humano direto pelo WhatsApp.</p>
+      <a href="#contato" class="btn btn-wa" style="padding:13px 24px;font-size:1rem;">Solicitar Orçamento pelo WhatsApp →</a>
+    </div>
+  </section>
+  <section id="quem-somos">
+    <div class="container">
+      <h2 class="ed" style="font-size:2rem;margin-bottom:12px;">Quem Somos</h2>
+      <p class="ed" style="color:#475569;max-width:800px;">Somos um escritório de contabilidade focado em tirar a burocracia das costas do empreendedor. Atendemos MEIs, Micro e Pequenas Empresas, prestadores de serviços e comércios com transparência, pontualidade e suporte rápido.</p>
+    </div>
+  </section>
+  <section id="servicos" style="background:#f1f5f9;">
+    <div class="container">
+      <h2 class="ed" style="font-size:2rem;">Nossos Serviços Contábeis</h2>
+      <div class="grid-3">
+        <div class="card"><h3 class="ed">Abertura e Regularização de Empresas</h3><p class="ed" style="margin-top:8px;color:#475569;">Definimos o melhor regime tributário (Simples Nacional, Lucro Presumido) e abrimos seu CNPJ sem dor de cabeça.</p></div>
+        <div class="card"><h3 class="ed">Gestão Fiscal, Contábil e DP</h3><p class="ed" style="margin-top:8px;color:#475569;">Apuração de impostos em dia, folha de pagamento, pró-labore, obrigações acessórias e balancetes mensais.</p></div>
+        <div class="card"><h3 class="ed">Assessoria MEI, IRPF & Migração</h3><p class="ed" style="margin-top:8px;color:#475569;">Desenquadramento seguro de MEI para ME, Declaração de Imposto de Renda e planejamento para pagar menos impostos dentro da lei.</p></div>
+      </div>
+    </div>
+  </section>
+  <section id="blog">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <h2 class="ed" style="font-size:2rem;">Blog & Dicas para Empreendedores</h2>
+        <button class="btn btn-gold" onclick="addPost()">➕ Publicar Novo Artigo no Blog</button>
+      </div>
+      <div class="grid-3" id="blog-grid">
+        <div class="card"><span style="font-size:0.75rem;color:var(--gold);font-weight:700;">SIMPLES NACIONAL</span><h3 class="ed" style="margin:6px 0;">Quando vale a pena migrar de MEI para Microempresa (ME)?</h3><p class="ed" style="color:#475569;font-size:0.9rem;">Entenda os limites de faturamento e como fazer a transição sem multas.</p></div>
+        <div class="card"><span style="font-size:0.75rem;color:var(--gold);font-weight:700;">IMPOSTO DE RENDA</span><h3 class="ed" style="margin:6px 0;">Como separar o dinheiro da pessoa física e do CNPJ corretamente</h3><p class="ed" style="color:#475569;font-size:0.9rem;">Aprenda a definir pró-labore e distribuição de lucros isenta de IR.</p></div>
+        <div class="card"><span style="font-size:0.75rem;color:var(--gold);font-weight:700;">GESTÃO FISCAL</span><h3 class="ed" style="margin:6px 0;">Fator R no Simples Nacional: como reduzir sua alíquota de 15,5% para 6%</h3><p class="ed" style="color:#475569;font-size:0.9rem;">Ideal para médicos, dentistas, engenheiros, psicólogos e prestadores de serviço.</p></div>
+      </div>
+    </div>
+  </section>
+  <section id="contato" style="background:#0b192c;color:#fff;">
+    <div class="container">
+      <h2 style="font-size:2rem;margin-bottom:16px;">Fale Conosco</h2>
+      <div class="grid-3">
+        <div class="card" style="color:#0f172a;">
+          <h3>Envie sua mensagem</h3>
+          <input placeholder="Seu Nome" style="width:100%;padding:10px;margin:8px 0;border:1px solid #cbd5e1;border-radius:6px;">
+          <input placeholder="Seu WhatsApp" style="width:100%;padding:10px;margin:8px 0;border:1px solid #cbd5e1;border-radius:6px;">
+          <textarea placeholder="Como podemos ajudar sua empresa?" rows="3" style="width:100%;padding:10px;margin:8px 0;border:1px solid #cbd5e1;border-radius:6px;"></textarea>
+          <button class="btn btn-wa" style="width:100%;" onclick="alert("Formulário pronto! Ao publicar no seu domínio, envia direto para o seu WhatsApp e E-mail.")">Enviar Mensagem</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <a href="#contato" class="wa-float">💬 Atendimento no WhatsApp</a>
+  <script>
+    function toggleEdit() {
+      const on = document.body.classList.toggle("editing");
+      document.querySelectorAll(".ed").forEach(el => el.contentEditable = on ? "true" : "false");
+      if (on) alert("MODO EDIÇÃO ATIVADO! Clique em qualquer texto da página para alterar sozinha, sem precisar de programador.");
+    }
+    function addPost() {
+      const t = prompt("Título do novo artigo do Blog:");
+      if (!t) return;
+      const r = prompt("Resumo do artigo:");
+      const d = document.createElement("div");
+      d.className = "card";
+      d.innerHTML = `<span style="font-size:0.75rem;color:var(--gold);font-weight:700;">NOVO ARTIGO</span><h3 class="ed" style="margin:6px 0;">${t}</h3><p class="ed" style="color:#475569;font-size:0.9rem;">${r || ""}</p>`;
+      document.getElementById("blog-grid").prepend(d);
+    }
+  </script>
+</body>
+</html>
