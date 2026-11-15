@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EducaScale IA — Gerador de Anúncios de Matrículas & Landing Page Escolar</title>
+  <style>
+    :root {
+      --bg: #080d1a;
+      --card: #111a2e;
+      --blue: #3b82f6;
+      --indigo: #6366f1;
+      --emerald: #10b981;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); padding-top: 60px; line-height: 1.55; }
+    #top-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: linear-gradient(90deg, #1e1b4b, #064e3b);
+      border-bottom: 1px solid var(--emerald); padding: 10px 20px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 0.84rem;
+    }
+    .container { max-width: 1220px; margin: 0 auto; padding: 28px 20px; }
+    .hero {
+      background: linear-gradient(135deg, #111a2e, #1e1b4b);
+      border: 1px solid #312e81; border-radius: 16px; padding: 28px; margin-bottom: 26px;
+    }
+    .grid-2 { display: grid; grid-template-columns: 360px 1fr; gap: 22px; }
+    .panel { background: var(--card); border: 1px solid #1e293b; border-radius: 16px; padding: 22px; }
+    label { display: block; font-size: 0.8rem; color: #cbd5e1; font-weight: 700; margin: 12px 0 5px; }
+    input, select {
+      width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155;
+      background: #080d1a; color: #fff; font-size: 0.88rem;
+    }
+    .btn {
+      padding: 10px 16px; border-radius: 8px; font-weight: 800; font-size: 0.85rem;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--blue), var(--indigo)); color: #fff; width: 100%; margin-top: 16px; }
+    .btn-pix { background: var(--emerald); color: #03150e; }
+    .ads-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 14px; }
+    .ad-card {
+      aspect-ratio: 4 / 5; border-radius: 14px; padding: 20px;
+      background: linear-gradient(160deg, #1e3a8a 0%, #0f172a 100%);
+      border: 1px solid #3b82f6; display: flex; flex-direction: column; justify-content: space-between;
+      position: relative;
+    }
+    .badge { display: inline-block; background: rgba(59,130,246,0.2); border: 1px solid #60a5fa; color: #93c5fd; font-size: 0.7rem; font-weight: 800; padding: 3px 9px; border-radius: 999px; }
+    @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="top-bar">
+    <div>🚀 <strong>PROVA PRÁTICA DE EXECUÇÃO COM IA — EDUCASCALE (educascale.com.br)</strong> • Gerador de Criativos Meta/Google Ads + LP de Matrículas</div>
+    <button class="btn btn-pix" onclick="togglePixBox()">⚡ Liberar Ferramenta / Iniciar Parceria Hoje (R$ 350 via Pix)</button>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <span class="badge">DESENVOLVIDO SOB MEDIDA PARA A VAGA DA EDUCASCALE</span>
+      <h1 style="font-size:1.75rem; margin:10px 0 8px;">Motor EducaScale IA: Gerador Instantâneo de Anúncios & Páginas para Escolas Particulares</h1>
+      <p style="color:var(--muted); font-size:0.94rem;">
+        Você pediu na vaga alguém que aprenda rápido e use IA para criar <strong>artes de anúncios para Meta/Google Ads</strong> e fazer <strong>ajustes rápidos em sites/LPs</strong> para as escolas clientes da EducaScale. Construí este motor funcional em minutos para demonstrar na prática a velocidade que posso entregar na operação de vocês.
+      </p>
+      <div id="pix-box" style="display:none; margin-top:16px; background:#080d1a; border:1px solid var(--emerald); padding:16px; border-radius:12px;">
+        <div style="color:var(--emerald); font-weight:800; margin-bottom:6px;">⚡ PIX COPIA E COLA (R$ 350,00 — Aquisição do Gerador White-Label ou Sprints Imediatos):</div>
+        <input id="educa-pix" readonly style="font-family:monospace; color:#38bdf8;">
+        <button class="btn btn-pix" style="margin-top:8px;" onclick="copyEducaPix()">📋 Copiar Código Pix (R$ 350,00)</button>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <h3 style="font-size:1.1rem; margin-bottom:6px;">⚙️ Configurar Escola Cliente</h3>
+        <p style="font-size:0.8rem; color:var(--muted);">Altere os dados abaixo e veja os criativos de Meta/Google Ads e o Script de WhatsApp mudarem em tempo real:</p>
+
+        <label>Nome do Colégio / Escola Particular:</label>
+        <input id="school-name" value="Colégio Prime Educação" oninput="renderAds()">
+
+        <label>Segmento da Campanha de Matrículas:</label>
+        <select id="school-seg" onchange="renderAds()">
+          <option value="Educação Infantil & Berçário">Educação Infantil & Berçário</option>
+          <option value="Ensino Fundamental I e II Bilíngue">Ensino Fundamental I e II Bilíngue</option>
+          <option value="Ensino Médio & Alta Performance ENEM">Ensino Médio & Alta Performance ENEM</option>
+        </select>
+
+        <label>Diferencial Principal da Escola:</label>
+        <input id="school-diff" value="Programa Bilíngue Diário + Acompanhamento Individualizado" oninput="renderAds()">
+
+        <label>Cidade / Bairro:</label>
+        <input id="school-city" value="João Pessoa / Manaíra" oninput="renderAds()">
+
+        <button class="btn btn-primary" onclick="renderAds()">✨ Atualizar Criativos + Copy de Anúncios</button>
+      </div>
+
+      <div class="panel">
+        <h3 style="font-size:1.1rem; margin-bottom:4px;">🎨 3 Variações de Criativos Prontos (Meta Ads / Discovery) + Script Comercial</h3>
+        <p style="font-size:0.8rem; color:var(--muted);">Clique em qualquer texto dentro das artes para ajustar ao vivo:</p>
+        <div class="ads-grid" id="ads-output"></div>
+        <div id="script-output" style="margin-top:18px; background:#080d1a; border:1px solid #1e293b; border-radius:10px; padding:14px; font-size:0.84rem; color:#cbd5e1;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+function crc16ccitt(str) {
+  let crc = 0xFFFF;
+  for (let i = 0; i < str.length; i++) {
+    crc ^= str.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) {
+      if ((crc & 0x8000) !== 0) crc = ((crc << 1) ^ 0x1021) & 0xFFFF;
+      else crc = (crc << 1) & 0xFFFF;
+    }
+  }
+  return crc.toString(16).toUpperCase().padStart(4, "0");
+}
+function emvField(id, val) {
+  const len = String(val.length).padStart(2, "0");
+  return id + len + val;
+}
+function generatePixPayload(pixKey, merchantName, merchantCity, amount, txid = "OSINT2026") {
+  const gui = emvField("00", "br.gov.bcb.pix");
+  const key = emvField("01", pixKey);
+  const mai = emvField("26", gui + key);
+  const mcc = emvField("52", "0000");
+  const curr = emvField("53", "986");
+  const amt = emvField("54", Number(amount).toFixed(2));
+  const country = emvField("58", "BR");
+  const name = emvField("59", merchantName.slice(0, 25));
+  const city = emvField("60", merchantCity.slice(0, 15));
+  const adf = emvField("62", emvField("05", txid));
+  const payloadNoCrc = "000201" + mai + mcc + curr + amt + country + name + city + adf + "6304";
+  return payloadNoCrc + crc16ccitt(payloadNoCrc);
+}
+
+    function renderAds() {
+      const name = document.getElementById("school-name").value;
+      const seg = document.getElementById("school-seg").value;
+      const diff = document.getElementById("school-diff").value;
+      const city = document.getElementById("school-city").value;
+
+      const cards = [
+        {
+          angle: "ÂNGULO 1 • DOR & FUTURO (META ADS FEED)",
+          headline: `Matrículas Abertas: ${seg} em ${city}`,
+          sub: `Seu filho preparado para o futuro no ${name}. ${diff} em um ambiente acolhedor e seguro.`,
+          cta: "Agendar Visita Guiada pelo WhatsApp →"
+        },
+        {
+          angle: "ÂNGULO 2 • PROVA & AUTORIDADE (STORIES/REELS)",
+          headline: `Por que as famílias de ${city} estão escolhendo o ${name}?`,
+          sub: `Metodologia ativa, ${diff} e comunicação direta com a coordenação. Últimas vagas por turma!`,
+          cta: "Conhecer Proposta Pedagógica →"
+        },
+        {
+          angle: "ÂNGULO 3 • GOOGLE PERFORMANCE MAX / REMARKETING",
+          headline: `Agende Sua Visita ao ${name} (${seg})`,
+          sub: `Converse agora com nossa equipe de admissões e conheça condições especiais de transferência.`,
+          cta: "Falar com Atendimento Escolar →"
+        }
+      ];
+
+      document.getElementById("ads-output").innerHTML = cards.map(c => `
+        <div class="ad-card">
+          <div>
+            <span class="badge">${c.angle}</span>
+            <h4 contenteditable="true" style="font-size:1.05rem; margin:12px 0 8px; color:#fff; line-height:1.3;">${c.headline}</h4>
+            <p contenteditable="true" style="font-size:0.82rem; color:#cbd5e1;">${c.sub}</p>
+          </div>
+          <div style="background:#10b981; color:#03150e; font-weight:800; font-size:0.78rem; padding:9px; border-radius:8px; text-align:center;">
+            ${c.cta}
+          </div>
+        </div>
+      `).join("");
+
+      document.getElementById("script-output").innerHTML = `
+        <strong style="color:#60a5fa;">💬 Script EducaScale de Qualificação no WhatsApp (Secretaria / Captação de Matrículas):</strong><br><br>
+        "Olá, <strong>[Nome do Responsável]</strong>! Tudo bem? Aqui é da equipe de admissões do <strong>${name}</strong> (${city}). Vi seu interesse no <strong>${seg}</strong>! Para eu te passar os detalhes da turma ideal e agendar sua visita para conhecer nossa estrutura de <em>${diff}</em>, qual é a idade atual do seu filho(a)?"
+      `;
+    }
+    function togglePixBox() {
+      const box = document.getElementById("pix-box");
+      box.style.display = "block";
+      document.getElementById("educa-pix").value = generatePixPayload("0d698c3a-7f75-418e-9d09-6be18fb9a718", "MARCO AURELIO", "ATIBAIA", 350.00, "EDUCASCALE");
+    }
+    function copyEducaPix() {
+      const el = document.getElementById("educa-pix");
+      el.select();
+      navigator.clipboard.writeText(el.value);
+      alert("Código Pix Copia e Cola copiado!");
+    }
+    renderAds();
+  </script>
+</body>
+</html>

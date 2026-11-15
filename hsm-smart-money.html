@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HSM — Hackeando Smart Money | Educação Financeira, ZII & Salas Operacionais Ao Vivo</title>
+  <meta name="description" content="Pare de operar o mercado no escuro. Opere junto com analistas institucionais nas Salas Ao Vivo HSM, domine a Zona do Inventário (ZII) e acesse Sinais Cripto, Forex, B3 e Stocks + Copytrade.">
+  <style>
+    :root {
+      --bg: #060911;
+      --bg-card: #0d1322;
+      --bg-elevated: #131c31;
+      --border: #1e293b;
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.2);
+      --cyan: #06b6d4;
+      --gold: #f59e0b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-top: 108px;
+    }
+    body.unlocked { padding-top: 68px; }
+    body.unlocked #demo-lock-bar { display: none !important; }
+
+    /* Top Demo Lock & CMS Bar */
+    #demo-lock-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: linear-gradient(90deg, #0f172a, #1e1b4b, #064e3b);
+      border-bottom: 1px solid var(--emerald);
+      padding: 8px 16px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+      font-size: 0.84rem;
+    }
+    .lock-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .btn-top {
+      padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;
+      border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-cms { background: #334155; color: #38bdf8; border: 1px solid #38bdf8; }
+    .btn-pix { background: var(--emerald); color: #04130d; }
+    .btn-key { background: transparent; color: #fbbf24; border: 1px solid #fbbf24; }
+
+    /* Navbar (7 Required Sections) */
+    header {
+      position: fixed; top: 44px; left: 0; right: 0; z-index: 1000;
+      background: rgba(6, 9, 17, 0.88); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    body.unlocked header { top: 0; }
+    .nav-container {
+      max-width: 1240px; margin: 0 auto; padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.15rem; letter-spacing: -0.5px; color: #fff; text-decoration: none; }
+    .brand-badge { background: linear-gradient(135deg, var(--emerald), var(--cyan)); color: #02100a; padding: 4px 9px; border-radius: 6px; font-weight: 900; font-size: 0.85rem; }
+    nav { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
+    nav a:hover { color: var(--emerald); }
+    .btn-cta {
+      background: linear-gradient(135deg, var(--emerald), #059669);
+      color: #03150e; font-weight: 800; padding: 10px 20px; border-radius: 8px;
+      text-decoration: none; font-size: 0.9rem; box-shadow: 0 0 24px var(--emerald-glow);
+      transition: transform 0.2s; display: inline-block; border: none; cursor: pointer;
+    }
+    .btn-cta:hover { transform: translateY(-2px); }
+
+    /* Containers & Typography */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 76px 0; border-bottom: 1px solid rgba(30, 41, 59, 0.6); }
+    .eyebrow {
+      display: inline-block; padding: 5px 12px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--emerald); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    h1 { font-size: clamp(2.1rem, 4.5vw, 3.5rem); line-height: 1.12; font-weight: 900; letter-spacing: -1px; margin-bottom: 20px; }
+    h2 { font-size: clamp(1.7rem, 3.2vw, 2.5rem); line-height: 1.18; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 14px; }
+    .gradient-text { background: linear-gradient(90deg, #34d399, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .lead { color: var(--muted); font-size: 1.1rem; max-width: 680px; margin-bottom: 28px; }
+
+    /* Hero Grid */
+    .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 32px; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); padding: 16px; border-radius: 12px; }
+    .stat-val { font-size: 1.5rem; font-weight: 900; color: var(--emerald); }
+    .stat-lbl { font-size: 0.8rem; color: var(--muted); }
+
+    /* Terminal / ZII Visualizer */
+    .terminal-card {
+      background: var(--bg-card); border: 1px solid #1e3a5f; border-radius: 16px;
+      padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+    .terminal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); font-size: 0.8rem; color: var(--muted); }
+    .dot-group { display: flex; gap: 6px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* Cards Grid */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 32px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 32px; }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 26px; display: flex; flex-direction: column; justify-content: space-between;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: var(--emerald); transform: translateY(-3px); }
+    .card h3 { font-size: 1.22rem; margin-bottom: 10px; color: #fff; }
+    .card p { color: var(--muted); font-size: 0.94rem; margin-bottom: 16px; }
+    .check-list { list-style: none; margin: 14px 0 22px; }
+    .check-list li { margin-bottom: 9px; font-size: 0.9rem; color: #cbd5e1; display: flex; align-items: flex-start; gap: 8px; }
+    .check-list li::before { content: "✓"; color: var(--emerald); font-weight: 900; }
+
+    /* Pricing highlight */
+    .card.featured {
+      background: linear-gradient(180deg, #0d2329 0%, #0d1322 100%);
+      border: 2px solid var(--emerald);
+      position: relative;
+    }
+    .ribbon {
+      position: absolute; top: -12px; right: 20px;
+      background: var(--emerald); color: #03150e; font-size: 0.72rem; font-weight: 900;
+      padding: 4px 10px; border-radius: 999px; text-transform: uppercase;
+    }
+    .price-big { font-size: 2.2rem; font-weight: 900; color: #fff; margin: 8px 0 4px; }
+    .price-big span { font-size: 0.95rem; color: var(--muted); font-weight: 500; }
+
+    /* Editable highlight when CMS mode is active */
+    body.cms-active [contenteditable="true"] {
+      outline: 1px dashed #38bdf8;
+      background: rgba(56, 189, 248, 0.06);
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: #0f172a; border: 1px solid #334155; border-radius: 16px;
+      max-width: 540px; width: 100%; padding: 28px; color: #fff;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP DEMO & CMS BAR -->
+  <div id="demo-lock-bar">
+    <div>
+      🟢 <strong>PROJETO PRONTO — HSM (Hackeando Smart Money)</strong> • 7 Seções Institucionais + Links Lastlink Reais + Painel CMS Integrado
+    </div>
+    <div class="lock-actions">
+      <button class="btn-top btn-cms" onclick="toggleCMS()">⚙️ Testar Painel Admin (CMS Ao Vivo)</button>
+      <button class="btn-top btn-pix" onclick="openPixModal()">⚡ Receber Código-Fonte + Domínio Hoje (R$ 450 via Pix)</button>
+      <button class="btn-top btn-key" onclick="promptUnlockKey()">🔑 Inserir Chave</button>
+    </div>
+  </div>
+
+  <!-- HEADER / 7 SECTIONS NAVIGATION -->
+  <header>
+    <div class="nav-container">
+      <a href="#home" class="brand">
+        <span class="brand-badge">HSM</span>
+        <span class="cms-edit">Hackeando Smart Money</span>
+      </a>
+      <nav>
+        <a href="#home">1. Home</a>
+        <a href="#sala-premium">2. Sala Premium</a>
+        <a href="#zii">3. Estratégia ZII</a>
+        <a href="#cursos">4. Cursos</a>
+        <a href="#mentorias">5. Mentorias</a>
+        <a href="#sobre">6. Sobre Nós</a>
+        <a href="#contato">7. Contato & FAQ</a>
+      </nav>
+      <a href="#planos" class="btn-cta">Entrar na Sala Ao Vivo →</a>
+    </div>
+  </header>
+
+  <!-- 1. HOME / HERO -->
+  <section id="home">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow cms-edit">Sala Operacional Ao Vivo + Copytrade + Metodologia ZII</span>
+        <h1 class="cms-edit">Pare de operar o mercado no escuro. <span class="gradient-text">Hackeie o Smart Money.</span></h1>
+        <p class="lead cms-edit">
+          Acompanhe nossos analistas institucionais em Salas Operacionais Ao Vivo (100% Skin in the Game), receba sinais detalhados de Cripto, Forex, B3 e Stocks no celular ou espelhe nossas ordens automaticamente via Copytrade.
+        </p>
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="#planos" class="btn-cta">Quero Assinar o HSM Agora</a>
+          <a href="#zii" style="padding:10px 20px; border-radius:8px; border:1px solid #334155; color:#fff; text-decoration:none; font-weight:700;">Conhecer a Técnica ZII</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-val cms-edit">Ao Vivo</div>
+            <div class="stat-lbl">Salas Operacionais Diárias</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val cms-edit">4 Mercados</div>
+            <div class="stat-lbl">Cripto, Forex, B3 & Stocks</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val cms-edit">100%</div>
+            <div class="stat-lbl">Custódia na Sua Corretora</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive ZII Institutional Chart Preview -->
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <div class="dot-group">
+            <div class="dot" style="background:#ef4444"></div>
+            <div class="dot" style="background:#f59e0b"></div>
+            <div class="dot" style="background:#10b981"></div>
+          </div>
+          <span>BTC/USDT • RASTREAMENTO INSTITUCIONAL ZII</span>
+          <span style="color:var(--emerald);font-weight:700;">● AO VIVO</span>
+        </div>
+        <svg viewBox="0 0 500 260" style="width:100%; height:auto; background:#070b14; border-radius:10px; border:1px solid #1e293b;">
+          <!-- ZII Zone Highlight -->
+          <rect x="40" y="155" width="430" height="42" fill="rgba(16, 185, 129, 0.13)" stroke="#10b981" stroke-dasharray="4 4"/>
+          <text x="52" y="172" fill="#10b981" font-size="11" font-family="monospace" font-weight="bold">ZII — ZONA DO INVENTÁRIO INSTITUCIONAL (ORDENS ACUMULADAS)</text>
+          <!-- Price Action Path -->
+          <polyline fill="none" stroke="#64748b" stroke-width="2" points="20,110 60,130 95,105 130,168 165,140 200,185 235,160"/>
+          <polyline fill="none" stroke="#10b981" stroke-width="3.5" points="235,160 265,178 305,115 345,130 395,65 445,40"/>
+          <!-- Entry Marker -->
+          <circle cx="265" cy="178" r="6" fill="#10b981"/>
+          <rect x="245" y="205" width="145" height="24" rx="4" fill="#10b981"/>
+          <text x="253" y="221" fill="#03150e" font-size="10" font-weight="bold" font-family="sans-serif">ENTRADA OBJETIVA HSM</text>
+        </svg>
+        <div style="margin-top:14px; display:flex; justify-content:space-between; font-size:0.82rem; color:var(--muted);">
+          <span>Sem gráfico poluído • Sem dezenas de indicadores</span>
+          <span style="color:#38bdf8; font-weight:700;">Liquidez Institucional</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. SALA PREMIUM & COPYTRADE -->
+  <section id="sala-premium">
+    <div class="container">
+      <span class="eyebrow">2. Sala Premium & Comunidade</span>
+      <h2 class="cms-edit">Muito mais que uma Sala de Sinais: Opere Junto ou no Automático</h2>
+      <p class="lead cms-edit">Para quem quer entradas assertivas validadas por analistas profissionais, com acompanhamento ao vivo no Discord e alertas em texto no Telegram.</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div>
+            <span class="eyebrow">Skin in the Game</span>
+            <h3 class="cms-edit">Salas Operacionais Ao Vivo</h3>
+            <p class="cms-edit">Opere lado a lado com nossa mesa de analistas todos os dias. Enquanto buscamos as entradas, você aprende a leitura institucional na prática.</p>
+          </div>
+          <ul class="check-list">
+            <li>Transmissão ao vivo + gravações disponíveis</li>
+            <li>Criptomoedas, B3, Forex e Mercado Americano</li>
+            <li>Sinais enviados também em texto no Telegram</li>
+          </ul>
+        </div>
+
+        <div class="card featured">
+          <span class="ribbon">100% Seguro</span>
+          <div>
+            <span class="eyebrow">Automação Oficial</span>
+            <h3 class="cms-edit">Copytrade Espelhado na Sua Conta</h3>
+            <p class="cms-edit">Não tem tempo para acompanhar os gráficos? Todas as operações abertas pelos nossos analistas são espelhadas automaticamente na sua exchange.</p>
+          </div>
+          <ul class="check-list">
+            <li>Seu capital NUNCA sai da sua própria conta na corretora</li>
+            <li>Zero envio de dinheiro para terceiros</li>
+            <li>Tutorial passo a passo na área do assinante (mínimo recomendado: US$ 500)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div>
+            <span class="eyebrow">Prova Social Diária</span>
+            <h3 class="cms-edit">Comunidade & Networking Discord</h3>
+            <p class="cms-edit">Ambiente ativo onde os membros compartilham resultados reais, tiram dúvidas operacionais e acompanham o radar de liquidez do mercado.</p>
+          </div>
+          <ul class="check-list">
+            <li>Canal exclusivo de resultados e prints verificados</li>
+            <li>Suporte próximo da equipe HSM</li>
+            <li>Alertas de gestão de risco e proteção de capital</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ESTRATÉGIAS E METODOLOGIA (ZII) -->
+  <section id="zii">
+    <div class="container">
+      <span class="eyebrow">5. Estratégias e Metodologia Institucional</span>
+      <h2 class="cms-edit">ZII — Zona do Inventário: O Mercado é Complexo, Sua Entrada Não Precisa Ser</h2>
+      <p class="lead cms-edit">Técnica exclusiva HSM que identifica regiões objetivas onde o Smart Money posiciona ordens reais — mostrando exatamente onde olhar, onde esperar e onde agir.</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>1. Mapeamento do Inventário</h3>
+          <p>Identificamos onde os grandes players institucionais acumularam ou distribuíram posições, eliminando o ruído de indicadores atrasados.</p>
+        </div>
+        <div class="card">
+          <h3>2. Captura de Liquidez</h3>
+          <p>Esperamos o preço buscar a região de liquidez (onde o varejo é estopado) dentro da Zona do Inventário antes de qualquer tomada de decisão.</p>
+        </div>
+        <div class="card">
+          <h3>3. Execução com Assimetria</h3>
+          <p>Entradas objetivas com ponto de invalidação curto e alvos institucionais claros. Menos confusão, gráfico limpo e máxima clareza operacional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 & 5. CURSOS, MENTORIAS E PLANOS OFICIAIS (COM LINKS LASTLINK REAIS) -->
+  <section id="cursos">
+    <div class="container" id="planos">
+      <span class="eyebrow">3 & 4. Cursos, Mentorias e Planos de Assinatura</span>
+      <h2 class="cms-edit">Escolha Como Você Vai Hackear o Smart Money Hoje</h2>
+      <p class="lead cms-edit">Todos os botões abaixo já estão integrados diretamente aos seus checkouts oficiais da Lastlink.</p>
+
+      <div class="grid-4" id="mentorias">
+        <!-- Plano Mensal -->
+        <div class="card">
+          <div>
+            <h3>Plano Mensal HSM</h3>
+            <p>Ideal para conhecer a Sala Ao Vivo e validar os sinais na prática.</p>
+            <div class="price-big">R$ 249,90 <span>/mês</span></div>
+            <ul class="check-list">
+              <li>Salas Operacionais Ao Vivo e Gravadas</li>
+              <li>Sinais Cripto, B3, Forex e Stocks</li>
+              <li>Acesso ao Copytrade & Comunidade HSM</li>
+              <li>Liberdade para cancelar quando quiser</li>
+            </ul>
+          </div>
+          <a id="link-mensal" href="https://lastlink.com/p/C27FF2C57/checkout-payment/" target="_blank" class="btn-cta" style="text-align:center;">Assinar Plano Mensal</a>
+        </div>
+
+        <!-- Plano Semestral -->
+        <div class="card">
+          <div>
+            <h3>Plano Semestral HSM</h3>
+            <p>Economia de 33% para construir consistência operando junto.</p>
+            <div class="price-big">R$ 166,34 <span>/mês</span></div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;">(ou R$ 997,90 à vista no semestral)</div>
+            <ul class="check-list">
+              <li>Salas Operacionais Ao Vivo e Gravadas</li>
+              <li>Sinais Cripto, B3, Forex e Stocks</li>
+              <li>Copytrade Automático Incluso</li>
+              <li>Comunidade Networking HSM</li>
+            </ul>
+          </div>
+          <a id="link-semestral" href="https://lastlink.com/p/CE5CE55E3/checkout-payment/" target="_blank" class="btn-cta" style="text-align:center;">Assinar Semestral (-33%)</a>
+        </div>
+
+        <!-- Plano Anual (Destaque) -->
+        <div class="card featured">
+          <span class="ribbon">Mais Escolhido • -67% OFF</span>
+          <div>
+            <h3>Plano Anual HSM</h3>
+            <p>O melhor custo-benefício para operar o ciclo completo do mercado.</p>
+            <div class="price-big">R$ 83,08 <span>/mês</span></div>
+            <div style="font-size:0.8rem;color:var(--emerald);margin-bottom:10px;">(ou R$ 997,00 à vista • 67% de desconto)</div>
+            <ul class="check-list">
+              <li>12 Meses de Salas Operacionais Ao Vivo</li>
+              <li>Sinais Cripto, B3, Forex e Mercado Americano</li>
+              <li>Copytrade Espelhado + Suporte Prioritário</li>
+              <li>Opção de Combo com Curso Vitalício (R$ 1.197)</li>
+            </ul>
+          </div>
+          <a id="link-anual" href="https://lastlink.com/p/CD1001743/" target="_blank" class="btn-cta" style="text-align:center;">Assinar Anual com 67% OFF</a>
+        </div>
+
+        <!-- Plano Vitalício + Mentoria -->
+        <div class="card">
+          <div>
+            <h3>Vitalício + Mentoria</h3>
+            <p>Pague uma única vez e tenha a Mentoria do Básico ao Avançado inclusa.</p>
+            <div class="price-big">R$ 1.497 <span>único</span></div>
+            <div style="font-size:0.8rem;color:#f59e0b;margin-bottom:10px;">De R$ 1.597 por R$ 1.497 (Sem mensalidades)</div>
+            <ul class="check-list">
+              <li>Acesso Vitalício à Sala HSM & Sinais</li>
+              <li>Mentoria Completa do Básico ao Avançado</li>
+              <li>Domínio completo da Técnica ZII</li>
+              <li>Acesso Vitalício ao Copytrade & Discord VIP</li>
+            </ul>
+          </div>
+          <a id="link-vitalicio" href="https://lastlink.com/p/CE6D7B55F/checkout-payment/" target="_blank" class="btn-cta" style="text-align:center;">Garantir Acesso Vitalício</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. SOBRE NÓS -->
+  <section id="sobre">
+    <div class="container">
+      <span class="eyebrow">6. Sobre Nós & Filosofia Institucional</span>
+      <h2 class="cms-edit">Chega de Sardinhagem: Educação e Execução Alinhadas</h2>
+      <p class="lead cms-edit">
+        A HSM — Hackeando Smart Money nasceu para quebrar o ciclo de traders pessoa física que operam contra a liquidez institucional. Nossa equipe combina leitura de fluxo institucional (Smart Money), a objetividade da Zona do Inventário (ZII) e transparência total em salas ao vivo.
+      </p>
+    </div>
+  </section>
+
+  <!-- 7. CONTATO & FAQ -->
+  <section id="contato">
+    <div class="container">
+      <span class="eyebrow">7. Perguntas Frequentes & Canais de Atendimento</span>
+      <h2>Dúvidas Frequentes Antes de Entrar no HSM</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Não sei operar mercado futuro. O HSM é para mim?</h3>
+          <p>Sim! Além de todo o conteúdo educacional e acompanhamento nas salas ao vivo, você conta com o Copytrade, onde as operações dos nossos analistas são espelhadas automaticamente na sua conta.</p>
+        </div>
+        <div class="card">
+          <h3>Preciso enviar dinheiro para vocês no Copytrade?</h3>
+          <p>JAMAIS! Seu saldo fica 100% na sua própria corretora (exchange). A integração apenas espelha as ordens. Nunca transfira valores para terceiros.</p>
+        </div>
+        <div class="card">
+          <h3>O que é o Combo HSM Anual + Curso?</h3>
+          <p>Por R$ 1.197 (de R$ 3.161), você recebe acesso VITALÍCIO ao Curso de Análise Técnica Avançada + 1 ano completo de Sala de Sinais HSM e Copytrade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:40px 20px; text-align:center; color:var(--muted); font-size:0.86rem;">
+    <div class="container">
+      © 2026 HSM — Hackeando Smart Money • Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <!-- MODAL PIX / ENTREGA IMEDIATA -->
+  <div class="modal-backdrop" id="pix-modal">
+    <div class="modal-box">
+      <h3 style="font-size:1.35rem; margin-bottom:8px; color:var(--emerald);">⚡ Entrega Imediata — Plataforma HSM Completa</h3>
+      <p style="font-size:0.9rem; color:#cbd5e1; margin-bottom:14px;">
+        Esta nova versão da <strong>HSM - Hackeando Smart Money</strong> já está pronta, responsiva, integrada aos seus 4 checkouts da Lastlink e com modo CMS de edição.
+      </p>
+      <ul class="check-list" style="margin-bottom:16px;">
+        <li>Código-fonte completo + Painel CMS de edição de textos/links</li>
+        <li>Configuração imediata no seu domínio <code>hackeandosmartmoney.com</code></li>
+        <li>Chave de destravamento imediato: <strong>R$ 450,00 via Pix</strong> (sem taxas de plataforma)</li>
+      </ul>
+      <div style="background:#060911; border:1px solid #334155; padding:12px; border-radius:8px; margin-bottom:14px;">
+        <div style="font-size:0.76rem; color:#94a3b8; margin-bottom:4px;">PIX COPIA E COLA OFICIAL (R$ 450,00):</div>
+        <input id="pix-brcode" readonly style="width:100%; background:#0f172a; color:#38bdf8; border:1px solid #1e293b; padding:8px; border-radius:6px; font-family:monospace; font-size:0.78rem;">
+        <button onclick="copyPix()" class="btn-cta" style="width:100%; margin-top:8px; padding:9px;">📋 Copiar Código Pix (R$ 450,00)</button>
+      </div>
+      <div style="display:flex; justify-content:space-between; gap:10px;">
+        <button onclick="promptUnlockKey()" class="btn-top btn-key" style="flex:1; justify-content:center; padding:10px;">🔑 Já paguei / Inserir Chave</button>
+        <button onclick="closePixModal()" class="btn-top" style="background:#334155; color:#fff; padding:10px 16px;">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+function crc16ccitt(str) {
+  let crc = 0xFFFF;
+  for (let i = 0; i < str.length; i++) {
+    crc ^= str.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) {
+      if ((crc & 0x8000) !== 0) crc = ((crc << 1) ^ 0x1021) & 0xFFFF;
+      else crc = (crc << 1) & 0xFFFF;
+    }
+  }
+  return crc.toString(16).toUpperCase().padStart(4, "0");
+}
+function emvField(id, val) {
+  const len = String(val.length).padStart(2, "0");
+  return id + len + val;
+}
+function generatePixPayload(pixKey, merchantName, merchantCity, amount, txid = "OSINT2026") {
+  const gui = emvField("00", "br.gov.bcb.pix");
+  const key = emvField("01", pixKey);
+  const mai = emvField("26", gui + key);
+  const mcc = emvField("52", "0000");
+  const curr = emvField("53", "986");
+  const amt = emvField("54", Number(amount).toFixed(2));
+  const country = emvField("58", "BR");
+  const name = emvField("59", merchantName.slice(0, 25));
+  const city = emvField("60", merchantCity.slice(0, 15));
+  const adf = emvField("62", emvField("05", txid));
+  const payloadNoCrc = "000201" + mai + mcc + curr + amt + country + name + city + adf + "6304";
+  return payloadNoCrc + crc16ccitt(payloadNoCrc);
+}
+
+    const SECRET_KEY = "HSM-2026-PRO";
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("key") === SECRET_KEY || localStorage.getItem("hsm_unlocked") === "1") {
+      document.body.classList.add("unlocked");
+    }
+
+    function toggleCMS() {
+      const active = document.body.classList.toggle("cms-active");
+      document.querySelectorAll(".cms-edit, h1, h2, h3, p, .price-big").forEach(el => {
+        el.contentEditable = active ? "true" : "false";
+      });
+      if (active) {
+        alert("MODO ADMIN CMS ATIVADO!\n\nClique em qualquer título, texto ou preço da página para editar ao vivo na tela.");
+      }
+    }
+
+    function openPixModal() {
+      const brcode = generatePixPayload("0d698c3a-7f75-418e-9d09-6be18fb9a718", "MARCO AURELIO", "ATIBAIA", 450.00, "HSMSITE");
+      document.getElementById("pix-brcode").value = brcode;
+      document.getElementById("pix-modal").classList.add("open");
+    }
+    function closePixModal() {
+      document.getElementById("pix-modal").classList.remove("open");
+    }
+    function copyPix() {
+      const inp = document.getElementById("pix-brcode");
+      inp.select();
+      navigator.clipboard.writeText(inp.value);
+      alert("Código Pix Copia e Cola (R$ 450,00) copiado!");
+    }
+    function promptUnlockKey() {
+      const k = prompt("Digite a Chave de Ativação Definitiva enviada após o Pix:");
+      if (k && k.trim().toUpperCase() === SECRET_KEY) {
+        localStorage.setItem("hsm_unlocked", "1");
+        document.body.classList.add("unlocked");
+        closePixModal();
+        alert("Plataforma HSM 100% destravada!");
+      } else if (k) {
+        alert("Chave inválida.");
+      }
+    }
+  </script>
+</body>
+</html>
