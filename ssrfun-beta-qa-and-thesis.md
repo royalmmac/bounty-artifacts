@@ -83,3 +83,22 @@ While testing `https://ssr.fun` from São Paulo, Brazil (Vercel Edge PoP `gru1`)
   - Once the redirect finishes, the user's browser address bar shows `https://ssr.fun/#/dtr/mainnet-beta-93`. If a user copies that URL from their address bar to share their thesis on X, X's crawler strips everything after `#` and fetches `/` instead, losing the custom Reserve preview card.
 - **Suggested Fix:**
   - Add a dedicated **"Share Reserve on X"** button inside the Reserve view that pre-fills the tweet intent with the canonical `https://ssr.fun/r/<reserve_pubkey>` shortlink rather than `window.location.href`.
+
+
+---
+
+### Bug Report #4 (High — In-App Reserve `#93` Oracle Cascade & Viewport Overlap Inside Unlocked Mainnet dApp)
+
+After unlocking the Mainnet dApp via `/beta` (`/#/dtr/mainnet-beta-93`) and submitting feedback through the in-app **Feedback** button, I inspected **Reserve `#93` (`KingintheNorth / $KING`)** (`Reserve`: `FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb`, `Reserve Token Mint`: `8NF4joMpjNmnSZNmZh5nxFnp5YGbvtUUiAWFzVdo54W5`, `Manager`: `DVHDEzyFhVHjkQT3nxzavAvT2j6VE29RNMtux3X7VdbQ`) and caught two additional live dApp bugs:
+
+1. **Missing `JTO` Oracle Feed Cascades Into `Market Cap: Price unavailable`:**
+   - Reserve `#93` holds four onchain SPL vaults:
+     - `SOL` (`50.00%` weight — Vault `AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K`)
+     - `JUP` (`25.00%` weight — Vault `mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC`)
+     - `JTO` (`15.00%` weight — Vault `3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn`)
+     - `USDC` (`10.00%` weight — Vault `Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP`)
+   - While `SOL`, `JUP`, and `USDC` resolve live prices and P&L%, the **`JTO` (`15.00%`) price feed returns unavailable**, which causes the top-level **Market Cap** KPI card for the entire Reserve to fail open with **`Price unavailable`**, **All-Time Volume** to stay stuck on **`Loading...`**, and **`Loading holder count...`** to hang indefinitely.
+   - **Suggested Fix:** Add a fallback Jupiter Quote / Pyth price resolver for `JTO` (`jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL`) and render partial known vault TVL (`$15.66 + JTO vault`) with a stale-oracle warning badge rather than blanking out total Reserve Market Cap.
+
+2. **Floating `MINT / Redeem` Action Pill Occludes the `RESERVE COMPOSITION` Table:**
+   - On standard desktop viewports (`1280x800`), the fixed bottom `MINT | Redeem` pill (`position: fixed; bottom: ...`) sits directly on top of the `USDC 10.00%` row's `Weight` and `Price` columns inside `RESERVE COMPOSITION`, hiding table numbers as the user reads the asset breakdown. Adding `padding-bottom: 96px` to the composition container prevents the overlap.
