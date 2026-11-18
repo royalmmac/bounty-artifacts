@@ -1,4 +1,4 @@
-![Raenest Global Financial Platform Walkthrough & Architecture](./raenest_app_walkthrough_infographic.png)
+![Raenest Global Financial Platform Walkthrough & Architecture](./raenest_app_walkthrough_infographic.svg)
 
 # How Brazilian Freelancers and Remote Engineers Are Using Raenest + Solana Stablecoins to Beat Cross-Border Banking Friction
 
@@ -102,4 +102,4 @@ If you want to simplify how you receive international payments, hold **USDT, USD
 ---
 
 **Campaign References:** `#StablecoinsonRaenest` `#RaenestBounty` • [`@RaenestApp`](https://x.com/RaenestApp) • [`@SuperteamBR`](https://x.com/SuperteamBR)  
-**X Thread:** [`https://x.com/Royalmmac/status/2121124522334236868`](https://x.com/Royalmmac/status/2121124522334236868) • **Substack:** [`https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote`](https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote)
+**Substack Article:** [`https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote`](https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote)
