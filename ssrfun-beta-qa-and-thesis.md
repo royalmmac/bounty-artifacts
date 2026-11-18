@@ -1,12 +1,12 @@
-![SSR.FUN Onchain Reserves Thesis & Forensic Mainnet QA](./ssrfun_onchain_reserves_and_qa_infographic.png)
+![SSR.FUN Onchain Reserves Thesis & Forensic Mainnet QA](./ssrfun_onchain_reserves_and_qa_infographic.svg)
 
 # SSR.FUN Beta Launch Challenge: 60/40 Onchain Barbell Thesis & Mainnet Beta QA Audit
 
 *By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac))*
 
-- **X Investment Thesis Thread (`@strategicsuperr`):** [`https://x.com/Royalmmac/status/2121123929565569133`](https://x.com/Royalmmac/status/2121123929565569133) (and follow-up [`https://x.com/Royalmmac/status/2121334693484519497`](https://x.com/Royalmmac/status/2121334693484519497))
-- **Canonical Reserve Audited (`Reserve #93 - KING`):** [`https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb`](https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb)
-- **Live Leaderboard Inspected:** [`https://ssr.fun/leaderboard`](https://ssr.fun/leaderboard)
+- **X Investment Thesis Thread (`@strategicsuperr`):** [`https://x.com/Royalmmac/status/2121123929565569133`](https://x.com/Royalmmac/status/2121123929565569133) & [`https://x.com/Royalmmac/status/2121334693484519497`](https://x.com/Royalmmac/status/2121334693484519497)
+- **Canonical Reserve Audited (`Reserve #93 - $KING`):** [`https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb`](https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb)
+- **Live Leaderboard Inspected (`16 Wallets · 5 Reserves` as of Nov 18, 2026):** [`https://ssr.fun/leaderboard`](https://ssr.fun/leaderboard)
 
 ---
 
@@ -29,42 +29,25 @@ Rather than building a pure meme basket or a passive index, my thesis for a flag
 
 ---
 
-## Part 2: Reproducible Beta QA & Root-Cause Forensics (`ssr.fun`)
+## Part 2: Reproducible Beta QA & Root-Cause Forensics (`ssr.fun` — Tested Nov 13 & Re-Verified Nov 18, 2026)
 
-While testing `https://ssr.fun` from São Paulo, Brazil (hitting Vercel Edge PoP `gru1`), I ran into a blocker when trying to navigate from the live leaderboard into the campaign signup (`/#/campaign`) and Reserve `#93` (`KING`). I opened DevTools and inspected the production JS bundles, HTTP response headers, and mainnet API endpoints (`/`, `/leaderboard`, `/docs`, `/r/:reserve`, and `/api/mainnet/*`) to isolate the exact root causes for the SSR.FUN engineering team.
+While testing `https://ssr.fun` from São Paulo, Brazil (Vercel Edge PoP `gru1`), I investigated why prospective campaign entrants without an active Beta Key session hit a dead-end when clicking **"Sign up"** (`/#/campaign`) on `/leaderboard` or opening public Reserve share links (`/r/:reserve`) on X. Below are 3 reproducible findings and ready-to-merge fixes for the SSR.FUN engineering team.
 
-### Bug Report #1 (Critical — Broken Onboarding Funnel): Root `/` Serves Static `coming-soon.html` While `/api/mainnet/campaign-leaderboard` Is Actively Running (`phase: "live"`)
+### Bug Report #1 (Critical — Broken Viral & Campaign Onboarding Funnel): Root `/` Beta Key Gatekeeper Intercepts Public `/r/:reserve` Share Links and `/leaderboard` Sign-Ups
 
-- **How to Reproduce:**
-  1. Open `https://ssr.fun/leaderboard`. The page loads `/assets/leaderboard-lvjdhEed.js`, which queries `GET https://ssr.fun/api/mainnet/campaign-leaderboard`.
-  2. The live mainnet API response confirms the Beta Campaign is **active right now** (`"phase": "live"`, `startTs: 1794319200`, `endTs: 1796911200`), with **2 live Reserves** (`FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb` / Reserve `#93 KING` and `A3tRdnc1s7fiwvkmVwm6s7wAmF3fML56Pz7QdhpbHJvX` / Reserve `#94 CORE`) and **6 trader wallets**:
-     ```json
-     {
-       "phase": "live",
-       "startTs": 1794319200,
-       "endTs": 1796911200,
-       "entries": 2,
-       "traderEntries": 6,
-       "volumeLeader": {
-         "kind": "reserve",
-         "id": "FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb",
-         "value": 17.000483992367762
-       }
-     }
+- **How to Reproduce (Verified Nov 13 & Nov 18, 2026):**
+  1. Open `https://ssr.fun/leaderboard`. The leaderboard is publicly accessible and actively tracking the live Beta Campaign (`phase: "live"`, `startTs: 1794319200`, `endTs: 1796911200`). Between Nov 13 and Nov 18, participation grew from 6 wallets / 2 Reserves to **16 wallets signed up and 5 Reserves entered** (`BaldEagle $BEAGLE` at `$207.21`, `KingintheNorth $KING / Reserve #93` at `$17.00`, `Voldemort $VOLDEMORT` at `$4.14`, `Solana Core $CORE` at `$1.00`, and `Upnorthgamer $GAME` at `$1.00`).
+  2. Click **"Sign up"** (`<a class="handle" href="/#/campaign">`) on `/leaderboard` without a pre-existing Beta Key cookie/session. Because `GET https://ssr.fun/` serves the static **`SSR.FUN — Coming Soon` Beta Key Gatekeeper** (`coming-soon.html` — *"Get your BETA key / I have a BETA key, let me in"*), the `#/campaign` hash route is dropped before the React SPA (`src-BHNgQCbg.js`) ever mounts.
+  3. Worse, open any live Reserve share URL posted by creators on X—such as Reserve `#93` (`https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb`). The serverless endpoint `/r/:reserve` properly injects the dynamic OpenGraph card (`KingintheNorth Reserve (KING)`), but immediately executes:
+     ```html
+     <meta http-equiv="refresh" content="0; url=https://ssr.fun/#/dtr/mainnet-beta-93" />
+     <script>window.location.replace("https://ssr.fun/#/dtr/mainnet-beta-93");</script>
      ```
-  3. However, requesting `GET https://ssr.fun/` returns the static `coming-soon.html` document (`Content-Disposition: inline; filename="coming-soon.html"`, `ETag: W/"fa5b0c912df2b340b22787bf2d032304"`), even though the compiled React SPA bundles (`/assets/src-BHNgQCbg.js`, `/assets/calculations-DqZBs07a.js`, `/assets/docs-CoIMeMwd.js`) are still deployed on the same Vercel instance.
-  4. **How This Breaks Both Campaign Signup and Reserve Share Links:**
-     - Clicking **"Sign up"** (`<a class="handle" href="/#/campaign">`) on `/leaderboard` sends the browser to `https://ssr.fun/#/campaign`. Because `/` serves `coming-soon.html` instead of the SPA `index.html`, the `#/campaign` hash route is ignored.
-     - Worse, opening a canonical Reserve share link like `https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb` correctly serves the server-rendered OpenGraph metadata for `KingintheNorth Reserve (KING)`, but then runs:
-       ```html
-       <meta http-equiv="refresh" content="0; url=https://ssr.fun/#/dtr/mainnet-beta-93" />
-       <script>window.location.replace("https://ssr.fun/#/dtr/mainnet-beta-93");</script>
-       ```
-       which immediately redirects the user into the static `coming-soon.html` landing page instead of loading Reserve `#93`.
+     which dumps every unauthenticated X reader onto the static Beta Key gatekeeper wall instead of showing a read-only view of Reserve `#93`!
 
 - **Suggested Engineering Fix:**
-  - Restore the Vite/Rolldown SPA `index.html` entry at `/`, OR mount the dApp at `/app` and update both `/r/:reserve` redirects and `/leaderboard` CTAs to point to `/app#/dtr/...` and `/app#/campaign`.
-  - Set `Vercel-CDN-Cache-Control: max-age=0, must-revalidate` on `/` so toggling `coming-soon.html` does not leave stale `X-Vercel-Cache: HIT` responses (`Age: 1513`) cached at edge PoPs like `gru1`.
+  - Allow **read-only public viewing** of `/#/dtr/:reserveId` and `/#/campaign` without requiring a Beta Key session, enforcing the Beta Key check only when a user attempts a *write* action (such as *Create Reserve*), OR point `/leaderboard`'s **"Sign up"** CTA directly to the Beta Key request modal with a clear explanation for Superteam Earn participants.
+  - Set `Vercel-CDN-Cache-Control: max-age=0, must-revalidate` on `/` so transitions between `coming-soon.html` and the main SPA never serve stale edge responses.
 
 ---
 
