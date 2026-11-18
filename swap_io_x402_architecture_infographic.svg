@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#14F195"/>
+      <stop offset="100%" stop-color="#9945FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect x="60" y="50" width="1800" height="8" rx="4" fill="url(#accent)"/>
+
+  <text x="80" y="130" fill="#14F195" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2">SWAP.IO x402 AGENT API • SOLANA MAINNET ARCHITECTURE</text>
+  <text x="80" y="190" fill="#FFFFFF" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="48" font-weight="800">FreelanceSplitBot: Zero-Subscription Telegram Treasury Agent</text>
+  <text x="80" y="238" fill="#9CA3AF" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="26">Pay-per-quote routing via HTTP 402 Payment Required ($0.003007 USDC/call) with gasless PayAI settlement</text>
+
+  <!-- 4-Step Flow Boxes -->
+  <!-- Box 1 -->
+  <rect x="80" y="290" width="415" height="390" rx="18" fill="#161F30" stroke="#2D3B55" stroke-width="2"/>
+  <rect x="108" y="320" width="90" height="36" rx="8" fill="#1E293B"/>
+  <text x="153" y="345" fill="#38BDF8" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">STEP 1</text>
+  <text x="108" y="400" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Unauthenticated POST</text>
+  <text x="108" y="440" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="21">Bot detects incoming SOL</text>
+  <text x="108" y="470" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="21">payout &amp; requests quote:</text>
+  <rect x="108" y="500" width="359" height="145" rx="10" fill="#0B1120" stroke="#1E293B"/>
+  <text x="124" y="535" fill="#14F195" font-family="Consolas, monospace" font-size="18">POST hermes.swap.io</text>
+  <text x="124" y="563" fill="#14F195" font-family="Consolas, monospace" font-size="18">     /v1/swap/quote</text>
+  <text x="124" y="595" fill="#94A3B8" font-family="Consolas, monospace" font-size="17">1.0 SOL -&gt; USDC (50 bps)</text>
+  <text x="124" y="623" fill="#F8FAFC" font-family="Consolas, monospace" font-size="17">API Keys Required: ZERO</text>
+
+  <!-- Box 2 -->
+  <rect x="528" y="290" width="415" height="390" rx="18" fill="#161F30" stroke="#9945FF" stroke-width="2"/>
+  <rect x="556" y="320" width="90" height="36" rx="8" fill="#2E1065"/>
+  <text x="601" y="345" fill="#C084FC" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">STEP 2</text>
+  <text x="556" y="400" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">HTTP 402 Handshake</text>
+  <text x="556" y="440" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="21">Hermes returns x402 v1</text>
+  <text x="556" y="470" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="21">payment specification:</text>
+  <rect x="556" y="500" width="359" height="145" rx="10" fill="#0B1120" stroke="#1E293B"/>
+  <text x="572" y="535" fill="#C084FC" font-family="Consolas, monospace" font-size="18">"maxAmountRequired":"3007"</text>
+  <text x="572" y="565" fill="#F8FAFC" font-family="Consolas, monospace" font-size="17">= $0.003007 USDC (exact)</text>
+  <text x="572" y="595" fill="#94A3B8" font-family="Consolas, monospace" font-size="16">payTo: BPz2u6eo...EibMfD</text>
+  <text x="572" y="623" fill="#14F195" font-family="Consolas, monospace" font-size="16">feePayer: 2wKupL...xHDBg4</text>
+
+  <!-- Box 3 -->
+  <rect x="976" y="290" width="415" height="390" rx="18" fill="#161F30" stroke="#14F195" stroke-width="2"/>
+  <rect x="1004" y="320" width="90" height="36" rx="8" fill="#064E3B"/>
+  <text x="1049" y="345" fill="#14F195" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">STEP 3</text>
+  <text x="1004" y="400" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Gasless USDC Sign</text>
+  <text x="1004" y="440" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="21">Agent signs 3,007 atomic</text>
+  <text x="1004" y="470" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="21">USDC via x402-solana:</text>
+  <rect x="1004" y="500" width="359" height="145" rx="10" fill="#0B1120" stroke="#1E293B"/>
+  <text x="1020" y="535" fill="#14F195" font-family="Consolas, monospace" font-size="18">SOL Gas Paid by Agent: $0</text>
+  <text x="1020" y="565" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">PayAI sponsors base fee</text>
+  <text x="1020" y="595" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">maxTimeoutSeconds: 60s</text>
+  <text x="1020" y="623" fill="#38BDF8" font-family="Consolas, monospace" font-size="17">X-PAYMENT header attached</text>
+
+  <!-- Box 4 -->
+  <rect x="1424" y="290" width="416" height="390" rx="18" fill="#161F30" stroke="#38BDF8" stroke-width="2"/>
+  <rect x="1452" y="320" width="90" height="36" rx="8" fill="#0C4A6E"/>
+  <text x="1497" y="345" fill="#38BDF8" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">STEP 4</text>
+  <text x="1452" y="400" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Quote + Build Swap</text>
+  <text x="1452" y="440" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="21">Hermes settles &amp; returns</text>
+  <text x="1452" y="470" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="21">best route + unsigned tx:</text>
+  <rect x="1452" y="500" width="360" height="145" rx="10" fill="#0B1120" stroke="#1E293B"/>
+  <text x="1468" y="535" fill="#38BDF8" font-family="Consolas, monospace" font-size="18">X-PAYMENT-RESPONSE proof</text>
+  <text x="1468" y="565" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">POST /v1/swap/build</text>
+  <text x="1468" y="595" fill="#CBD5E1" font-family="Consolas, monospace" font-size="17">80% USDC / 20% SOL split</text>
+  <text x="1468" y="623" fill="#14F195" font-family="Consolas, monospace" font-size="17">Settled on Solana Mainnet</text>
+
+  <!-- Unit Economics Bottom Panel -->
+  <rect x="80" y="725" width="1760" height="240" rx="18" fill="#111928" stroke="#2D3B55" stroke-width="2"/>
+  <text x="120" y="778" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700">Unit Economics Comparison: Fixed API Subscriptions vs. Swap.io x402</text>
+
+  <rect x="120" y="808" width="520" height="125" rx="12" fill="#1F172A" stroke="#EF4444" stroke-width="1.5"/>
+  <text x="148" y="848" fill="#F87171" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Legacy Quote API Subscription</text>
+  <text x="148" y="885" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">$49 – $199 / month fixed burn</text>
+  <text x="148" y="915" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="19">Negative margin at low volume + static API key risk</text>
+
+  <rect x="680" y="808" width="540" height="125" rx="12" fill="#0D2824" stroke="#14F195" stroke-width="1.5"/>
+  <text x="708" y="848" fill="#14F195" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Swap.io x402 Cost (Quote + Build)</text>
+  <text x="708" y="885" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">$0.006014 USDC total per swap</text>
+  <text x="708" y="915" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="19">$0.00/mo idle cost • Permissionless Solana &amp; Base</text>
+
+  <rect x="1260" y="808" width="540" height="125" rx="12" fill="#172554" stroke="#38BDF8" stroke-width="1.5"/>
+  <text x="1288" y="848" fill="#38BDF8" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">FreelanceSplitBot Net Margin</text>
+  <text x="1288" y="885" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">+87.97% Profit ($0.05 user fee)</text>
+  <text x="1288" y="915" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="19">Profitable from Swap #1 with zero monthly overhead</text>
+
+  <text x="80" y="1025" fill="#64748B" font-family="Segoe UI, Arial, sans-serif" font-size="21">Architecture &amp; Live Protocol Verification by Marco Aurélio Sugamele (@Royalmmac) • https://swap.io • hermes.swap.io</text>
+</svg>
