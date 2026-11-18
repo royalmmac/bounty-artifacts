@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="sbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="100%" stop-color="#121A2B"/>
+    </linearGradient>
+    <linearGradient id="sacc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sbg)"/>
+  <rect x="60" y="50" width="1800" height="8" rx="4" fill="url(#sacc)"/>
+
+  <text x="80" y="130" fill="#FBBF24" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2">SSR.FUN (@STRATEGICSUPERR) • RESERVE THESIS &amp; MAINNET BETA QA AUDIT</text>
+  <text x="80" y="190" fill="#FFFFFF" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="46" font-weight="800">The 60/40 Onchain Barbell Reserve &amp; Full-Stack Beta QA</text>
+  <text x="80" y="238" fill="#94A3B8" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="25">Combining 800+ tokenized equities/ETFs with Solana liquidity under a single verifiable Net Asset Value (NAV)</text>
+
+  <!-- Left Half: 60/40 Barbell Investment Thesis -->
+  <rect x="80" y="290" width="855" height="670" rx="18" fill="#151F32" stroke="#10B981" stroke-width="2"/>
+  <text x="120" y="350" fill="#10B981" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">PART 1 • INVESTMENT THESIS (COMPOSABLE ONCHAIN RESERVE)</text>
+  <text x="120" y="400" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700">Solana Alpha + Global Macro Shield (60 / 40)</text>
+
+  <rect x="120" y="435" width="775" height="190" rx="14" fill="#0F172A" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="150" y="482" fill="#60A5FA" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">60% Core Macro &amp; Tokenized Equity Anchor</text>
+  <text x="150" y="525" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="21">• US Large-Cap Tech &amp; Index ETFs (SPY, QQQ, NVDA)</text>
+  <text x="150" y="562" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="21">• Short-Duration Treasury Yield ETFs buffering crypto drawdowns</text>
+  <text x="150" y="598" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="19">Eliminates slow off-chain brokerage wires while staying liquid 24/7</text>
+
+  <rect x="120" y="650" width="775" height="190" rx="14" fill="#0F172A" stroke="#10B981" stroke-width="1.5"/>
+  <text x="150" y="697" fill="#34D399" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">40% High-Conviction Solana Growth Sleeve</text>
+  <text x="150" y="740" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="21">• Native Solana &amp; DeFi Infrastructure (SOL, JUP, JTO)</text>
+  <text x="150" y="777" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="21">• Captures asymmetric Solana upside inside one Reserve token</text>
+  <text x="150" y="813" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="19">Single-transaction mint &amp; instant redemption against live onchain NAV</text>
+
+  <text x="120" y="905" fill="#FBBF24" font-family="Consolas, monospace" font-size="19">Audited Reserve #93 ($KING): ssr.fun/r/FFPxPj1BaAPD...W7MVb</text>
+
+  <!-- Right Half: Reproducible Beta QA Forensics -->
+  <rect x="985" y="290" width="855" height="670" rx="18" fill="#151F32" stroke="#F59E0B" stroke-width="2"/>
+  <text x="1025" y="350" fill="#FBBF24" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">PART 2 • REPRODUCIBLE MAINNET QA (VERCEL POP: GRU1)</text>
+  <text x="1025" y="400" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700">3 Actionable Engineering &amp; Security Fixes</text>
+
+  <rect x="1025" y="435" width="775" height="155" rx="12" fill="#0F172A" stroke="#EF4444" stroke-width="1.5"/>
+  <text x="1052" y="476" fill="#F87171" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Bug #1 (Critical Funnel): Beta Key Gate Blocks /r/:reserve &amp; /#/campaign</text>
+  <text x="1052" y="514" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">/leaderboard is live (16 wallets, 5 Reserves: $BEAGLE, $KING, $CORE),</text>
+  <text x="1052" y="546" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">but /r/:id redirects unauthenticated X visitors into the / Beta Key wall.</text>
+
+  <rect x="1025" y="612" width="775" height="155" rx="12" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="1052" y="653" fill="#FBBF24" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Bug #2 (Medium Security): Missing Clickjacking Headers on Wallet Surface</text>
+  <text x="1052" y="691" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">HTTP responses omit X-Frame-Options: DENY, CSP frame-ancestors 'none',</text>
+  <text x="1052" y="723" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">and X-Content-Type-Options: nosniff. Ready-to-merge vercel.json patch included.</text>
+
+  <rect x="1025" y="789" width="775" height="135" rx="12" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+  <text x="1052" y="830" fill="#38BDF8" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Bug #3 (UX / Growth): Hash URLs (#/dtr/...) Strip X OpenGraph Cards</text>
+  <text x="1052" y="868" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">Add an in-app "Share on X" intent using canonical https://ssr.fun/r/&lt;pubkey&gt;</text>
+  <text x="1052" y="898" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">shortlinks so dynamic Reserve preview cards render on X.</text>
+
+  <text x="80" y="1025" fill="#64748B" font-family="Segoe UI, Arial, sans-serif" font-size="21">Audit &amp; Thesis by Marco Aurélio Sugamele (@Royalmmac) • Tested from São Paulo, Brazil • https://ssr.fun/leaderboard</text>
+</svg>
