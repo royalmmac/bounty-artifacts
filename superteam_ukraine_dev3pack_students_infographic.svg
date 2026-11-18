@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#0B1120"/>
+  <rect x="60" y="50" width="1800" height="8" rx="4" fill="#38BDF8"/>
+  <text x="80" y="140" fill="#FACC15" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2">SUPERTEAM UKRAINE x DEV3PACK x SOLANA FOUNDATION</text>
+  <text x="80" y="205" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="48" font-weight="800">From University Classroom to Solana Founder</text>
+  <text x="80" y="255" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="26">3-Pillar Student Pipeline: Bridge Accelerator • Global Hackathons • Equity-Free Instagrants</text>
+  <rect x="80" y="320" width="555" height="580" rx="18" fill="#162033" stroke="#38BDF8" stroke-width="2"/>
+  <text x="115" y="385" fill="#38BDF8" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">1. Bridge Accelerator</text>
+  <text x="115" y="440" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="22">• Structured Web2-to-Web3 fellowship</text>
+  <text x="115" y="485" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="22">• Direct mentorship by @dev3pack</text>
+  <text x="115" y="530" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="22">• Global student builder cohort</text>
+  <rect x="682" y="320" width="555" height="580" rx="18" fill="#162033" stroke="#FACC15" stroke-width="2"/>
+  <text x="717" y="385" fill="#FACC15" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">2. Global Hackathons</text>
+  <text x="717" y="440" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="22">• Dev3pack Global Hackathon</text>
+  <text x="717" y="485" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="22">• Colosseum Solana Hackathon</text>
+  <text x="717" y="530" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="22">• Ship real MVPs for pre-seed backing</text>
+  <rect x="1285" y="320" width="555" height="580" rx="18" fill="#162033" stroke="#14F195" stroke-width="2"/>
+  <text x="1320" y="385" fill="#14F195" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">3. Earn &amp; Instagrants</text>
+  <text x="1320" y="440" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="22">• Superteam Earn USDC/USDG bounties</text>
+  <text x="1320" y="485" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="22">• $1K–$10K equity-free Instagrants</text>
+  <text x="1320" y="530" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="22">• @SuperteamUKR career network</text>
+  <text x="80" y="1015" fill="#64748B" font-family="Segoe UI, Arial, sans-serif" font-size="21">Visual Summary by Marco Aurélio Sugamele (@Royalmmac) • @SuperteamUKR • @dev3pack • @solana</text>
+</svg>
