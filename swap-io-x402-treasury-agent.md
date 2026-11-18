@@ -2,9 +2,10 @@
 
 # FreelanceSplitBot: Building a Pay-Per-Quote Telegram Treasury Agent on Solana with Swap.io's x402 API
 
-*By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac)) • Substack: [`royalmmac.substack.com`](https://royalmmac.substack.com)*
+*By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac)) • Published on [Substack](https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay)*
 
 - **2-Minute Narrated Video Pitch on X (`@swapdotio` & `@Superteam`):** [`https://x.com/Royalmmac/status/2121123499494256753`](https://x.com/Royalmmac/status/2121123499494256753)
+- **Published Blog Article (Substack):** [`https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay`](https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay)
 - **Try Swap.io on Solana:** [`https://swap.io`](https://swap.io)
 - **Standalone Runnable Script in This Repo:** [`./swap_x402_demo.mjs`](./swap_x402_demo.mjs) (`node swap_x402_demo.mjs`)
 - **Onchain Verification (Solscan Mainnet Accounts Captured from Live `HTTP 402` Handshake):**
