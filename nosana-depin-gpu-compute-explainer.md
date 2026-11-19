@@ -4,7 +4,7 @@
 
 *By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac))*
 
-- **5-Part X Thread ([`@Royalmmac`]):** [`https://x.com/Royalmmac/status/2121298173377364185`](https://x.com/Royalmmac/status/2121298173377364185) -> [`https://x.com/Royalmmac/status/2121299476488822915`](https://x.com/Royalmmac/status/2121299476488822915)
+- **5-Part X Thread (`@Royalmmac`):** [`https://x.com/Royalmmac/status/2121298173377364185`](https://x.com/Royalmmac/status/2121298173377364185) -> [`https://x.com/Royalmmac/status/2121299476488822915`](https://x.com/Royalmmac/status/2121299476488822915)
 - **Website:** Nosana (`https://nosana.com`) • **Network:** Solana (`@nosana_ai` • `@solana`)
 - **Campaign Tags:** `#NOSvember` • `#CreatorChallenge`
 
@@ -53,3 +53,17 @@ Because Solana processes transactions in milliseconds for fractions of a cent, N
 - **Website:** [https://nosana.com](https://nosana.com)
 - **Official X:** [`@nosana_ai`](https://x.com/nosana_ai)
 - **Hashtags:** `#NOSvember` `#CreatorChallenge`
+
+
+---
+
+## 6. Beyond the Analogy: What Actually Happens Under the Hood When a Builder Clicks "Deploy"
+
+Analogies help newcomers get the big picture, but as an engineer, what makes Nosana compelling is how actual AI inference workloads execute on the grid:
+
+1. **Declarative JSON Job Definitions (Container-Native):**
+   - Instead of rewriting ML code for a proprietary cloud API, a builder defines an inference workload (such as `vLLM`, `Ollama`, `Llama-3`, `DeepSeek`, or a custom FastAPI container) in a clean **JSON Job Definition** specifying the Docker image, exposed ports, VRAM requirements, and model weights.
+2. **GPU Market Selection on Solana:**
+   - Not every inference task needs an enterprise H100. Nosana segments hardware into specialized **GPU Markets** (from high-VRAM consumer RTX 4090s to studio-grade GPUs), letting builders match the exact price/performance tier to their latency and throughput budget—measuring **cost per completed inference task** rather than raw hourly cloud markups.
+3. **Programmatic Orchestration via SDK & Agent Tooling:**
+   - Using Nosana's developer tooling (`@nosana/kit` SDK, CLI, and OpenAI-compatible inference endpoints), both human dev teams and autonomous onchain AI agents can spin up inference deployments, monitor node health, and settle compute micro-payments in `$NOS` directly on Solana.
