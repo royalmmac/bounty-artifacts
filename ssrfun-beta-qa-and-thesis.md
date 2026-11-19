@@ -102,3 +102,23 @@ After unlocking the Mainnet dApp via `/beta` (`/#/dtr/mainnet-beta-93`) and subm
 
 2. **Floating `MINT / Redeem` Action Pill Occludes the `RESERVE COMPOSITION` Table:**
    - On standard desktop viewports (`1280x800`), the fixed bottom `MINT | Redeem` pill (`position: fixed; bottom: ...`) sits directly on top of the `USDC 10.00%` row's `Weight` and `Price` columns inside `RESERVE COMPOSITION`, hiding table numbers as the user reads the asset breakdown. Adding `padding-bottom: 96px` to the composition container prevents the overlap.
+
+
+---
+
+### Bug Report #5 (Critical Architecture — Hardcoded Vercel Preview URL Triggers CORS Block & Infinite `All-Time Volume: Loading...` Across All Reserves)
+
+To verify whether the issues found on Reserve `#93` (`$KING`) were isolated or platform-wide, I audited all active Reserves across `https://ssr.fun/#/discover` (`BaldEagle $BEAGLE #97`, `KingintheNorth $KING #93`, `Voldemort $VOLDEMORT #96`, `Solana Core $CORE #94`, `Upnorthgamer $GAME #95`, and `One Approval Test Two $OAT2 #89`):
+
+1. **Cross-Origin Block on Hardcoded Preview Deployment (`ssr-mnfjzp7pd-ssr14.vercel.app`):**
+   - Every single Reserve card across `/#/discover` hangs indefinitely on **`All-Time Volume: Loading…`**.
+   - Inspecting the browser console and network trace reveals the exact root cause: the production bundle on `https://ssr.fun` fetches metadata from a **hardcoded Vercel preview deployment URL** instead of a relative path:
+     ```text
+     Access to fetch at 'https://ssr-mnfjzp7pd-ssr14.vercel.app/api/mainnet/reserve-metadata'
+     from origin 'https://ssr.fun' has been blocked by CORS policy:
+     No 'Access-Control-Allow-Origin' header is present on the requested resource.
+     ```
+   - **Fix:** Replace the hardcoded preview base URL (`https://ssr-mnfjzp7pd-ssr14.vercel.app`) with a relative origin path (`'/api/mainnet/reserve-metadata'`) in the frontend API client so production always queries `https://ssr.fun/api/mainnet/reserve-metadata` same-origin.
+
+2. **Systemic Single-Asset Oracle Failure Across Multiple Reserves (`$KING #93`, `$OAT2 #89`, `$GAME #95`):**
+   - Comparing working Reserves (`$BEAGLE #97` holding `USDC/SOL/SSR` at `$203.32` Market Cap; `$VOLDEMORT #96` at `$4.14`; `$CORE #94` at `$0.91`) against broken Reserves proves the oracle bug is systemic: **every Reserve holding `JTO`** (`$KING #93` and `$OAT2 #89`: *"No verified Pyth or Jupiter price for JTO right now"*) or unindexed meme tokens (`$GAME #95` holding `CYBERLEEK`) fails to compute total Reserve NAV and displays `Market Cap: Price unavailable`.
