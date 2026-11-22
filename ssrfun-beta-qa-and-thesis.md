@@ -5,6 +5,7 @@
 *By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac))*
 
 - **X Investment Thesis Thread (`@strategicsuperr`):** [`https://x.com/Royalmmac/status/2121123929565569133`](https://x.com/Royalmmac/status/2121123929565569133) & [`https://x.com/Royalmmac/status/2121334693484519497`](https://x.com/Royalmmac/status/2121334693484519497)
+- **Live Interactive 60/40 Barbell & Oracle Patch Simulator:** [`https://royalmmac.github.io/bounty-artifacts/ssrfun-barbell-simulator.html`](https://royalmmac.github.io/bounty-artifacts/ssrfun-barbell-simulator.html)
 - **Canonical Reserve Audited (`Reserve #93 - $KING`):** [`https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb`](https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb)
 - **Live Leaderboard Inspected (`16 Wallets · 5 Reserves` as of Nov 18, 2026):** [`https://ssr.fun/leaderboard`](https://ssr.fun/leaderboard)
 
