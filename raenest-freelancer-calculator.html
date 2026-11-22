@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raenest + Solana Cross-Border Freelancer Savings & 7% APY Vault Simulator</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --panel: #121929;
+      --card: #182236;
+      --border: #2a3957;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #7c3aed;
+      --accent2: #14f195;
+      --danger: #f43f5e;
+      --warn: #facc15;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+      background: radial-gradient(circle at top right, #1e1b4b 0%, var(--bg) 45%);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 32px 20px 64px;
+    }
+    .container { max-width: 1120px; margin: 0 auto; }
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(124, 58, 237, 0.2);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      color: #c4b5fd;
+      margin-bottom: 14px;
+    }
+    h1 { font-size: clamp(26px, 4vw, 38px); font-weight: 800; margin-bottom: 8px; }
+    .subtitle { color: var(--muted); font-size: 16px; max-width: 820px; margin-bottom: 28px; }
+    .grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 24px; }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+    }
+    .panel h2 { font-size: 19px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+    .field { margin-bottom: 20px; }
+    .field label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #cbd5e1; }
+    .field label span.val { color: var(--accent2); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 15px; }
+    select, input[type="range"] { width: 100%; }
+    select {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 11px 14px;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    input[type="range"] { accent-color: #8b5cf6; cursor: pointer; }
+    .asset-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .pill {
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .pill.active { background: #2e1065; border-color: #a78bfa; color: #fff; }
+    .note-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      background: rgba(20, 241, 149, 0.08);
+      border: 1px solid rgba(20, 241, 149, 0.3);
+      color: #d1fae5;
+    }
+    .note-box.warn {
+      background: rgba(250, 204, 21, 0.08);
+      border-color: rgba(250, 204, 21, 0.35);
+      color: #fef08a;
+    }
+    .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+    .kpi {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .kpi .num { font-size: 26px; font-weight: 800; margin-top: 4px; font-family: ui-monospace, Consolas, monospace; }
+    .kpi.bad .num { color: var(--danger); }
+    .kpi.good .num { color: var(--accent2); }
+    .kpi.highlight {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(124,58,237,0.22), rgba(20,241,149,0.14));
+      border-color: #8b5cf6;
+    }
+    .comp-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+    .comp-table th, .comp-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); text-align: left; }
+    .comp-table th { color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    .cta-bar {
+      margin-top: 24px;
+      padding: 22px 24px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #4c1d95, #1e1b4b);
+      border: 1px solid #8b5cf6;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--accent2);
+      color: #06281e;
+      font-weight: 800;
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: transform 0.15s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: center; }
+    footer a { color: #a78bfa; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">Interactive Engineering Tool • #StablecoinsonRaenest #RaenestBounty</div>
+    <h1>Raenest + Solana Cross-Border Freelancer Calculator</h1>
+    <p class="subtitle">
+      Model real annual savings when replacing slow SWIFT wires &amp; hidden FX spreads with <strong>Raenest Solana USDT/USDC (1:1 USD)</strong>, unified <strong>SOL/BTC/ETH</strong> custody, and <strong>up to 7% APY Stablecoin Vaults</strong>. Built by Marco Aurélio Sugamele (<code>@Royalmmac</code>).
+    </p>
+
+    <div class="grid">
+      <div class="panel">
+        <h2>1. Configure Your Remote Billing Profile</h2>
+
+        <div class="field">
+          <label for="corridor">Freelancer Corridor / Country</label>
+          <select id="corridor">
+            <option value="BR" selected>🇧🇷 Brazil (São Paulo — SWIFT Spread + IOF vs. Raenest)</option>
+            <option value="NG">🇳🇬 Nigeria (Lagos — Wire Delays &amp; P2P Spread vs. Raenest)</option>
+            <option value="AR">🇦🇷 Argentina (Buenos Aires — Correspondent Cuts vs. Raenest)</option>
+            <option value="PH">🇵🇭 Philippines (Manila — Wire Intermediary Fees vs. Raenest)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Monthly International Client Billing <span class="val" id="invoiceVal">$2,500 / mo</span></label>
+          <input type="range" id="invoice" min="500" max="15000" step="250" value="2500" />
+        </div>
+
+        <div class="field">
+          <label>Share Kept in Working Capital / Tax Reserve <span class="val" id="saveVal">30% ($750/mo)</span></label>
+          <input type="range" id="savePct" min="10" max="70" step="5" value="30" />
+        </div>
+
+        <div class="field">
+          <label>Primary Asset Deposited into Raenest Wallet</label>
+          <div class="asset-pills" id="assetPills">
+            <button class="pill active" data-asset="USDC">USDC (Solana)</button>
+            <button class="pill" data-asset="USDT">USDT (Solana)</button>
+            <button class="pill" data-asset="SOL">SOL (Native)</button>
+            <button class="pill" data-asset="BTC">BTC</button>
+            <button class="pill" data-asset="ETH">ETH</button>
+          </div>
+          <div id="assetNote" class="note-box">
+            <strong>Eligible for Raenest Vaults (Up to 7% APY):</strong> Depositing <strong>USDC</strong> via Solana settles in seconds with clean <strong>1:1 USD conversion</strong> and qualifies for up to 7.00% APY inside Raenest Vaults.
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>2. 12-Month Financial Impact (Legacy Rails vs. Raenest)</h2>
+
+        <div class="kpi-grid">
+          <div class="kpi bad">
+            <div class="label">12-Mo Legacy SWIFT &amp; FX Loss</div>
+            <div class="num" id="swiftLoss">-$1,536</div>
+          </div>
+          <div class="kpi good">
+            <div class="label">12-Mo Raenest Vault Yield (Up to 7%)</div>
+            <div class="num" id="vaultYield">+$347</div>
+          </div>
+          <div class="kpi highlight">
+            <div class="label">Total Net Annual Advantage with Raenest + Solana</div>
+            <div class="num" id="totalGain" style="color:#14f195; font-size:32px;">+$1,883 / year</div>
+            <div style="font-size:13px; color:#cbd5e1; margin-top:4px;" id="corridorSummary">
+              Eliminates 3–5 business day Friday wire delays + earns dollar yield while Virtual/Physical USD Cards cover AWS, Vercel &amp; daily spend.
+            </div>
+          </div>
+        </div>
+
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Legacy Correspondent Bank</th>
+              <th>Raenest + Solana</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Settlement Speed</td>
+              <td style="color:#fda4af;">3–5 Business Days</td>
+              <td style="color:#6ee7b7; font-weight:700;">~2 Seconds (Solana)</td>
+            </tr>
+            <tr>
+              <td>Inbound Conversion</td>
+              <td id="legacySpreadCell">4.38% FX + Wire Cut</td>
+              <td><strong>1:1 USD</strong> (USDC/USDT)</td>
+            </tr>
+            <tr>
+              <td>Reserve Yield</td>
+              <td>0.00% USD Checking</td>
+              <td id="apyCell"><strong>Up to 7.00% APY</strong> (Vault)</td>
+            </tr>
+            <tr>
+              <td>SaaS &amp; Global Spend</td>
+              <td>Extra International Card Tax</td>
+              <td><strong>Virtual &amp; Physical USD Cards</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="cta-bar">
+      <div>
+        <div style="font-weight:800; font-size:18px;">Ready to upgrade how you receive, save &amp; spend across borders?</div>
+        <div style="color:#cbd5e1; font-size:14px; margin-top:3px;">
+          Sign up on Raenest with campaign code <code>community</code> (Verified Creator Tag: <code>@royalmmac</code>)
+        </div>
+      </div>
+      <a class="btn" href="https://referral.raenest.com/WzbV/i?referral_code=community" target="_blank" rel="noopener">
+        Open Free Raenest Account →
+      </a>
+    </div>
+
+    <footer>
+      Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank">@Royalmmac</a>) •
+      Read full walkthrough on <a href="https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote" target="_blank">Substack</a> &amp;
+      <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/raenest-cross-border-guide.md" target="_blank">GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    const CORRIDORS = {
+      BR: { spreadPct: 0.0438, wireFixed: 18, note: "Models typical Brazilian correspondent wire ($18 intermediary cut + ~4.0% FX spread + 0.38% IOF) vs. Solana 1:1 USD + Raenest Vaults." },
+      NG: { spreadPct: 0.0420, wireFixed: 20, note: "Models typical Lagos SWIFT intermediary deductions ($20 + ~4.2% FX/P2P slippage) vs. direct Solana USDC/USDT on Raenest." },
+      AR: { spreadPct: 0.0480, wireFixed: 22, note: "Models Buenos Aires cross-border wire friction ($22 intermediary fee + ~4.8% spread) vs. borderless USD balances & Raenest Cards." },
+      PH: { spreadPct: 0.0390, wireFixed: 15, note: "Models Manila international contractor wire deductions ($15 + ~3.9% FX spread) vs. instant Solana settlement on Raenest." }
+    };
+
+    let selectedAsset = "USDC";
+    const corridorEl = document.getElementById("corridor");
+    const invoiceEl = document.getElementById("invoice");
+    const savePctEl = document.getElementById("savePct");
+
+    document.querySelectorAll("#assetPills .pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#assetPills .pill").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        selectedAsset = btn.dataset.asset;
+        recalc();
+      });
+    });
+
+    [corridorEl, invoiceEl, savePctEl].forEach((el) => el.addEventListener("input", recalc));
+
+    function fmt(n) {
+      return "$" + Math.round(n).toLocaleString("en-US");
+    }
+
+    function recalc() {
+      const c = CORRIDORS[corridorEl.value];
+      const monthly = Number(invoiceEl.value);
+      const saveRatio = Number(savePctEl.value) / 100;
+      const monthlySaved = monthly * saveRatio;
+
+      document.getElementById("invoiceVal").textContent = "$" + monthly.toLocaleString("en-US") + " / mo";
+      document.getElementById("saveVal").textContent = savePctEl.value + "% ($" + Math.round(monthlySaved).toLocaleString("en-US") + "/mo)";
+
+      const annualSwiftLoss = 12 * (monthly * c.spreadPct + c.wireFixed);
+      const isStable = selectedAsset === "USDC" || selectedAsset === "USDT";
+      const rMonthly = 0.07 / 12;
+
+      // Progressive monthly deposits compounding over 12 months
+      let vaultBalance = 0;
+      let principal = 0;
+      for (let m = 1; m <= 12; m++) {
+        vaultBalance = (vaultBalance + monthlySaved) * (isStable ? (1 + rMonthly) : 1);
+        principal += monthlySaved;
+      }
+      const vaultYield = vaultBalance - principal;
+      const netAdvantage = annualSwiftLoss + vaultYield;
+
+      document.getElementById("swiftLoss").textContent = "-" + fmt(annualSwiftLoss);
+      document.getElementById("vaultYield").textContent = "+" + fmt(vaultYield);
+      document.getElementById("totalGain").textContent = "+" + fmt(netAdvantage) + " / year";
+      document.getElementById("legacySpreadCell").textContent = (c.spreadPct * 100).toFixed(2) + "% FX + $" + c.wireFixed + "/wire";
+      document.getElementById("corridorSummary").textContent = c.note;
+
+      const noteBox = document.getElementById("assetNote");
+      const apyCell = document.getElementById("apyCell");
+      if (isStable) {
+        noteBox.className = "note-box";
+        noteBox.innerHTML = "<strong>Eligible for Raenest Vaults (Up to 7% APY):</strong> Depositing <strong>" + selectedAsset + "</strong> via Solana settles in seconds with clean <strong>1:1 USD conversion</strong> and qualifies for up to 7.00% APY inside Raenest Vaults.";
+        apyCell.innerHTML = "<strong>Up to 7.00% APY</strong> (USDT/USDC Vault)";
+      } else {
+        noteBox.className = "note-box warn";
+        noteBox.innerHTML = "<strong>Unified Crypto Custody Rule:</strong> You can deposit and hold <strong>" + selectedAsset + "</strong> directly in your Raenest wallet alongside BTC, ETH &amp; SOL—note that the <strong>up to 7% APY Vault yield applies specifically to eligible USDT &amp; USDC deposits</strong> (convert idle reserves to USDC/USDT to activate Vault APY!).";
+        apyCell.innerHTML = "0% on raw " + selectedAsset + " (Convert to USDC/USDT for 7% APY)";
+      }
+    }
+
+    recalc();
+  </script>
+</body>
+</html>
