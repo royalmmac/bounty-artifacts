@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SSR.FUN 60/40 Onchain Barbell Simulator & Resilient Oracle Architecture Demo</title>
+  <title>SSR.FUN 60/40 Onchain Barbell Simulator &amp; Mainnet Bug #4/#5 Engineering Demo</title>
+  <meta name="description" content="Interactive stress-test of our 60/40 Onchain Barbell Reserve thesis on SSR.FUN plus live reproduction of Mainnet Reserve #93 ($KING) JTO oracle & CORS fixes." />
   <style>
     :root {
       --bg: #080d17;
@@ -19,113 +20,151 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
       background: radial-gradient(circle at top left, #1e293b 0%, var(--bg) 48%);
       color: var(--text);
       padding: 30px 18px 60px;
       line-height: 1.5;
     }
-    .container { max-width: 1160px; margin: 0 auto; }
+    .container { max-width: 1180px; margin: 0 auto; }
     .badge {
       display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
       background: rgba(251,191,36,0.14); border: 1px solid rgba(251,191,36,0.4); color: var(--amber); margin-bottom: 12px;
     }
     h1 { font-size: clamp(24px, 3.6vw, 35px); font-weight: 800; margin-bottom: 8px; }
-    .sub { color: var(--muted); max-width: 860px; margin-bottom: 24px; font-size: 15px; }
-    .grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 22px; }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
-    .panel h2 { font-size: 18px; margin-bottom: 15px; }
-    .scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+    .sub { color: var(--muted); max-width: 880px; margin-bottom: 24px; font-size: 15px; }
+    .sub code { color: #e2e8f0; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 5px; }
+    .grid { display: grid; grid-template-columns: 1.04fr 1fr; gap: 22px; align-items: start; }
+    @media (max-width: 920px) { .grid { grid-template-columns: 1fr; } }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 22px; min-width: 0; }
+    .panel h2 { font-size: 18px; margin-bottom: 14px; }
+    .sliders { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    @media (max-width: 560px) { .sliders { grid-template-columns: 1fr; } }
+    .s-field label {
+      display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: #cbd5e1; margin-bottom: 5px;
+    }
+    .s-field label span { color: var(--amber); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    input[type="range"] { width: 100%; accent-color: var(--amber); cursor: pointer; }
+    .scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    @media (max-width: 540px) { .scenarios { grid-template-columns: 1fr; } }
     .sc-btn {
       background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 11px 12px;
-      border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; text-align: left;
+      border-radius: 10px; font-weight: 700; font-size: 12.8px; cursor: pointer; text-align: left; line-height: 1.35;
     }
     .sc-btn.active { border-color: var(--amber); background: #272013; }
-    .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    @media (max-width: 520px) { .kpis { grid-template-columns: 1fr; } }
     .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
     .kpi .lbl { font-size: 11.5px; color: var(--muted); text-transform: uppercase; }
-    .kpi .val { font-size: 24px; font-weight: 800; font-family: ui-monospace, Consolas, monospace; margin-top: 4px; }
+    .kpi .val { font-size: 22px; font-weight: 800; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin-top: 4px; }
     .oracle-box {
-      background: #0b111e; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-top: 12px;
+      background: #0b111e; border: 1px solid var(--border); border-radius: 12px; padding: 16px;
     }
-    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
     .switch-btn {
       background: var(--amber); color: #1c1300; border: none; padding: 8px 14px; border-radius: 8px;
       font-weight: 800; font-size: 12.5px; cursor: pointer;
     }
-    table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
-    th, td { padding: 8px 6px; border-bottom: 1px solid var(--border); text-align: left; }
-    th { color: var(--muted); font-size: 11.5px; text-transform: uppercase; }
-    footer { margin-top: 26px; text-align: center; font-size: 13px; color: var(--muted); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+    th, td { padding: 8px 6px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
+    th { color: var(--muted); font-size: 11px; text-transform: uppercase; }
+    td a { color: var(--blue); text-decoration: none; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
+    td a:hover { text-decoration: underline; }
+    .cors-box {
+      margin-top: 12px; padding: 10px 12px; border-radius: 9px; font-size: 12.2px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace; line-height: 1.45;
+    }
+    footer { margin-top: 26px; text-align: center; font-size: 13px; color: var(--muted); line-height: 1.7; }
     footer a { color: var(--amber); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="badge">SSR.FUN (@strategicsuperr) • Reserve Thesis &amp; Mainnet Bug #4 Oracle Patch Simulator</div>
-    <h1>60/40 Onchain Barbell NAV &amp; Resilient Oracle Demo</h1>
+    <div class="badge">SSR.FUN (@strategicsuperr) • Reserve Thesis &amp; Mainnet Bugs #4 &amp; #5 Patch Simulator</div>
+    <h1>Onchain Barbell NAV &amp; Resilient Reserve Architecture Demo</h1>
     <p class="sub">
-       Left: stress-test our <strong>60% Tokenized Equities/T-Bills + 40% Solana Growth</strong> Reserve thesis across macro regimes. Right: reproduce the live <strong>Reserve #93 (<code>$KING</code>) JTO oracle failure</strong> we found on Mainnet and see how our fallback NAV patch prevents <code>Market Cap: Price unavailable</code>.
+      Left: stress-test customizable <strong>Tokenized Equities/T-Bills + Solana Growth</strong> Reserve allocations across macro regimes. Right: reproduce the live <strong>Reserve #93 (<code>$KING</code>) JTO oracle cascade &amp; Vercel preview CORS block</strong> audited on Mainnet and inspect our proposed patches.
     </p>
 
     <div class="grid">
       <div class="panel">
-        <h2>1. Stress-Test 60/40 Barbell vs. 100% High-Beta Crypto ($10,000 Initial)</h2>
+        <h2>1. Stress-Test Onchain Barbell vs. 100% High-Beta Crypto</h2>
+
+        <div class="sliders">
+          <div class="s-field">
+            <label for="capInput">Initial Portfolio Capital <span id="capLabel">$10,000</span></label>
+            <input type="range" id="capInput" min="1000" max="100000" step="1000" value="10000" />
+          </div>
+          <div class="s-field">
+            <label for="eqWeight">Macro Anchor / Solana Split <span id="weightLabel">60% / 40%</span></label>
+            <input type="range" id="eqWeight" min="20" max="80" step="5" value="60" />
+          </div>
+        </div>
+
         <div class="scenarios" id="scBtns">
-          <button class="sc-btn active" data-sc="drawdown">📉 Crypto Risk-Off (-40% Crypto / +6% Equities+T-Bills)</button>
-          <button class="sc-btn" data-sc="bull">🚀 Solana Expansion (+85% Solana / +18% Equities)</button>
-          <button class="sc-btn" data-sc="chop">⚖️ Sideways Chop (-12% Crypto / +11% Tech &amp; Yield)</button>
-          <button class="sc-btn" data-sc="crash">🛡️ Severe Macro Shock (-55% Crypto / -8% Equities+Bills)</button>
+          <button type="button" class="sc-btn active" data-sc="drawdown">📉 Crypto Risk-Off (-40% Crypto / +6% Equities+T-Bills)</button>
+          <button type="button" class="sc-btn" data-sc="bull">🚀 Solana Expansion (+85% Solana / +18% Equities)</button>
+          <button type="button" class="sc-btn" data-sc="chop">⚖️ Sideways Chop (-12% Crypto / +11% Tech &amp; Yield)</button>
+          <button type="button" class="sc-btn" data-sc="crash">🛡️ Severe Macro Shock (-55% Crypto / -8% Equities+Bills)</button>
         </div>
 
         <div class="kpis">
           <div class="kpi">
             <div class="lbl">100% High-Beta Crypto Basket</div>
-            <div class="val" id="pureVal">$6,000 (-40.0%)</div>
+            <div class="val" id="pureVal" style="color:#f87171;">$6,000 (-40.0%)</div>
           </div>
           <div class="kpi">
-            <div class="lbl">SSR.FUN 60/40 Barbell Reserve</div>
-            <div class="val" id="barbellVal" style="color:#34d399;">$8,760 (-12.4%)</div>
+            <div class="lbl" id="barbellLbl">SSR.FUN 60/40 Barbell Reserve</div>
+            <div class="val" id="barbellVal" style="color:#fbbf24;">$8,760 (-12.4%)</div>
           </div>
         </div>
-        <div style="font-size:13.5px; color:#cbd5e1;" id="scNote"></div>
+        <div style="font-size:13.3px; color:#cbd5e1;" id="scNote"></div>
       </div>
 
       <div class="panel">
-        <h2>2. Live Mainnet Bug #4 Reproduction: Reserve #93 (<code>$KING</code>) Oracle Patch</h2>
+        <h2>2. Mainnet Bug #4 &amp; #5 Reproduction: Reserve #93 (<code>$KING</code>)</h2>
         <div class="oracle-box">
           <div class="toggle-row">
-            <span style="font-size:13.5px; font-weight:700;" id="modeTitle">Mode: Current SSR.FUN Frontend Behavior (Fails Open)</span>
-            <button class="switch-btn" id="patchBtn">Apply Proposed Fallback Patch →</button>
+            <span style="font-size:13px; font-weight:700;" id="modeTitle">Current SSR.FUN UI (Reserve #93 $KING — Unpatched)</span>
+            <button type="button" class="switch-btn" id="patchBtn">Apply Proposed Fallback Patch →</button>
           </div>
-          <div id="mcapBanner" style="padding:10px 12px; border-radius:8px; font-family:ui-monospace,Consolas,monospace; font-size:13.5px; margin-bottom:10px;"></div>
-          <table>
-            <thead>
-              <tr><th>Vault Asset</th><th>Weight</th><th>Oracle Status</th><th>Vault Value</th></tr>
-            </thead>
-            <tbody id="vaultRows"></tbody>
-          </table>
+          <div id="mcapBanner" style="padding:10px 12px; border-radius:8px; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:12.6px; margin-bottom:10px;"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Asset</th><th>Target Wt</th><th>SPL Vault</th><th>Oracle Feed</th><th>Vault TVL</th></tr>
+              </thead>
+              <tbody id="vaultRows"></tbody>
+            </table>
+          </div>
+          <div id="corsBanner" class="cors-box"></div>
         </div>
       </div>
     </div>
 
     <footer>
-      Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank">@Royalmmac</a>) •
-      <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/ssrfun-beta-qa-and-thesis.md" target="_blank">Read Full 5-Bug Mainnet QA Report on GitHub</a>
+      Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank" rel="noopener noreferrer">@Royalmmac</a>) •
+      <a href="https://x.com/Royalmmac/status/2121123929565569133" target="_blank" rel="noopener noreferrer">Read 4-Part Thesis &amp; QA Thread on X</a> •
+      <a href="https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb" target="_blank" rel="noopener noreferrer">Canonical Reserve #93 (<code>$KING</code>)</a> •
+      <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/ssrfun-beta-qa-and-thesis.md" target="_blank" rel="noopener noreferrer">Full 5-Bug Mainnet QA Report on GitHub</a>
     </footer>
   </div>
 
   <script>
     const SCENARIOS = {
-      drawdown: { eq: 0.06, sol: -0.40, note: "60% SPY/QQQ/NVDA + T-Bill anchor cushions drawdown by +$2,760 while keeping onchain liquidity ready to rebalance into discounted SOL/JUP." },
-      bull: { eq: 0.18, sol: 0.85, note: "Captures +44.8% net portfolio upside in a single SPL Reserve token with vastly lower volatility than unhedged altcoins." },
-      chop: { eq: 0.11, sol: -0.12, note: "Steady US tech & Treasury yield keeps the Reserve positive (+1.8%) even while pure crypto bleeds -12%." },
-      crash: { eq: -0.08, sol: -0.55, note: "Preserves +$2,820 more capital than 100% crypto (-26.8% vs. -55.0%), preventing forced liquidation." }
+      drawdown: { eq: 0.06, sol: -0.40, title: "Risk-Off Cushion" },
+      bull: { eq: 0.18, sol: 0.85, title: "Bull Cycle Capture" },
+      chop: { eq: 0.11, sol: -0.12, title: "Range-Bound Compounding" },
+      crash: { eq: -0.08, sol: -0.55, title: "Tail-Risk Preservation" }
     };
 
     let scKey = "drawdown";
     let patched = false;
+
+    const capEl = document.getElementById("capInput");
+    const eqEl = document.getElementById("eqWeight");
 
     document.querySelectorAll("#scBtns .sc-btn").forEach((b) => {
       b.addEventListener("click", () => {
@@ -136,26 +175,53 @@
       });
     });
 
+    [capEl, eqEl].forEach((el) => el.addEventListener("input", renderScenario));
+
+    function fmtPct(num) {
+      const clean = Math.abs(num) < 0.0005 ? 0 : num;
+      const sign = clean > 0 ? "+" : "";
+      return sign + (clean * 100).toFixed(1) + "%";
+    }
+
     function renderScenario() {
       const s = SCENARIOS[scKey];
-      const pure = 10000 * (1 + s.sol);
-      const barb = 10000 * (0.6 * (1 + s.eq) + 0.4 * (1 + s.sol));
-      const pPct = (s.sol * 100).toFixed(1);
-      const bPct = (((barb - 10000) / 10000) * 100).toFixed(1);
+      const cap = Number(capEl.value) || 10000;
+      const wEq = (Number(eqEl.value) || 60) / 100;
+      const wSol = +(1 - wEq).toFixed(2);
+
+      document.getElementById("capLabel").textContent = "$" + cap.toLocaleString("en-US");
+      document.getElementById("weightLabel").textContent = Math.round(wEq * 100) + "% / " + Math.round(wSol * 100) + "%";
+      document.getElementById("barbellLbl").textContent =
+        "SSR.FUN " + Math.round(wEq * 100) + "/" + Math.round(wSol * 100) + " Barbell Reserve";
+
+      const pure = cap * (1 + s.sol);
+      const barb = cap * (wEq * (1 + s.eq) + wSol * (1 + s.sol));
+      const pRel = s.sol;
+      const bRel = (barb - cap) / cap;
+      const delta = barb - pure;
 
       const pureEl = document.getElementById("pureVal");
-      pureEl.textContent = "$" + Math.round(pure).toLocaleString("en-US") + " (" + (pPct > 0 ? "+" : "") + pPct + "%)";
-      pureEl.style.color = pure >= 10000 ? "#34d399" : "#f87171";
+      pureEl.textContent = "$" + Math.round(pure).toLocaleString("en-US") + " (" + fmtPct(pRel) + ")";
+      pureEl.style.color = pure >= cap ? "#34d399" : "#f87171";
 
       const barbEl = document.getElementById("barbellVal");
-      barbEl.textContent = "$" + Math.round(barb).toLocaleString("en-US") + " (" + (bPct > 0 ? "+" : "") + bPct + "%)";
-      barbEl.style.color = barb >= 10000 ? "#34d399" : "#fbbf24";
+      barbEl.textContent = "$" + Math.round(barb).toLocaleString("en-US") + " (" + fmtPct(bRel) + ")";
+      barbEl.style.color = barb >= cap ? "#34d399" : "#fbbf24";
 
-      document.getElementById("scNote").textContent = s.note;
+      const signDelta = delta >= 0 ? "+$" + Math.round(delta).toLocaleString("en-US") : "-$" + Math.round(Math.abs(delta)).toLocaleString("en-US");
+      if (delta >= 0) {
+        document.getElementById("scNote").innerHTML =
+          "<strong>" + s.title + ":</strong> The " + Math.round(wEq * 100) + "% SPY/QQQ/NVDA + T-Bill anchor outperforms 100% crypto by <strong>" + signDelta + "</strong> while keeping single-token SPL liquidity ready to rebalance onchain.";
+      } else {
+        document.getElementById("scNote").innerHTML =
+          "<strong>" + s.title + ":</strong> Captures <strong>" + fmtPct(bRel) + "</strong> net portfolio upside (" +
+          "+$" + Math.round(barb - cap).toLocaleString("en-US") + " gain) inside one composable SPL Reserve token with dramatically lower drawdown risk than unhedged altcoins.";
+      }
     }
 
     function renderOracle() {
       const banner = document.getElementById("mcapBanner");
+      const corsBanner = document.getElementById("corsBanner");
       const rows = document.getElementById("vaultRows");
       const title = document.getElementById("modeTitle");
       const btn = document.getElementById("patchBtn");
@@ -166,22 +232,34 @@
         banner.style.background = "rgba(248,113,113,0.14)";
         banner.style.border = "1px solid #ef4444";
         banner.style.color = "#fecaca";
-        banner.textContent = "Market Cap: Price unavailable  |  Token Price: Price unavailable";
-        rows.innerHTML = '<tr><td>SOL (50%)</td><td>50.00%</td><td style="color:#34d399;">Pyth Live</td><td>$8.83</td></tr>' +
-          '<tr><td>JUP (25%)</td><td>25.00%</td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>' +
-          '<tr><td>JTO (15%)</td><td>15.00%</td><td style="color:#f87171; font-weight:700;">❌ Missing Price</td><td style="color:#f87171;">Breaks Total NAV</td></tr>' +
-          '<tr><td>USDC (10%)</td><td>10.00%</td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>';
+        banner.textContent = "Market Cap: Price unavailable  |  All-Time Volume: Loading…";
+
+        corsBanner.style.background = "rgba(248,113,113,0.10)";
+        corsBanner.style.border = "1px solid rgba(239,68,68,0.45)";
+        corsBanner.style.color = "#fca5a5";
+        corsBanner.textContent = "Bug #5 (CORS Block): GET https://ssr-mnfjzp7pd-ssr14.vercel.app/api/mainnet/reserve-metadata blocked from origin https://ssr.fun";
+
+        rows.innerHTML = '<tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5…SE7K</a></td><td style="color:#34d399;">Pyth Live</td><td>$8.52</td></tr>' +
+          '<tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp…8HvC</a></td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>' +
+          '<tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH…fATn</a></td><td style="color:#f87171; font-weight:700;">❌ Missing Price</td><td style="color:#f87171;">Breaks Total NAV</td></tr>' +
+          '<tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C…2dTP</a></td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>';
       } else {
-        title.textContent = "Patched SSR.FUN UI (Jupiter V6 Quote Fallback + Partial TVL)";
-        btn.textContent = "← Revert to Unpatched Bug";
+        title.textContent = "Patched SSR.FUN UI (Jupiter Quote Fallback + Relative API Origin)";
+        btn.textContent = "← Revert to Unpatched Bugs";
         banner.style.background = "rgba(16,185,129,0.15)";
         banner.style.border = "1px solid #10b981";
         banner.style.color = "#a7f3d0";
-        banner.textContent = "Market Cap: $18.69 (Verified + Fallback TWAP)  |  NAV Online ✅";
-        rows.innerHTML = '<tr><td>SOL (50%)</td><td>50.00%</td><td style="color:#34d399;">Pyth Live</td><td>$8.83</td></tr>' +
-          '<tr><td>JUP (25%)</td><td>25.00%</td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>' +
-          '<tr><td>JTO (15%)</td><td>15.00%</td><td style="color:#fbbf24; font-weight:700;">⚡ Jupiter Quote Fallback</td><td style="color:#34d399;">$2.72</td></tr>' +
-          '<tr><td>USDC (10%)</td><td>10.00%</td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>';
+        banner.textContent = "Market Cap: $18.38 ($15.66 Verified + $2.72 JTO Fallback)  |  Volume: Online ✅";
+
+        corsBanner.style.background = "rgba(16,185,129,0.10)";
+        corsBanner.style.border = "1px solid rgba(16,185,129,0.45)";
+        corsBanner.style.color = "#a7f3d0";
+        corsBanner.textContent = "Bug #5 Fixed: Same-origin fetch('/api/mainnet/reserve-metadata') resolves HTTP 200 without preview-deployment CORS failure.";
+
+        rows.innerHTML = '<tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5…SE7K</a></td><td style="color:#34d399;">Pyth Live</td><td>$8.52</td></tr>' +
+          '<tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp…8HvC</a></td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>' +
+          '<tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH…fATn</a></td><td style="color:#fbbf24; font-weight:700;">⚡ Jupiter Quote Fallback</td><td style="color:#34d399;">$2.72</td></tr>' +
+          '<tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C…2dTP</a></td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>';
       }
     }
 
