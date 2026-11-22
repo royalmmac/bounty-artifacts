@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSR.FUN 60/40 Onchain Barbell Simulator & Resilient Oracle Architecture Demo</title>
+  <style>
+    :root {
+      --bg: #080d17;
+      --panel: #11192b;
+      --card: #18233b;
+      --border: #2a3b5e;
+      --amber: #fbbf24;
+      --green: #10b981;
+      --blue: #60a5fa;
+      --red: #f87171;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+      background: radial-gradient(circle at top left, #1e293b 0%, var(--bg) 48%);
+      color: var(--text);
+      padding: 30px 18px 60px;
+      line-height: 1.5;
+    }
+    .container { max-width: 1160px; margin: 0 auto; }
+    .badge {
+      display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
+      background: rgba(251,191,36,0.14); border: 1px solid rgba(251,191,36,0.4); color: var(--amber); margin-bottom: 12px;
+    }
+    h1 { font-size: clamp(24px, 3.6vw, 35px); font-weight: 800; margin-bottom: 8px; }
+    .sub { color: var(--muted); max-width: 860px; margin-bottom: 24px; font-size: 15px; }
+    .grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 22px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+    .panel h2 { font-size: 18px; margin-bottom: 15px; }
+    .scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+    .sc-btn {
+      background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 11px 12px;
+      border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; text-align: left;
+    }
+    .sc-btn.active { border-color: var(--amber); background: #272013; }
+    .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+    .kpi .lbl { font-size: 11.5px; color: var(--muted); text-transform: uppercase; }
+    .kpi .val { font-size: 24px; font-weight: 800; font-family: ui-monospace, Consolas, monospace; margin-top: 4px; }
+    .oracle-box {
+      background: #0b111e; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-top: 12px;
+    }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .switch-btn {
+      background: var(--amber); color: #1c1300; border: none; padding: 8px 14px; border-radius: 8px;
+      font-weight: 800; font-size: 12.5px; cursor: pointer;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
+    th, td { padding: 8px 6px; border-bottom: 1px solid var(--border); text-align: left; }
+    th { color: var(--muted); font-size: 11.5px; text-transform: uppercase; }
+    footer { margin-top: 26px; text-align: center; font-size: 13px; color: var(--muted); }
+    footer a { color: var(--amber); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">SSR.FUN (@strategicsuperr) • Reserve Thesis &amp; Mainnet Bug #4 Oracle Patch Simulator</div>
+    <h1>60/40 Onchain Barbell NAV &amp; Resilient Oracle Demo</h1>
+    <p class="sub">
+       Left: stress-test our <strong>60% Tokenized Equities/T-Bills + 40% Solana Growth</strong> Reserve thesis across macro regimes. Right: reproduce the live <strong>Reserve #93 (<code>$KING</code>) JTO oracle failure</strong> we found on Mainnet and see how our fallback NAV patch prevents <code>Market Cap: Price unavailable</code>.
+    </p>
+
+    <div class="grid">
+      <div class="panel">
+        <h2>1. Stress-Test 60/40 Barbell vs. 100% High-Beta Crypto ($10,000 Initial)</h2>
+        <div class="scenarios" id="scBtns">
+          <button class="sc-btn active" data-sc="drawdown">📉 Crypto Risk-Off (-40% Crypto / +6% Equities+T-Bills)</button>
+          <button class="sc-btn" data-sc="bull">🚀 Solana Expansion (+85% Solana / +18% Equities)</button>
+          <button class="sc-btn" data-sc="chop">⚖️ Sideways Chop (-12% Crypto / +11% Tech &amp; Yield)</button>
+          <button class="sc-btn" data-sc="crash">🛡️ Severe Macro Shock (-55% Crypto / -8% Equities+Bills)</button>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="lbl">100% High-Beta Crypto Basket</div>
+            <div class="val" id="pureVal">$6,000 (-40.0%)</div>
+          </div>
+          <div class="kpi">
+            <div class="lbl">SSR.FUN 60/40 Barbell Reserve</div>
+            <div class="val" id="barbellVal" style="color:#34d399;">$8,760 (-12.4%)</div>
+          </div>
+        </div>
+        <div style="font-size:13.5px; color:#cbd5e1;" id="scNote"></div>
+      </div>
+
+      <div class="panel">
+        <h2>2. Live Mainnet Bug #4 Reproduction: Reserve #93 (<code>$KING</code>) Oracle Patch</h2>
+        <div class="oracle-box">
+          <div class="toggle-row">
+            <span style="font-size:13.5px; font-weight:700;" id="modeTitle">Mode: Current SSR.FUN Frontend Behavior (Fails Open)</span>
+            <button class="switch-btn" id="patchBtn">Apply Proposed Fallback Patch →</button>
+          </div>
+          <div id="mcapBanner" style="padding:10px 12px; border-radius:8px; font-family:ui-monospace,Consolas,monospace; font-size:13.5px; margin-bottom:10px;"></div>
+          <table>
+            <thead>
+              <tr><th>Vault Asset</th><th>Weight</th><th>Oracle Status</th><th>Vault Value</th></tr>
+            </thead>
+            <tbody id="vaultRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank">@Royalmmac</a>) •
+      <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/ssrfun-beta-qa-and-thesis.md" target="_blank">Read Full 5-Bug Mainnet QA Report on GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    const SCENARIOS = {
+      drawdown: { eq: 0.06, sol: -0.40, note: "60% SPY/QQQ/NVDA + T-Bill anchor cushions drawdown by +$2,760 while keeping onchain liquidity ready to rebalance into discounted SOL/JUP." },
+      bull: { eq: 0.18, sol: 0.85, note: "Captures +44.8% net portfolio upside in a single SPL Reserve token with vastly lower volatility than unhedged altcoins." },
+      chop: { eq: 0.11, sol: -0.12, note: "Steady US tech & Treasury yield keeps the Reserve positive (+1.8%) even while pure crypto bleeds -12%." },
+      crash: { eq: -0.08, sol: -0.55, note: "Preserves +$2,820 more capital than 100% crypto (-26.8% vs. -55.0%), preventing forced liquidation." }
+    };
+
+    let scKey = "drawdown";
+    let patched = false;
+
+    document.querySelectorAll("#scBtns .sc-btn").forEach((b) => {
+      b.addEventListener("click", () => {
+        document.querySelectorAll("#scBtns .sc-btn").forEach((x) => x.classList.remove("active"));
+        b.classList.add("active");
+        scKey = b.dataset.sc;
+        renderScenario();
+      });
+    });
+
+    function renderScenario() {
+      const s = SCENARIOS[scKey];
+      const pure = 10000 * (1 + s.sol);
+      const barb = 10000 * (0.6 * (1 + s.eq) + 0.4 * (1 + s.sol));
+      const pPct = (s.sol * 100).toFixed(1);
+      const bPct = (((barb - 10000) / 10000) * 100).toFixed(1);
+
+      const pureEl = document.getElementById("pureVal");
+      pureEl.textContent = "$" + Math.round(pure).toLocaleString("en-US") + " (" + (pPct > 0 ? "+" : "") + pPct + "%)";
+      pureEl.style.color = pure >= 10000 ? "#34d399" : "#f87171";
+
+      const barbEl = document.getElementById("barbellVal");
+      barbEl.textContent = "$" + Math.round(barb).toLocaleString("en-US") + " (" + (bPct > 0 ? "+" : "") + bPct + "%)";
+      barbEl.style.color = barb >= 10000 ? "#34d399" : "#fbbf24";
+
+      document.getElementById("scNote").textContent = s.note;
+    }
+
+    function renderOracle() {
+      const banner = document.getElementById("mcapBanner");
+      const rows = document.getElementById("vaultRows");
+      const title = document.getElementById("modeTitle");
+      const btn = document.getElementById("patchBtn");
+
+      if (!patched) {
+        title.textContent = "Current SSR.FUN UI (Reserve #93 $KING — Unpatched)";
+        btn.textContent = "Apply Proposed Fallback Patch →";
+        banner.style.background = "rgba(248,113,113,0.14)";
+        banner.style.border = "1px solid #ef4444";
+        banner.style.color = "#fecaca";
+        banner.textContent = "Market Cap: Price unavailable  |  Token Price: Price unavailable";
+        rows.innerHTML = '<tr><td>SOL (50%)</td><td>50.00%</td><td style="color:#34d399;">Pyth Live</td><td>$8.83</td></tr>' +
+          '<tr><td>JUP (25%)</td><td>25.00%</td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>' +
+          '<tr><td>JTO (15%)</td><td>15.00%</td><td style="color:#f87171; font-weight:700;">❌ Missing Price</td><td style="color:#f87171;">Breaks Total NAV</td></tr>' +
+          '<tr><td>USDC (10%)</td><td>10.00%</td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>';
+      } else {
+        title.textContent = "Patched SSR.FUN UI (Jupiter V6 Quote Fallback + Partial TVL)";
+        btn.textContent = "← Revert to Unpatched Bug";
+        banner.style.background = "rgba(16,185,129,0.15)";
+        banner.style.border = "1px solid #10b981";
+        banner.style.color = "#a7f3d0";
+        banner.textContent = "Market Cap: $18.69 (Verified + Fallback TWAP)  |  NAV Online ✅";
+        rows.innerHTML = '<tr><td>SOL (50%)</td><td>50.00%</td><td style="color:#34d399;">Pyth Live</td><td>$8.83</td></tr>' +
+          '<tr><td>JUP (25%)</td><td>25.00%</td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>' +
+          '<tr><td>JTO (15%)</td><td>15.00%</td><td style="color:#fbbf24; font-weight:700;">⚡ Jupiter Quote Fallback</td><td style="color:#34d399;">$2.72</td></tr>' +
+          '<tr><td>USDC (10%)</td><td>10.00%</td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>';
+      }
+    }
+
+    document.getElementById("patchBtn").addEventListener("click", () => {
+      patched = !patched;
+      renderOracle();
+    });
+
+    renderScenario();
+    renderOracle();
+  </script>
+</body>
+</html>
