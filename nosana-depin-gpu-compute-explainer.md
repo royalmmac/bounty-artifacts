@@ -5,6 +5,7 @@
 *By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac))*
 
 - **5-Part X Thread (`@Royalmmac`):** [`https://x.com/Royalmmac/status/2121298173377364185`](https://x.com/Royalmmac/status/2121298173377364185) -> [`https://x.com/Royalmmac/status/2121299476488822915`](https://x.com/Royalmmac/status/2121299476488822915)
+- **Live Interactive GPU Cost & JSON Job Builder:** [`https://royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html`](https://royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html)
 - **Website:** Nosana (`https://nosana.com`) • **Network:** Solana (`@nosana_ai` • `@solana`)
 - **Campaign Tags:** `#NOSvember` • `#CreatorChallenge`
 
@@ -53,7 +54,6 @@ Because Solana processes transactions in milliseconds for fractions of a cent, N
 - **Website:** [https://nosana.com](https://nosana.com)
 - **Official X:** [`@nosana_ai`](https://x.com/nosana_ai)
 - **Hashtags:** `#NOSvember` `#CreatorChallenge`
-
 
 ---
 
