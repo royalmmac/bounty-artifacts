@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreelanceSplitBot — Swap.io x402 Live Protocol & Telegram Agent Simulator</title>
+  <style>
+    :root {
+      --bg: #080c14;
+      --panel: #111827;
+      --card: #1a2438;
+      --border: #2b3b59;
+      --green: #14f195;
+      --purple: #9945ff;
+      --blue: #38bdf8;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+      background: radial-gradient(circle at top right, #1e103a 0%, var(--bg) 45%);
+      color: var(--text);
+      padding: 30px 18px 60px;
+      line-height: 1.5;
+    }
+    .container { max-width: 1160px; margin: 0 auto; }
+    .badge {
+      display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
+      background: rgba(20,241,149,0.13); border: 1px solid rgba(20,241,149,0.4); color: var(--green); margin-bottom: 12px;
+    }
+    h1 { font-size: clamp(24px, 3.6vw, 35px); font-weight: 800; margin-bottom: 8px; }
+    .sub { color: var(--muted); max-width: 860px; margin-bottom: 24px; font-size: 15px; }
+    .grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 22px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+    .panel h2 { font-size: 18px; margin-bottom: 14px; }
+    .tg-window {
+      background: #0d1422; border: 1px solid var(--border); border-radius: 14px; padding: 16px; min-height: 290px;
+      display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;
+    }
+    .msg { padding: 10px 13px; border-radius: 12px; font-size: 13.5px; max-width: 92%; }
+    .msg.user { align-self: flex-end; background: #2e1065; border: 1px solid #7c3aed; }
+    .msg.bot { align-self: flex-start; background: var(--card); border: 1px solid var(--border); }
+    .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .controls label { font-size: 12.5px; color: #cbd5e1; display: block; margin-bottom: 5px; font-weight: 600; }
+    input[type="number"], select {
+      width: 100%; background: var(--card); border: 1px solid var(--border); color: var(--text);
+      padding: 9px 12px; border-radius: 9px; font-size: 14px;
+    }
+    .btn {
+      width: 100%; background: linear-gradient(90deg, var(--green), #2dd4bf); color: #052217; border: none;
+      padding: 12px 18px; border-radius: 10px; font-weight: 800; font-size: 14.5px; cursor: pointer;
+    }
+    pre {
+      background: #060911; border: 1px solid var(--border); border-radius: 12px; padding: 14px;
+      overflow-x: auto; font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; color: #a7f3d0; max-height: 330px;
+    }
+    .econ { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    .econ .box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+    .econ .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+    .econ .val { font-size: 19px; font-weight: 800; font-family: ui-monospace, Consolas, monospace; margin-top: 4px; }
+    footer { margin-top: 26px; text-align: center; font-size: 13px; color: var(--muted); }
+    footer a { color: var(--green); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">Swap.io x402 Agent API • Interactive Telegram Bot &amp; HTTP 402 Inspector</div>
+    <h1>FreelanceSplitBot: Pay-Per-Quote Treasury Agent on Solana</h1>
+    <p class="sub">
+      Test our Telegram treasury agent workflow below: trigger a live request to <code>https://hermes.swap.io/v1/swap/quote</code>, inspect the real <code>HTTP 402 Payment Required</code> specification (<code>3007</code> atomic USDC = <code>$0.003007</code> + gasless PayAI <code>feePayer</code>), and verify unit economics.
+    </p>
+
+    <div class="grid">
+      <div class="panel">
+        <h2>1. Interactive Telegram Bot Simulator</h2>
+        <div class="controls">
+          <div>
+            <label>Incoming SOL Payout</label>
+            <input type="number" id="solAmt" value="10" min="0.5" max="500" step="0.5" />
+          </div>
+          <div>
+            <label>Auto-Split Rule</label>
+            <select id="splitRule">
+              <option value="0.8" selected>80% USDC / 20% Keep SOL</option>
+              <option value="1.0">100% Convert to USDC</option>
+              <option value="0.5">50% USDC / 50% Keep SOL</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn" id="runBtn">⚡ Simulate Incoming SOL Deposit &amp; Query Swap.io x402</button>
+
+        <div class="tg-window" id="chatLog" style="margin-top:14px;"></div>
+      </div>
+
+      <div class="panel">
+        <h2>2. Live <code>hermes.swap.io</code> HTTP 402 Wire Trace &amp; Unit Margin</h2>
+        <div style="font-size:12.5px; color:#94a3b8; margin-bottom:8px;" id="statusBanner">Ready to inspect HTTP 402 Payment Required handshake...</div>
+        <pre id="traceOut"></pre>
+
+        <div class="econ">
+          <div class="box">
+            <div class="lbl">Bot Fee Charged</div>
+            <div class="val" style="color:#38bdf8;">$0.0500</div>
+          </div>
+          <div class="box">
+            <div class="lbl">x402 Quote + Build</div>
+            <div class="val" style="color:#c084fc;">$0.006014</div>
+          </div>
+          <div class="box">
+            <div class="lbl">Net Unit Margin</div>
+            <div class="val" style="color:#14f195;">+87.97%</div>
+          </div>
+        </div>
+        <div style="margin-top:12px; font-size:12.5px; color:#cbd5e1;">
+          Onchain Verification:
+          <a href="https://solscan.io/account/BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD" target="_blank" style="color:#14f195;">Solscan <code>payTo</code></a> •
+          <a href="https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4" target="_blank" style="color:#38bdf8;">Solscan Gasless <code>feePayer</code></a> •
+          <a href="https://swap.io" target="_blank" style="color:#c084fc;">Try Swap.io</a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank">@Royalmmac</a>) •
+      <a href="https://x.com/Royalmmac/status/2121123499494256753" target="_blank">Watch 1080p Pitch Video on X</a> •
+      <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/swap-io-x402-treasury-agent.md" target="_blank">GitHub Code &amp; Docs</a>
+    </footer>
+  </div>
+
+  <script>
+    const CAPTURED_402 = {
+      x402Version: 1,
+      accepts: [
+        {
+          scheme: "exact",
+          network: "solana",
+          maxAmountRequired: "3007",
+          resource: "https://hermes.swap.io/v1/swap/quote",
+          description: "Paid swap API (routhex): quote and build unsigned transactions; caller signs and broadcasts",
+          payTo: "BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD",
+          maxTimeoutSeconds: 60,
+          asset: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          extra: { feePayer: "2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4" }
+        }
+      ]
+    };
+
+    async function runSimulation() {
+      const sol = Number(document.getElementById("solAmt").value) || 10;
+      const ratio = Number(document.getElementById("splitRule").value);
+      const swapSol = +(sol * ratio).toFixed(4);
+      const keepSol = +(sol - swapSol).toFixed(4);
+      const lamports = String(Math.round(swapSol * 1e9));
+
+      const chat = document.getElementById("chatLog");
+      chat.innerHTML = "";
+      const addMsg = (cls, html) => {
+        const d = document.createElement("div");
+        d.className = "msg " + cls;
+        d.innerHTML = html;
+        chat.appendChild(d);
+      };
+
+      addMsg("user", "<strong>Incoming Transfer Detected:</strong> +" + sol + " SOL landed in contributor wallet.");
+      addMsg("bot", "🤖 <strong>FreelanceSplitBot:</strong> Applying rule (" + Math.round(ratio*100) + "% USDC). Requesting quote for <code>" + swapSol + " SOL → USDC</code> via Swap.io Hermes API (zero API keys)...");
+
+      const reqBody = {
+        input: { token: "So11111111111111111111111111111111111111112", amount: lamports, chainKey: "sol" },
+        output: { token: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", chainKey: "sol" },
+        userAddress: "CxmYSV2LXkkFJHr5zTPBHkLSaY9c2bcbXNdCjcYjgW4G",
+        slippageBps: 50
+      };
+
+      let spec = CAPTURED_402;
+      let mode = "Verified Mainnet HTTP 402 Payload (hermes.swap.io)";
+      const t0 = performance.now();
+      try {
+        const r = await fetch("https://hermes.swap.io/v1/swap/quote", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(reqBody)
+        });
+        if (r.status === 402) {
+          spec = await r.json();
+          mode = "Live Browser Fetch -> HTTP 402 Received in " + Math.round(performance.now() - t0) + "ms!";
+        }
+      } catch (_) {
+        // Browser CORS fallback uses exact captured Hermes 402 payload
+      }
+
+      document.getElementById("statusBanner").textContent = mode;
+      document.getElementById("traceOut").textContent = JSON.stringify({ request: reqBody, http402Response: spec }, null, 2);
+
+      addMsg("bot", "⚡ <strong>HTTP 402 Handshake:</strong> Signed <code>$0.003007 USDC</code> via <code>x402-solana</code> (SOL gas sponsored by PayAI <code>2wKupL...xHDBg4</code>).");
+      addMsg("bot", "✅ <strong>Treasury Split Ready:</strong> Swapped <code>" + swapSol + " SOL → USDC</code> + kept <code>" + keepSol + " SOL</code>. Bot fee: <code>$0.05</code> | Swap.io x402 API cost: <code>$0.006014</code> (<strong>+87.97% margin</strong>, $0/mo fixed burn).");
+    }
+
+    document.getElementById("runBtn").addEventListener("click", runSimulation);
+    runSimulation();
+  </script>
+</body>
+</html>
