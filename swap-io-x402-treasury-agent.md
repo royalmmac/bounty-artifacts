@@ -5,6 +5,7 @@
 *By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac)) • Published on [Substack](https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay)*
 
 - **2-Minute Narrated Video Pitch on X (`@swapdotio` & `@Superteam`):** [`https://x.com/Royalmmac/status/2121123499494256753`](https://x.com/Royalmmac/status/2121123499494256753)
+- **Live Interactive Telegram Bot & x402 Inspector Web App:** [`https://royalmmac.github.io/bounty-artifacts/freelance-split-bot-demo.html`](https://royalmmac.github.io/bounty-artifacts/freelance-split-bot-demo.html)
 - **Published Blog Article (Substack):** [`https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay`](https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay)
 - **Try Swap.io on Solana:** [`https://swap.io`](https://swap.io)
 - **Standalone Runnable Script in This Repo:** [`./swap_x402_demo.mjs`](./swap_x402_demo.mjs) (`node swap_x402_demo.mjs`)
@@ -120,15 +121,15 @@ async function verifySwapIoX402() {
   });
   const latencyMs = Date.now() - t0;
 
-  if (res.status !== 402) throw new Error(`Expected HTTP 402, got ${res.status}`);
+  if (res.status !== 402) throw new Error("Expected HTTP 402, got " + res.status);
 
   const x402Spec = await res.json();
   const solanaRail = x402Spec.accepts.find((r) => r.network === "solana");
   const quoteCostUsdc = Number(solanaRail.maxAmountRequired) / 1e6;
 
-  console.log(`HTTP ${res.status} (${latencyMs}ms) | Price: $${quoteCostUsdc.toFixed(6)} USDC`);
-  console.log(`Recipient : https://solscan.io/account/${solanaRail.payTo}`);
-  console.log(`Fee Payer : https://solscan.io/account/${solanaRail.extra.feePayer}`);
+  console.log("HTTP " + res.status + " (" + latencyMs + "ms) | Price: $" + quoteCostUsdc.toFixed(6) + " USDC");
+  console.log("Recipient : https://solscan.io/account/" + solanaRail.payTo);
+  console.log("Fee Payer : https://solscan.io/account/" + solanaRail.extra.feePayer);
 }
 
 verifySwapIoX402().catch(console.error);
