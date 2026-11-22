@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosana DePIN GPU Grid — Interactive Job Definition Builder & Inference Cost Benchmark</title>
+  <style>
+    :root {
+      --bg: #070b12;
+      --panel: #101724;
+      --card: #162032;
+      --border: #26354d;
+      --green: #10f56c;
+      --cyan: #38bdf8;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+      background: radial-gradient(circle at top left, #072618 0%, var(--bg) 42%);
+      color: var(--text);
+      padding: 32px 20px 64px;
+      line-height: 1.5;
+    }
+    .container { max-width: 1160px; margin: 0 auto; }
+    .badge {
+      display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.06em; background: rgba(16,245,108,0.14); border: 1px solid rgba(16,245,108,0.4); color: var(--green);
+      margin-bottom: 12px;
+    }
+    h1 { font-size: clamp(25px, 3.8vw, 36px); font-weight: 800; margin-bottom: 8px; }
+    .sub { color: var(--muted); max-width: 850px; margin-bottom: 26px; font-size: 15.5px; }
+    .grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 22px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+    .panel h2 { font-size: 18px; margin-bottom: 16px; color: #e2e8f0; }
+    .field { margin-bottom: 18px; }
+    .field label { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; color: #cbd5e1; margin-bottom: 7px; }
+    .field label span { color: var(--green); font-family: ui-monospace, Consolas, monospace; }
+    select, input[type="range"] { width: 100%; }
+    select { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 10px 12px; border-radius: 10px; font-size: 14px; }
+    input[type="range"] { accent-color: var(--green); cursor: pointer; }
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+    @media (max-width: 600px) { .kpis { grid-template-columns: 1fr; } }
+    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+    .kpi .lbl { font-size: 11.5px; color: var(--muted); text-transform: uppercase; }
+    .kpi .val { font-size: 23px; font-weight: 800; margin-top: 4px; font-family: ui-monospace, Consolas, monospace; }
+    pre {
+      background: #06090f; border: 1px solid var(--border); border-radius: 12px; padding: 15px;
+      overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12.8px; color: #a7f3d0;
+      max-height: 340px;
+    }
+    .copy-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .btn {
+      background: var(--green); color: #042411; border: none; padding: 8px 14px; border-radius: 8px;
+      font-weight: 700; font-size: 13px; cursor: pointer;
+    }
+    footer { margin-top: 26px; text-align: center; font-size: 13px; color: var(--muted); }
+    footer a { color: var(--green); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">#NOSvember #CreatorChallenge • Interactive Solana DePIN Tool</div>
+    <h1>Nosana GPU Inference Cost Benchmark &amp; JSON Job Builder</h1>
+    <p class="sub">
+      Training happens once—inference runs 24/7. Configure an open-source AI container below to generate a ready-to-deploy <strong>Nosana JSON Job Definition</strong> (<code>ops</code> spec + <code>@nosana/kit</code> CLI command) and compare real monthly compute burn against legacy hyperscalers.
+    </p>
+
+    <div class="grid">
+      <div class="panel">
+        <h2>1. Select Inference Workload &amp; Nosana GPU Market</h2>
+
+        <div class="field">
+          <label for="workload">Containerized AI Inference Template</label>
+          <select id="workload">
+            <option value="vllm" selected>vLLM OpenAI Server — Meta Llama-3.3-70B-Instruct (AWQ)</option>
+            <option value="deepseek">Ollama Inference — DeepSeek-R1-Distill-Qwen-32B</option>
+            <option value="sdxl">ComfyUI / FastAPI — Flux.1 / SDXL Image Generation API</option>
+            <option value="agent">Autonomous Solana AI Agent Worker (Tool-Calling + RAG)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="gpu">Nosana GPU Market Tier (Solana Mainnet)</label>
+          <select id="gpu">
+            <option value="4090" selected>NVIDIA GeForce RTX 4090 (24 GB VRAM) — High Throughput Consumer Tier</option>
+            <option value="3090">NVIDIA GeForce RTX 3090 (24 GB VRAM) — Budget Inference Tier</option>
+            <option value="a100">NVIDIA A100 PCIe/SXM (80 GB VRAM) — Enterprise Multi-Batch Tier</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Active Inference Hours per Day <span id="hrsLabel">16 hrs / day</span></label>
+          <input type="range" id="hours" min="1" max="24" step="1" value="16" />
+        </div>
+
+        <div class="field">
+          <label>Concurrent Replica Nodes on Grid <span id="nodesLabel">2 GPU Nodes</span></label>
+          <input type="range" id="nodes" min="1" max="10" step="1" value="2" />
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="lbl">Hyperscaler Cloud</div>
+            <div class="val" id="cloudCost" style="color:#fb7185;">$1,497/mo</div>
+          </div>
+          <div class="kpi">
+            <div class="lbl">Nosana DePIN Grid</div>
+            <div class="val" id="nosCost" style="color:#10f56c;">$336/mo</div>
+          </div>
+          <div class="kpi">
+            <div class="lbl">Net Compute Saved</div>
+            <div class="val" id="savedPct" style="color:#38bdf8;">77.6% (~$1,161)</div>
+          </div>
+        </div>
+        <div style="font-size:13px; color:#94a3b8;" id="nosTokenNote"></div>
+      </div>
+
+      <div class="panel">
+        <div class="copy-row">
+          <h2 style="margin:0;">2. Generated Nosana JSON Job Definition &amp; CLI</h2>
+          <button class="btn" id="copyBtn">Copy JSON Spec</button>
+        </div>
+        <pre id="jsonOut"></pre>
+        <div style="margin-top:12px;">
+          <div style="font-size:12.5px; color:#94a3b8; margin-bottom:6px;">Deploy on Solana via Nosana CLI / <code>@nosana/kit</code>:</div>
+          <pre id="cliOut" style="color:#38bdf8; padding:11px 14px;"></pre>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Created by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank">@Royalmmac</a>) •
+      <a href="https://x.com/Royalmmac/status/2121298173377364185" target="_blank">Read the 5-Part #NOSvember Thread</a> •
+      <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/nosana-depin-gpu-compute-explainer.md" target="_blank">Architecture Write-Up on GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    const WORKLOADS = {
+      vllm: {
+        id: "llama3-70b-vllm-openai",
+        image: "docker.io/vllm/vllm-openai:latest",
+        port: 8000,
+        cmd: ["--model", "hugging-quants/Meta-Llama-3.3-70B-Instruct-AWQ-INT4", "--quantization", "awq", "--max-model-len", "8192"]
+      },
+      deepseek: {
+        id: "deepseek-r1-32b-ollama",
+        image: "docker.io/ollama/ollama:latest",
+        port: 11434,
+        cmd: ["serve"]
+      },
+      sdxl: {
+        id: "flux-sdxl-inference-api",
+        image: "docker.io/nosana/sdxl-fastapi:latest",
+        port: 7860,
+        cmd: ["python3", "server.py", "--listen", "0.0.0.0", "--port", "7860"]
+      },
+      agent: {
+        id: "solana-autonomous-agent-worker",
+        image: "ghcr.io/nosana-ci/agent-inference-runtime:latest",
+        port: 8080,
+        cmd: ["node", "dist/agent-worker.js", "--rpc", "https://api.mainnet-beta.solana.com"]
+      }
+    };
+
+    const GPUS = {
+      "4090": { market: "nvidia-4090", nosRateHr: 0.35, cloudRateHr: 1.56, vram: 24 },
+      "3090": { market: "nvidia-3090", nosRateHr: 0.20, cloudRateHr: 1.05, vram: 24 },
+      "a100": { market: "nvidia-a100-80gb", nosRateHr: 1.15, cloudRateHr: 4.10, vram: 80 }
+    };
+
+    const NOS_USD = 0.36;
+    const wEl = document.getElementById("workload");
+    const gEl = document.getElementById("gpu");
+    const hEl = document.getElementById("hours");
+    const nEl = document.getElementById("nodes");
+
+    [wEl, gEl, hEl, nEl].forEach((el) => el.addEventListener("input", render));
+
+    function render() {
+      const w = WORKLOADS[wEl.value];
+      const g = GPUS[gEl.value];
+      const hrs = Number(hEl.value);
+      const nodes = Number(nEl.value);
+
+      document.getElementById("hrsLabel").textContent = hrs + " hrs / day";
+      document.getElementById("nodesLabel").textContent = nodes + " GPU Node" + (nodes > 1 ? "s" : "");
+
+      const monthlyHrs = hrs * 30 * nodes;
+      const cloudMonthly = monthlyHrs * g.cloudRateHr;
+      const nosMonthly = monthlyHrs * g.nosRateHr;
+      const saved = cloudMonthly - nosMonthly;
+      const pct = ((saved / cloudMonthly) * 100).toFixed(1);
+      const nosTokens = Math.round(nosMonthly / NOS_USD).toLocaleString("en-US");
+
+      document.getElementById("cloudCost").textContent = "$" + Math.round(cloudMonthly).toLocaleString("en-US") + "/mo";
+      document.getElementById("nosCost").textContent = "$" + Math.round(nosMonthly).toLocaleString("en-US") + "/mo";
+      document.getElementById("savedPct").textContent = pct + "% (-$" + Math.round(saved).toLocaleString("en-US") + ")";
+      document.getElementById("nosTokenNote").innerHTML =
+        "Settled per-job on Solana in <strong>$NOS</strong> (~<code>" + nosTokens + " NOS/mo</code> across " + monthlyHrs + " total GPU hours at $" + g.nosRateHr.toFixed(2) + "/hr vs. $" + g.cloudRateHr.toFixed(2) + "/hr legacy cloud instance). Zero monthly lock-in.";
+
+      const jobSpec = {
+        version: "0.1",
+        type: "container",
+        meta: { trigger: "cli", market: g.market, replicas: nodes },
+        ops: [
+          {
+            type: "container/run",
+            id: w.id,
+            args: {
+              image: w.image,
+              gpu: true,
+              cmd: w.cmd,
+              expose: w.port,
+              resources: { min_vram_gb: g.vram }
+            }
+          }
+        ]
+      };
+
+      document.getElementById("jsonOut").textContent = JSON.stringify(jobSpec, null, 2);
+      document.getElementById("cliOut").textContent =
+        "npx @nosana/cli job post --file ./" + w.id + ".json --market " + g.market + " --timeout " + (hrs * 60);
+    }
+
+    document.getElementById("copyBtn").addEventListener("click", () => {
+      navigator.clipboard.writeText(document.getElementById("jsonOut").textContent);
+      const b = document.getElementById("copyBtn");
+      b.textContent = "Copied!";
+      setTimeout(() => (b.textContent = "Copy JSON Spec"), 1500);
+    });
+
+    render();
+  </script>
+</body>
+</html>
