@@ -123,3 +123,24 @@ To verify whether the issues found on Reserve `#93` (`$KING`) were isolated or p
 
 2. **Systemic Single-Asset Oracle Failure Across Multiple Reserves (`$KING #93`, `$OAT2 #89`, `$GAME #95`):**
    - Comparing working Reserves (`$BEAGLE #97` holding `USDC/SOL/SSR` at `$203.32` Market Cap; `$VOLDEMORT #96` at `$4.14`; `$CORE #94` at `$0.91`) against broken Reserves proves the oracle bug is systemic: **every Reserve holding `JTO`** (`$KING #93` and `$OAT2 #89`: *"No verified Pyth or Jupiter price for JTO right now"*) or unindexed meme tokens (`$GAME #95` holding `CYBERLEEK`) fails to compute total Reserve NAV and displays `Market Cap: Price unavailable`.
+
+
+---
+
+## Part 3: Longitudinal Mainnet Progression & Tokenized Equity (`RWA`) Onboarding Analysis (`Nov 13 → Nov 18 → Nov 23, 2026`)
+
+To track how actual Mainnet creators and liquidity behaved across the Beta Launch window, I monitored `/leaderboard` and `/#/discover` across three separate checkpoints:
+
+| Checkpoint Date | Signed-Up Wallets | Active Reserves | Notable Mainnet State & Top Reserves Observed |
+| :--- | :---: | :---: | :--- |
+| **Nov 13, 2026** | `6` | `2` | Early campaign launch; initial Reserve discovery & root `/` Beta Key funnel friction identified. |
+| **Nov 18, 2026** | `16` | `5` | `BaldEagle ($BEAGLE #97)` leads at `$207.21` volume; systemic `JTO` oracle failure caught on `$KING #93` & `$OAT2 #89`. |
+| **Nov 23, 2026** | `18` | `9` | `@MonachusMercati` leads total trader volume (`$329.42`) and PnL with `SOLANA AI INFRASTRUCTURE RESERVE ($SAIR)` at `+5.98%`; `BaldEagle ($BEAGLE)` holds `$207.21` Reserve volume. |
+
+### Architectural Recommendation #6 (Closing the Tokenized Equity Adoption Gap on Reserves `#27–#38`)
+- **Live Mainnet Observation (`Nov 23, 2026`):**
+  - SSR.FUN's core value proposition is combining native Solana tokens with **800+ tokenized stocks and ETFs** (`NVDAx`, `TSLAx`, `SPYx`, `SPCXx`).
+  - However, inspecting the full `/#/discover` Reserve directory on `Nov 23` reveals a striking split: **100% of the actively funded campaign Reserves** (`$BEAGLE #97`, `$SAIR`, `$KING #93`, `$VOLDEMORT #96`, `$CORE #94`) hold purely crypto-native assets (`USDC`, `SOL`, `SSR`, `JUP`, `JTO`), whereas the early tokenized equity Reserves (`Reserves #27, #28, #29, and #38` configured with `NVDAx`, `TSLAx`, `SPYx`, and `SPCXx`) sit at **`$0 AUM` (`Empty · possibly abandoned`)**.
+- **Root Cause & High-Impact Product Fix:**
+  1. During Reserve creation, crypto-native users default to familiar SPL tickers (`SOL`, `USDC`, `JUP`) because tokenized RWA tickers (`SPYx`, `NVDAx`), market-hours liquidity depth, and Jupiter routing paths for synthetic equities are less obvious in the asset picker.
+  2. **Suggested Fix:** Add **1-Click Starter Templates** directly inside the *Create Reserve* flow—such as a **"60/40 Macro + Solana Barbell (`SPYx` / `NVDAx` / `USDC` + `SOL` / `JUP`)"** preset—with live pre-flight route liquidity badges next to each RWA ticker so creators know immediately that minting with `USDC` routes cleanly on Mainnet.
