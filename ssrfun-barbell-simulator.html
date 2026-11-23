@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SSR.FUN 60/40 Onchain Barbell Simulator &amp; Mainnet Bug #4/#5 Engineering Demo</title>
+  <title>SSR.FUN Onchain Barbell NAV Model &amp; Reserve #93 Oracle Diagnostics</title>
   <meta name="description" content="Interactive stress-test of our 60/40 Onchain Barbell Reserve thesis on SSR.FUN plus live reproduction of Mainnet Reserve #93 ($KING) JTO oracle & CORS fixes." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/ssrfun-barbell-simulator.html" />
@@ -16,94 +16,172 @@
   <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-ssrfun-simulator.png" />
   <style>
     :root {
-      --bg: #080d17;
-      --panel: #11192b;
-      --card: #18233b;
-      --border: #2a3b5e;
-      --amber: #fbbf24;
+      --bg: #0d0f12;
+      --panel: #14171c;
+      --card: #1a1e25;
+      --border: #262c36;
+      --border-strong: #374151;
+      --accent: #e2e8f0;
       --green: #10b981;
-      --blue: #60a5fa;
-      --red: #f87171;
-      --text: #f8fafc;
-      --muted: #94a3b8;
+      --red: #ef4444;
+      --amber: #d97706;
+      --text: #f1f5f9;
+      --secondary: #cbd5e1;
+      --muted: #64748b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
-      background: radial-gradient(circle at top left, #1e293b 0%, var(--bg) 48%);
+      background-color: var(--bg);
       color: var(--text);
-      padding: 30px 18px 60px;
+      padding: 28px 18px 56px;
       line-height: 1.5;
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 1180px; margin: 0 auto; }
-    .badge {
-      display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
-      background: rgba(251,191,36,0.14); border: 1px solid rgba(251,191,36,0.4); color: var(--amber); margin-bottom: 12px;
+    .container { max-width: 1160px; margin: 0 auto; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-bottom: 14px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12.5px;
+      color: var(--muted);
     }
-    h1 { font-size: clamp(24px, 3.6vw, 35px); font-weight: 800; margin-bottom: 8px; }
-    .sub { color: var(--muted); max-width: 880px; margin-bottom: 24px; font-size: 15px; }
-    .sub code { color: #e2e8f0; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 5px; }
-    .grid { display: grid; grid-template-columns: 1.04fr 1fr; gap: 22px; align-items: start; }
+    .topbar strong { color: var(--secondary); font-weight: 600; }
+    h1 {
+      font-size: clamp(23px, 3.2vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .sub { color: var(--secondary); max-width: 880px; margin-bottom: 24px; font-size: 14.5px; }
+    .sub code {
+      color: var(--text);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 13px;
+    }
+    .grid { display: grid; grid-template-columns: 1.04fr 1fr; gap: 20px; align-items: start; }
     @media (max-width: 920px) { .grid { grid-template-columns: 1fr; } }
-    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 22px; min-width: 0; }
-    .panel h2 { font-size: 18px; margin-bottom: 14px; }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 20px; min-width: 0; }
+    .panel h2 {
+      font-size: 15px;
+      font-weight: 600;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
     .sliders { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
     @media (max-width: 560px) { .sliders { grid-template-columns: 1fr; } }
     .s-field label {
-      display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: #cbd5e1; margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--secondary);
+      margin-bottom: 5px;
     }
-    .s-field label span { color: var(--amber); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
-    input[type="range"] { width: 100%; accent-color: var(--amber); cursor: pointer; }
-    .scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .s-field label span {
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-weight: 600;
+    }
+    input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+    .scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
     @media (max-width: 540px) { .scenarios { grid-template-columns: 1fr; } }
     .sc-btn {
-      background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 11px 12px;
-      border-radius: 10px; font-weight: 700; font-size: 12.8px; cursor: pointer; text-align: left; line-height: 1.35;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--secondary);
+      padding: 10px 11px;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 12.5px;
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.35;
     }
-    .sc-btn.active { border-color: var(--amber); background: #272013; }
-    .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .sc-btn:hover { border-color: var(--border-strong); color: var(--text); }
+    .sc-btn.active { border-color: var(--accent); background: #222731; color: var(--text); }
+    .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     @media (max-width: 520px) { .kpis { grid-template-columns: 1fr; } }
-    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
-    .kpi .lbl { font-size: 11.5px; color: var(--muted); text-transform: uppercase; }
-    .kpi .val { font-size: 22px; font-weight: 800; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin-top: 4px; }
+    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 13px; }
+    .kpi .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.03em; }
+    .kpi .val { font-size: 21px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin-top: 4px; }
     .oracle-box {
-      background: #0b111e; border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+      background: #0f1217;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 15px;
     }
     .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
     .switch-btn {
-      background: var(--amber); color: #1c1300; border: none; padding: 8px 14px; border-radius: 8px;
-      font-weight: 800; font-size: 12.5px; cursor: pointer;
+      background: var(--text);
+      color: #0d0f12;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
     }
+    .switch-btn:hover { opacity: 0.9; }
     .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12.8px; margin-top: 6px; }
     th, td { padding: 8px 6px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
-    th { color: var(--muted); font-size: 11px; text-transform: uppercase; }
-    td a { color: var(--blue); text-decoration: none; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
+    th { color: var(--muted); font-size: 11px; text-transform: uppercase; font-weight: 600; }
+    td a { color: #93c5fd; text-decoration: none; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
     td a:hover { text-decoration: underline; }
     .cors-box {
-      margin-top: 12px; padding: 10px 12px; border-radius: 9px; font-size: 12.2px;
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace; line-height: 1.45;
+      margin-top: 12px;
+      padding: 9px 11px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      line-height: 1.45;
     }
-    footer { margin-top: 26px; text-align: center; font-size: 13px; color: var(--muted); line-height: 1.7; }
-    footer a { color: var(--amber); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    footer {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 12.5px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    footer a { color: var(--secondary); text-decoration: none; }
+    footer a:hover { color: var(--text); text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="badge">SSR.FUN (@strategicsuperr) • Reserve Thesis &amp; Mainnet Bugs #4 &amp; #5 Patch Simulator</div>
-    <h1>Onchain Barbell NAV &amp; Resilient Reserve Architecture Demo</h1>
+    <div class="topbar">
+      <div><strong>SSR.FUN Beta Research</strong> &nbsp;/&nbsp; Barbell Allocation Model &amp; Mainnet Bug #4/#5 Diagnostics</div>
+      <div>Target Audited: Reserve #93 (<code>$KING</code>)</div>
+    </div>
+
+    <h1>Onchain Barbell NAV &amp; Resilient Oracle Diagnostics</h1>
     <p class="sub">
-      Left: stress-test customizable <strong>Tokenized Equities/T-Bills + Solana Growth</strong> Reserve allocations across macro regimes. Right: reproduce the live <strong>Reserve #93 (<code>$KING</code>) JTO oracle cascade &amp; Vercel preview CORS block</strong> audited on Mainnet and inspect our proposed patches.
+      Left: stress-test customizable <strong>Tokenized Equities/T-Bills + Solana Growth</strong> Reserve weights across market regimes. Right: reproduce the live <strong>Reserve #93 (<code>$KING</code>) JTO oracle cascade &amp; Vercel preview CORS block</strong> identified on Mainnet and inspect our proposed engineering patches.
     </p>
 
     <div class="grid">
       <div class="panel">
-        <h2>1. Stress-Test Onchain Barbell vs. 100% High-Beta Crypto</h2>
+        <h2>1. Portfolio Allocation Stress-Test</h2>
 
         <div class="sliders">
           <div class="s-field">
-            <label for="capInput">Initial Portfolio Capital <span id="capLabel">$10,000</span></label>
+            <label for="capInput">Initial Capital <span id="capLabel">$10,000</span></label>
             <input type="range" id="capInput" min="1000" max="100000" step="1000" value="10000" />
           </div>
           <div class="s-field">
@@ -113,33 +191,33 @@
         </div>
 
         <div class="scenarios" id="scBtns">
-          <button type="button" class="sc-btn active" data-sc="drawdown">📉 Crypto Risk-Off (-40% Crypto / +6% Equities+T-Bills)</button>
-          <button type="button" class="sc-btn" data-sc="bull">🚀 Solana Expansion (+85% Solana / +18% Equities)</button>
-          <button type="button" class="sc-btn" data-sc="chop">⚖️ Sideways Chop (-12% Crypto / +11% Tech &amp; Yield)</button>
-          <button type="button" class="sc-btn" data-sc="crash">🛡️ Severe Macro Shock (-55% Crypto / -8% Equities+Bills)</button>
+          <button type="button" class="sc-btn active" data-sc="drawdown">Crypto Risk-Off (-40% Crypto / +6% Equities+Bills)</button>
+          <button type="button" class="sc-btn" data-sc="bull">Solana Expansion (+85% Solana / +18% Equities)</button>
+          <button type="button" class="sc-btn" data-sc="chop">Sideways Chop (-12% Crypto / +11% Tech &amp; Yield)</button>
+          <button type="button" class="sc-btn" data-sc="crash">Severe Macro Shock (-55% Crypto / -8% Equities)</button>
         </div>
 
         <div class="kpis">
           <div class="kpi">
             <div class="lbl">100% High-Beta Crypto Basket</div>
-            <div class="val" id="pureVal" style="color:#f87171;">$6,000 (-40.0%)</div>
+            <div class="val" id="pureVal" style="color:#ef4444;">$6,000 (-40.0%)</div>
           </div>
           <div class="kpi">
             <div class="lbl" id="barbellLbl">SSR.FUN 60/40 Barbell Reserve</div>
-            <div class="val" id="barbellVal" style="color:#fbbf24;">$8,760 (-12.4%)</div>
+            <div class="val" id="barbellVal" style="color:#f1f5f9;">$8,760 (-12.4%)</div>
           </div>
         </div>
-        <div style="font-size:13.3px; color:#cbd5e1;" id="scNote"></div>
+        <div style="font-size:13px; color:var(--secondary);" id="scNote"></div>
       </div>
 
       <div class="panel">
         <h2>2. Mainnet Bug #4 &amp; #5 Reproduction: Reserve #93 (<code>$KING</code>)</h2>
         <div class="oracle-box">
           <div class="toggle-row">
-            <span style="font-size:13px; font-weight:700;" id="modeTitle">Current SSR.FUN UI (Reserve #93 $KING — Unpatched)</span>
-            <button type="button" class="switch-btn" id="patchBtn">Apply Proposed Fallback Patch →</button>
+            <span style="font-size:12.8px; font-weight:600; color:var(--secondary);" id="modeTitle">Current SSR.FUN UI (Reserve #93 $KING — Unpatched)</span>
+            <button type="button" class="switch-btn" id="patchBtn">Apply Proposed Fallback Patch &rarr;</button>
           </div>
-          <div id="mcapBanner" style="padding:10px 12px; border-radius:8px; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:12.6px; margin-bottom:10px;"></div>
+          <div id="mcapBanner" style="padding:9px 11px; border-radius:5px; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:12.3px; margin-bottom:10px;"></div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -154,12 +232,15 @@
     </div>
 
     <footer>
-      Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank" rel="noopener noreferrer">@Royalmmac</a>) •
-      <a href="https://x.com/Royalmmac/status/2121123929565569133" target="_blank" rel="noopener noreferrer">Read 4-Part Thesis &amp; QA Thread on X</a> •
-      <a href="https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb" target="_blank" rel="noopener noreferrer">Canonical Reserve #93 (<code>$KING</code>)</a> •
-      <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/ssrfun-beta-qa-and-thesis.md" target="_blank" rel="noopener noreferrer">Full 5-Bug Mainnet QA Report on GitHub</a>
+      <div>Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank" rel="noopener noreferrer">@Royalmmac</a>)</div>
+      <div>
+        <a href="https://x.com/Royalmmac/status/2121123929565569133" target="_blank" rel="noopener noreferrer">X Thesis Thread</a> &nbsp;&middot;&nbsp;
+        <a href="https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb" target="_blank" rel="noopener noreferrer">Reserve #93 (<code>$KING</code>)</a> &nbsp;&middot;&nbsp;
+        <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/ssrfun-beta-qa-and-thesis.md" target="_blank" rel="noopener noreferrer">Mainnet QA Report (GitHub)</a>
+      </div>
     </footer>
   </div>
+
   <script>
     const SCENARIOS = {
       drawdown: { eq: 0.06, sol: -0.40, title: "Risk-Off Cushion" },
@@ -210,11 +291,11 @@
 
       const pureEl = document.getElementById("pureVal");
       pureEl.textContent = `$${Math.round(pure).toLocaleString("en-US")} (${fmtPct(pRel)})`;
-      pureEl.style.color = pure >= cap ? "#34d399" : "#f87171";
+      pureEl.style.color = pure >= cap ? "#10b981" : "#ef4444";
 
       const barbEl = document.getElementById("barbellVal");
       barbEl.textContent = `$${Math.round(barb).toLocaleString("en-US")} (${fmtPct(bRel)})`;
-      barbEl.style.color = barb >= cap ? "#34d399" : "#fbbf24";
+      barbEl.style.color = barb >= cap ? "#10b981" : "#f1f5f9";
 
       const signDelta = delta >= 0 ? `+$${Math.round(delta).toLocaleString("en-US")}` : `-$${Math.round(Math.abs(delta)).toLocaleString("en-US")}`;
       if (delta >= 0) {
@@ -223,7 +304,7 @@
       } else {
         document.getElementById("scNote").innerHTML =
           `<strong>${s.title}:</strong> Captures <strong>${fmtPct(bRel)}</strong> net portfolio upside (` +
-          `+$${Math.round(barb - cap).toLocaleString("en-US")} gain) inside one composable SPL Reserve token with dramatically lower drawdown risk than unhedged altcoins.`;
+          `+$${Math.round(barb - cap).toLocaleString("en-US")} gain) inside one composable SPL Reserve token with materially lower drawdown risk than unhedged altcoins.`;
       }
     }
 
@@ -237,40 +318,40 @@
       if (!patched) {
         title.textContent = "Current SSR.FUN UI (Reserve #93 $KING — Unpatched)";
         btn.textContent = "Apply Proposed Fallback Patch →";
-        banner.style.background = "rgba(248,113,113,0.14)";
-        banner.style.border = "1px solid #ef4444";
-        banner.style.color = "#fecaca";
-        banner.textContent = "Market Cap: Price unavailable  |  All-Time Volume: Loading…";
+        banner.style.background = "#1f1215";
+        banner.style.border = "1px solid #7f1d1d";
+        banner.style.color = "#fca5a5";
+        banner.textContent = "Market Cap: Price unavailable  |  All-Time Volume: Loading...";
 
-        corsBanner.style.background = "rgba(248,113,113,0.10)";
-        corsBanner.style.border = "1px solid rgba(239,68,68,0.45)";
-        corsBanner.style.color = "#fca5a5";
+        corsBanner.style.background = "#1c1315";
+        corsBanner.style.border = "1px solid #5f1e24";
+        corsBanner.style.color = "#fda4af";
         corsBanner.textContent = "Bug #5 (CORS Block): GET https://ssr-mnfjzp7pd-ssr14.vercel.app/api/mainnet/reserve-metadata blocked from origin https://ssr.fun";
 
         rows.innerHTML = `
-          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5…SE7K</a></td><td style="color:#34d399;">Pyth Live</td><td>$8.52</td></tr>
-          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp…8HvC</a></td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>
-          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH…fATn</a></td><td style="color:#f87171; font-weight:700;">❌ Missing Price</td><td style="color:#f87171;">Breaks Total NAV</td></tr>
-          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C…2dTP</a></td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>
+          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5...SE7K</a></td><td style="color:#10b981;">Pyth Live</td><td>$8.52</td></tr>
+          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp...8HvC</a></td><td style="color:#10b981;">Jupiter Live</td><td>$5.14</td></tr>
+          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH...fATn</a></td><td style="color:#ef4444; font-weight:600;">Missing Feed</td><td style="color:#ef4444;">Breaks Total NAV</td></tr>
+          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C...2dTP</a></td><td style="color:#10b981;">Pyth Live</td><td>$2.00</td></tr>
         `;
       } else {
         title.textContent = "Patched SSR.FUN UI (Jupiter Quote Fallback + Relative API Origin)";
-        btn.textContent = "← Revert to Unpatched Bugs";
-        banner.style.background = "rgba(16,185,129,0.15)";
-        banner.style.border = "1px solid #10b981";
-        banner.style.color = "#a7f3d0";
-        banner.textContent = "Market Cap: $18.38 ($15.66 Verified + $2.72 JTO Fallback)  |  Volume: Online ✅";
+        btn.textContent = "← Revert to Unpatched State";
+        banner.style.background = "#0c1f17";
+        banner.style.border = "1px solid #14532d";
+        banner.style.color = "#86efac";
+        banner.textContent = "Market Cap: $18.38 ($15.66 Verified + $2.72 JTO Fallback)  |  Volume: Resolved";
 
-        corsBanner.style.background = "rgba(16,185,129,0.10)";
-        corsBanner.style.border = "1px solid rgba(16,185,129,0.45)";
-        corsBanner.style.color = "#a7f3d0";
-        corsBanner.textContent = "Bug #5 Fixed: Same-origin fetch(" + String.fromCharCode(39) + "/api/mainnet/reserve-metadata" + String.fromCharCode(39) + ") resolves HTTP 200 without preview-deployment CORS failure.";
+        corsBanner.style.background = "#0c1f17";
+        corsBanner.style.border = "1px solid #14532d";
+        corsBanner.style.color = "#86efac";
+        corsBanner.textContent = "Bug #5 Fixed: Same-origin fetch(" + q + "/api/mainnet/reserve-metadata" + q + ") resolves HTTP 200 without preview-deployment CORS failure.";
 
         rows.innerHTML = `
-          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5…SE7K</a></td><td style="color:#34d399;">Pyth Live</td><td>$8.52</td></tr>
-          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp…8HvC</a></td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>
-          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH…fATn</a></td><td style="color:#fbbf24; font-weight:700;">⚡ Jupiter Quote Fallback</td><td style="color:#34d399;">$2.72</td></tr>
-          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C…2dTP</a></td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>
+          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5...SE7K</a></td><td style="color:#10b981;">Pyth Live</td><td>$8.52</td></tr>
+          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp...8HvC</a></td><td style="color:#10b981;">Jupiter Live</td><td>$5.14</td></tr>
+          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH...fATn</a></td><td style="color:#f59e0b; font-weight:600;">Jupiter Quote Fallback</td><td style="color:#10b981;">$2.72</td></tr>
+          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C...2dTP</a></td><td style="color:#10b981;">Pyth Live</td><td>$2.00</td></tr>
         `;
       }
     }
