@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SSR.FUN 60/40 Onchain Barbell Simulator &amp; Mainnet Bug #4/#5 Engineering Demo</title>
   <meta name="description" content="Interactive stress-test of our 60/40 Onchain Barbell Reserve thesis on SSR.FUN plus live reproduction of Mainnet Reserve #93 ($KING) JTO oracle & CORS fixes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/ssrfun-barbell-simulator.html" />
+  <meta property="og:title" content="SSR.FUN Onchain Barbell Stress-Tester &amp; Reserve #93 Oracle/CORS Patch Demo" />
+  <meta property="og:description" content="Stress-test customizable Macro Equity + Solana Barbell allocations and inspect live Mainnet patches for Reserve #93 ($KING) JTO oracle &amp; CORS bugs." />
+  <meta property="og:image" content="https://royalmmac.github.io/bounty-artifacts/og-ssrfun-simulator.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SSR.FUN Onchain Barbell &amp; Oracle Patch Simulator (@Royalmmac)" />
+  <meta name="twitter:description" content="Interactive 60/40 Macro Barbell stress-tester + Mainnet Reserve #93 ($KING) Jupiter fallback &amp; CORS fix simulator." />
+  <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-ssrfun-simulator.png" />
   <style>
     :root {
       --bg: #080d17;
@@ -151,7 +160,6 @@
       <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/ssrfun-beta-qa-and-thesis.md" target="_blank" rel="noopener noreferrer">Full 5-Bug Mainnet QA Report on GitHub</a>
     </footer>
   </div>
-
   <script>
     const SCENARIOS = {
       drawdown: { eq: 0.06, sol: -0.40, title: "Risk-Off Cushion" },
@@ -180,7 +188,7 @@
     function fmtPct(num) {
       const clean = Math.abs(num) < 0.0005 ? 0 : num;
       const sign = clean > 0 ? "+" : "";
-      return sign + (clean * 100).toFixed(1) + "%";
+      return `${sign}${(clean * 100).toFixed(1)}%`;
     }
 
     function renderScenario() {
@@ -189,10 +197,10 @@
       const wEq = (Number(eqEl.value) || 60) / 100;
       const wSol = +(1 - wEq).toFixed(2);
 
-      document.getElementById("capLabel").textContent = "$" + cap.toLocaleString("en-US");
-      document.getElementById("weightLabel").textContent = Math.round(wEq * 100) + "% / " + Math.round(wSol * 100) + "%";
+      document.getElementById("capLabel").textContent = `$${cap.toLocaleString("en-US")}`;
+      document.getElementById("weightLabel").textContent = `${Math.round(wEq * 100)}% / ${Math.round(wSol * 100)}%`;
       document.getElementById("barbellLbl").textContent =
-        "SSR.FUN " + Math.round(wEq * 100) + "/" + Math.round(wSol * 100) + " Barbell Reserve";
+        `SSR.FUN ${Math.round(wEq * 100)}/${Math.round(wSol * 100)} Barbell Reserve`;
 
       const pure = cap * (1 + s.sol);
       const barb = cap * (wEq * (1 + s.eq) + wSol * (1 + s.sol));
@@ -201,21 +209,21 @@
       const delta = barb - pure;
 
       const pureEl = document.getElementById("pureVal");
-      pureEl.textContent = "$" + Math.round(pure).toLocaleString("en-US") + " (" + fmtPct(pRel) + ")";
+      pureEl.textContent = `$${Math.round(pure).toLocaleString("en-US")} (${fmtPct(pRel)})`;
       pureEl.style.color = pure >= cap ? "#34d399" : "#f87171";
 
       const barbEl = document.getElementById("barbellVal");
-      barbEl.textContent = "$" + Math.round(barb).toLocaleString("en-US") + " (" + fmtPct(bRel) + ")";
+      barbEl.textContent = `$${Math.round(barb).toLocaleString("en-US")} (${fmtPct(bRel)})`;
       barbEl.style.color = barb >= cap ? "#34d399" : "#fbbf24";
 
-      const signDelta = delta >= 0 ? "+$" + Math.round(delta).toLocaleString("en-US") : "-$" + Math.round(Math.abs(delta)).toLocaleString("en-US");
+      const signDelta = delta >= 0 ? `+$${Math.round(delta).toLocaleString("en-US")}` : `-$${Math.round(Math.abs(delta)).toLocaleString("en-US")}`;
       if (delta >= 0) {
         document.getElementById("scNote").innerHTML =
-          "<strong>" + s.title + ":</strong> The " + Math.round(wEq * 100) + "% SPY/QQQ/NVDA + T-Bill anchor outperforms 100% crypto by <strong>" + signDelta + "</strong> while keeping single-token SPL liquidity ready to rebalance onchain.";
+          `<strong>${s.title}:</strong> The ${Math.round(wEq * 100)}% SPY/QQQ/NVDA + T-Bill anchor outperforms 100% crypto by <strong>${signDelta}</strong> while keeping single-token SPL liquidity ready to rebalance onchain.`;
       } else {
         document.getElementById("scNote").innerHTML =
-          "<strong>" + s.title + ":</strong> Captures <strong>" + fmtPct(bRel) + "</strong> net portfolio upside (" +
-          "+$" + Math.round(barb - cap).toLocaleString("en-US") + " gain) inside one composable SPL Reserve token with dramatically lower drawdown risk than unhedged altcoins.";
+          `<strong>${s.title}:</strong> Captures <strong>${fmtPct(bRel)}</strong> net portfolio upside (` +
+          `+$${Math.round(barb - cap).toLocaleString("en-US")} gain) inside one composable SPL Reserve token with dramatically lower drawdown risk than unhedged altcoins.`;
       }
     }
 
@@ -239,10 +247,12 @@
         corsBanner.style.color = "#fca5a5";
         corsBanner.textContent = "Bug #5 (CORS Block): GET https://ssr-mnfjzp7pd-ssr14.vercel.app/api/mainnet/reserve-metadata blocked from origin https://ssr.fun";
 
-        rows.innerHTML = '<tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5…SE7K</a></td><td style="color:#34d399;">Pyth Live</td><td>$8.52</td></tr>' +
-          '<tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp…8HvC</a></td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>' +
-          '<tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH…fATn</a></td><td style="color:#f87171; font-weight:700;">❌ Missing Price</td><td style="color:#f87171;">Breaks Total NAV</td></tr>' +
-          '<tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C…2dTP</a></td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>';
+        rows.innerHTML = `
+          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5…SE7K</a></td><td style="color:#34d399;">Pyth Live</td><td>$8.52</td></tr>
+          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp…8HvC</a></td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>
+          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH…fATn</a></td><td style="color:#f87171; font-weight:700;">❌ Missing Price</td><td style="color:#f87171;">Breaks Total NAV</td></tr>
+          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C…2dTP</a></td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>
+        `;
       } else {
         title.textContent = "Patched SSR.FUN UI (Jupiter Quote Fallback + Relative API Origin)";
         btn.textContent = "← Revert to Unpatched Bugs";
@@ -254,12 +264,14 @@
         corsBanner.style.background = "rgba(16,185,129,0.10)";
         corsBanner.style.border = "1px solid rgba(16,185,129,0.45)";
         corsBanner.style.color = "#a7f3d0";
-        corsBanner.textContent = "Bug #5 Fixed: Same-origin fetch('/api/mainnet/reserve-metadata') resolves HTTP 200 without preview-deployment CORS failure.";
+        corsBanner.textContent = "Bug #5 Fixed: Same-origin fetch(" + String.fromCharCode(39) + "/api/mainnet/reserve-metadata" + String.fromCharCode(39) + ") resolves HTTP 200 without preview-deployment CORS failure.";
 
-        rows.innerHTML = '<tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5…SE7K</a></td><td style="color:#34d399;">Pyth Live</td><td>$8.52</td></tr>' +
-          '<tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp…8HvC</a></td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>' +
-          '<tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH…fATn</a></td><td style="color:#fbbf24; font-weight:700;">⚡ Jupiter Quote Fallback</td><td style="color:#34d399;">$2.72</td></tr>' +
-          '<tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C…2dTP</a></td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>';
+        rows.innerHTML = `
+          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5…SE7K</a></td><td style="color:#34d399;">Pyth Live</td><td>$8.52</td></tr>
+          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp…8HvC</a></td><td style="color:#34d399;">Jupiter Live</td><td>$5.14</td></tr>
+          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH…fATn</a></td><td style="color:#fbbf24; font-weight:700;">⚡ Jupiter Quote Fallback</td><td style="color:#34d399;">$2.72</td></tr>
+          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C…2dTP</a></td><td style="color:#34d399;">Pyth Live</td><td>$2.00</td></tr>
+        `;
       }
     }
 
