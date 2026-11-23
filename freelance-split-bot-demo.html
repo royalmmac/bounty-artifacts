@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FreelanceSplitBot — Swap.io x402 Protocol Inspector &amp; Telegram Agent Economics</title>
+  <title>FreelanceSplitBot — Swap.io x402 Protocol Inspector &amp; Agent Unit Economics</title>
   <meta name="description" content="Interactive Telegram treasury agent simulator and Mainnet HTTP 402 Payment Required payload inspector for Swap.io's Hermes x402 API on Solana and Base." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/freelance-split-bot-demo.html" />
@@ -16,96 +16,133 @@
   <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-swap-x402-demo.png" />
   <style>
     :root {
-      --bg: #080c14;
-      --panel: #111827;
-      --card: #1a2438;
-      --border: #2b3b59;
-      --green: #14f195;
-      --purple: #9945ff;
-      --blue: #38bdf8;
-      --amber: #fbbf24;
-      --text: #f8fafc;
-      --muted: #94a3b8;
+      --bg: #0b0c0e;
+      --panel: #121418;
+      --card: #181b21;
+      --border: #252932;
+      --border-light: #353b47;
+      --green: #16a34a;
+      --text: #ededef;
+      --secondary: #a1a1aa;
+      --muted: #71717a;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
-      background: radial-gradient(circle at top right, #1e103a 0%, var(--bg) 45%);
+      background-color: var(--bg);
       color: var(--text);
-      padding: 30px 18px 60px;
+      padding: 28px 18px 56px;
       line-height: 1.5;
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 1180px; margin: 0 auto; }
-    .badge {
-      display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
-      background: rgba(20,241,149,0.13); border: 1px solid rgba(20,241,149,0.4); color: var(--green); margin-bottom: 12px;
+    .container { max-width: 1160px; margin: 0 auto; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-bottom: 14px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12.5px;
+      color: var(--muted);
     }
-    h1 { font-size: clamp(24px, 3.6vw, 35px); font-weight: 800; margin-bottom: 8px; }
-    .sub { color: var(--muted); max-width: 880px; margin-bottom: 24px; font-size: 15px; }
-    .sub code { color: #e2e8f0; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 5px; }
-    .grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 22px; align-items: start; }
+    .topbar strong { color: var(--secondary); font-weight: 600; }
+    h1 { font-size: clamp(23px, 3.2vw, 30px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .sub { color: var(--secondary); max-width: 880px; margin-bottom: 24px; font-size: 14.5px; }
+    .sub code {
+      color: var(--text);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 13px;
+    }
+    .grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 20px; align-items: start; }
     @media (max-width: 920px) { .grid { grid-template-columns: 1fr; } }
-    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 22px; min-width: 0; }
-    .panel h2 { font-size: 18px; margin-bottom: 14px; }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 20px; min-width: 0; }
+    .panel h2 {
+      font-size: 15px;
+      font-weight: 600;
+      padding-bottom: 12px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+    }
     .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
     @media (max-width: 540px) { .controls { grid-template-columns: 1fr; } }
     .controls label, .slider-field label {
-      font-size: 12.5px; color: #cbd5e1; display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: 600;
+      font-size: 12.5px; color: var(--secondary); display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: 500;
     }
     .slider-field { margin-bottom: 14px; }
-    .slider-field label span { color: var(--green); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .slider-field label span { color: var(--text); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-weight: 600; }
     input[type="number"], select {
-      width: 100%; background: var(--card); border: 1px solid var(--border); color: var(--text);
-      padding: 9px 12px; border-radius: 9px; font-size: 14px;
+      width: 100%; background: var(--card); border: 1px solid var(--border-light); color: var(--text);
+      padding: 9px 11px; border-radius: 6px; font-size: 13.5px;
     }
-    input[type="range"] { width: 100%; accent-color: var(--green); cursor: pointer; }
+    input[type="range"] { width: 100%; accent-color: var(--text); cursor: pointer; }
     .btn {
-      width: 100%; background: linear-gradient(90deg, var(--green), #2dd4bf); color: #052217; border: none;
-      padding: 12px 18px; border-radius: 10px; font-weight: 800; font-size: 14.5px; cursor: pointer;
+      width: 100%; background: var(--text); color: #0b0c0e; border: none;
+      padding: 10px 16px; border-radius: 6px; font-weight: 600; font-size: 13.5px; cursor: pointer;
     }
+    .btn:hover { opacity: 0.92; }
     .btn-sm {
-      background: var(--card); color: var(--blue); border: 1px solid var(--border);
-      padding: 6px 11px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
+      background: var(--card); color: var(--text); border: 1px solid var(--border-light);
+      padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer;
     }
     .tg-window {
-      background: #0d1422; border: 1px solid var(--border); border-radius: 14px; padding: 15px; min-height: 270px;
-      display: flex; flex-direction: column; gap: 10px; margin-top: 14px;
+      background: #0d0f13; border: 1px solid var(--border); border-radius: 6px; padding: 14px; min-height: 255px;
+      display: flex; flex-direction: column; gap: 8px; margin-top: 14px;
     }
-    .msg { padding: 10px 13px; border-radius: 12px; font-size: 13.3px; max-width: 94%; word-break: break-word; }
-    .msg code { color: #a7f3d0; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12.2px; }
-    .msg.user { align-self: flex-end; background: #2e1065; border: 1px solid #7c3aed; }
-    .msg.bot { align-self: flex-start; background: var(--card); border: 1px solid var(--border); }
-    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .msg { padding: 9px 12px; border-radius: 6px; font-size: 12.8px; max-width: 96%; word-break: break-word; }
+    .msg code { color: var(--text); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
+    .msg.user { align-self: flex-end; background: #1e2430; border: 1px solid #334155; }
+    .msg.bot { align-self: flex-start; background: var(--card); border: 1px solid var(--border); color: var(--secondary); }
+    .msg.bot strong { color: var(--text); }
+    .toolbar {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;
+      padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--border);
+    }
     pre {
-      background: #060911; border: 1px solid var(--border); border-radius: 12px; padding: 14px;
-      overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12.2px; color: #a7f3d0;
-      max-height: 325px; line-height: 1.46;
+      background: #08090b; border: 1px solid var(--border); border-radius: 6px; padding: 13px;
+      overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; color: #d4d4d8;
+      max-height: 315px; line-height: 1.46;
     }
-    .econ { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
+    .econ { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
     @media (max-width: 680px) { .econ { grid-template-columns: 1fr 1fr; } }
-    .econ .box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 11px; }
-    .econ .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; }
-    .econ .val { font-size: 18px; font-weight: 800; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin-top: 4px; }
+    .econ .box { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px 11px; }
+    .econ .lbl { font-size: 10.5px; color: var(--muted); text-transform: uppercase; font-weight: 600; }
+    .econ .val { font-size: 17px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin-top: 3px; color: var(--text); }
     .arch-note {
-      margin-top: 12px; padding: 10px 12px; border-radius: 9px; font-size: 12.3px;
-      background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); color: #cbd5e1;
+      margin-top: 12px; padding: 10px 12px; border-radius: 6px; font-size: 12.2px;
+      background: var(--card); border: 1px solid var(--border); color: var(--secondary);
     }
-    footer { margin-top: 26px; text-align: center; font-size: 13px; color: var(--muted); line-height: 1.7; }
-    footer a { color: var(--green); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    .arch-note strong { color: var(--text); }
+    footer {
+      margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--border);
+      font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;
+    }
+    footer a { color: var(--secondary); text-decoration: none; }
+    footer a:hover { color: var(--text); text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="badge">Swap.io x402 Agent API • Interactive Telegram Bot &amp; HTTP 402 Wire Inspector</div>
-    <h1>FreelanceSplitBot: Pay-Per-Quote Treasury Agent on Solana</h1>
+    <div class="topbar">
+      <div><strong>Swap.io Hermes API</strong> &nbsp;/&nbsp; HTTP 402 Payment Required Inspector &amp; Agent Margin Model</div>
+      <div>Protocol: x402 v1 (Solana &amp; Base)</div>
+    </div>
+
+    <h1>FreelanceSplitBot: Pay-Per-Quote Treasury Agent</h1>
     <p class="sub">
-      Simulate an incoming contributor payout below to inspect the exact <code>https://hermes.swap.io/v1/swap/quote</code> payload, verify Swap.io's multi-chain <code>HTTP 402 Payment Required</code> handshake (<code>3007</code> atomic USDC = <code>$0.003007</code> + gasless PayAI <code>feePayer</code>), and model monthly bot unit economics vs. fixed API subscriptions.
+      Simulate an incoming Solana contributor transfer to inspect the <code>https://hermes.swap.io/v1/swap/quote</code> request body, examine Swap.io's verbatim <code>HTTP 402 Payment Required</code> response (<code>3007</code> atomic USDC = <code>$0.003007</code> with PayAI <code>feePayer</code> sponsorship), and compare pay-per-call margins against fixed API subscriptions.
     </p>
 
     <div class="grid">
       <div class="panel">
-        <h2>1. Interactive Telegram Treasury Agent</h2>
+        <h2>1. Treasury Split Execution Trace</h2>
         <div class="controls">
           <div>
             <label for="solAmt">Incoming SOL Payout (0.1 – 10,000)</label>
@@ -123,71 +160,71 @@
         </div>
 
         <div class="slider-field">
-          <label for="monthlySwaps">Monthly Bot Volume Across Users <span id="swapsVal">250 swaps / mo</span></label>
+          <label for="monthlySwaps">Monthly Bot Swap Volume <span id="swapsVal">250 swaps / mo</span></label>
           <input type="range" id="monthlySwaps" min="10" max="5000" step="10" value="250" />
         </div>
 
-        <button type="button" class="btn" id="runBtn">⚡ Simulate Incoming SOL Deposit &amp; Build x402 Handshake</button>
+        <button type="button" class="btn" id="runBtn">Run Deposit Simulation &amp; Build x402 Payload</button>
 
         <div class="tg-window" id="chatLog"></div>
       </div>
 
       <div class="panel">
         <div class="toolbar">
-          <h2 style="margin:0;">2. Verbatim <code>hermes.swap.io</code> HTTP 402 Wire Trace</h2>
+          <h2 style="margin:0; padding:0; border:none;">2. Verbatim <code>hermes.swap.io</code> HTTP 402 Wire Trace</h2>
           <div style="display:flex; gap:6px;">
             <button type="button" class="btn-sm" id="copyCurlBtn">Copy Live cURL</button>
             <button type="button" class="btn-sm" id="copyJsonBtn">Copy 402 JSON</button>
           </div>
         </div>
-        <div style="font-size:12.3px; color:#94a3b8; margin-bottom:8px;" id="statusBanner">
-          Verified Mainnet Wire Capture — HTTP 402 Payment Required (x402Version: 1 • Solana &amp; Base Rails)
+        <div style="font-size:12px; color:var(--muted); margin-bottom:8px;" id="statusBanner">
+          Verified Mainnet Wire Capture — HTTP 402 Payment Required (x402Version: 1 · Solana &amp; Base Rails)
         </div>
         <pre id="traceOut"></pre>
 
         <div class="econ">
           <div class="box">
             <div class="lbl">Bot Fee / Swap</div>
-            <div class="val" style="color:#38bdf8;">$0.0500</div>
+            <div class="val">$0.0500</div>
           </div>
           <div class="box">
             <div class="lbl">x402 Quote+Build</div>
-            <div class="val" style="color:#c084fc;">$0.006014</div>
+            <div class="val">$0.006014</div>
           </div>
           <div class="box">
             <div class="lbl">Unit Margin</div>
-            <div class="val" style="color:#14f195;">+87.97%</div>
+            <div class="val" style="color:#22c55e;">+87.97%</div>
           </div>
           <div class="box">
             <div class="lbl">Monthly Net Profit</div>
-            <div class="val" id="monthlyNet" style="color:#fbbf24;">+$11.00</div>
+            <div class="val" id="monthlyNet" style="color:#22c55e;">+$11.00</div>
           </div>
         </div>
 
-        <div class="arch-note" id="scaleComparison">
-          <strong>Server-Side Agent Architecture Note:</strong> <code>hermes.swap.io/v1/swap/quote</code> is a server-to-server agent API (rejects browser CORS <code>OPTIONS</code> preflights with <code>HTTP 405</code> so wallet keys stay safely in Node.js/Python). Click <strong>Copy Live cURL</strong> above or run <code>node swap_x402_demo.mjs</code> to execute the live Mainnet handshake in ~180ms.
-        </div>
+        <div class="arch-note" id="scaleComparison"></div>
 
-        <div style="margin-top:12px; font-size:12.5px; color:#cbd5e1; line-height:1.6;">
-          Onchain Verification:
-          <a href="https://solscan.io/account/BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD" target="_blank" rel="noopener noreferrer" style="color:#14f195;">Solscan <code>payTo</code></a> •
-          <a href="https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">Gasless PayAI <code>feePayer</code></a> •
-          <a href="https://basescan.org/address/0xC22f661733B85C1349F7C83EE0B2BCF3234603dE" target="_blank" rel="noopener noreferrer" style="color:#fbbf24;">Basescan Fallback</a> •
-          <a href="https://swap.io" target="_blank" rel="noopener noreferrer" style="color:#c084fc;">Try Swap.io</a>
+        <div style="margin-top:12px; font-size:12.2px; color:var(--muted); line-height:1.6;">
+          Onchain Accounts:
+          <a href="https://solscan.io/account/BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD" target="_blank" rel="noopener noreferrer" style="color:var(--secondary);">Solscan <code>payTo</code></a> &middot;
+          <a href="https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4" target="_blank" rel="noopener noreferrer" style="color:var(--secondary);">PayAI <code>feePayer</code></a> &middot;
+          <a href="https://basescan.org/address/0xC22f661733B85C1349F7C83EE0B2BCF3234603dE" target="_blank" rel="noopener noreferrer" style="color:var(--secondary);">Basescan Fallback</a> &middot;
+          <a href="https://swap.io" target="_blank" rel="noopener noreferrer" style="color:var(--secondary);">swap.io</a>
         </div>
       </div>
     </div>
 
     <footer>
-      Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank" rel="noopener noreferrer">@Royalmmac</a>) •
-      <a href="https://x.com/Royalmmac/status/2121123499494256753" target="_blank" rel="noopener noreferrer">Watch 1080p Pitch Video on X</a> •
-      <a href="https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay" target="_blank" rel="noopener noreferrer">Substack Technical Article</a> •
-      <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/swap-io-x402-treasury-agent.md" target="_blank" rel="noopener noreferrer">GitHub Docs</a> •
-      <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/swap_x402_demo.mjs" target="_blank" rel="noopener noreferrer">Runnable <code>swap_x402_demo.mjs</code></a>
+      <div>Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank" rel="noopener noreferrer">@Royalmmac</a>)</div>
+      <div>
+        <a href="https://x.com/Royalmmac/status/2121123499494256753" target="_blank" rel="noopener noreferrer">X Video Pitch</a> &nbsp;&middot;&nbsp;
+        <a href="https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay" target="_blank" rel="noopener noreferrer">Substack Article</a> &nbsp;&middot;&nbsp;
+        <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/swap-io-x402-treasury-agent.md" target="_blank" rel="noopener noreferrer">GitHub Docs</a> &nbsp;&middot;&nbsp;
+        <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/swap_x402_demo.mjs" target="_blank" rel="noopener noreferrer"><code>swap_x402_demo.mjs</code></a>
+      </div>
     </footer>
   </div>
+
   <script>
-    // Exact verbatim HTTP 402 Payment Required payload returned by https://hermes.swap.io/v1/swap/quote
     const CAPTURED_402 = {
       x402Version: 1,
       accepts: [
@@ -230,8 +267,8 @@
 
     function copyText(text, btn, defaultLabel) {
       const done = () => {
-        btn.textContent = "Copied!";
-        setTimeout(() => { btn.textContent = defaultLabel; }, 1500);
+        btn.textContent = "Copied";
+        setTimeout(() => { btn.textContent = defaultLabel; }, 1400);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
@@ -274,9 +311,7 @@
         slippageBps: 50
       };
 
-      latestCurl = `curl -i -X POST https://hermes.swap.io/v1/swap/quote \
-  -H 'Content-Type: application/json' \
-  -d '${JSON.stringify(reqBody)}'`;
+      latestCurl = `curl -i -X POST https://hermes.swap.io/v1/swap/quote \\\\\n  -H 'Content-Type: application/json' \\\\\n  -d '${JSON.stringify(reqBody)}'`;
 
       const monthlyRevenue = swapsPerMo * 0.05;
       const monthlyX402Cost = swapsPerMo * 0.006014;
@@ -285,13 +320,15 @@
 
       const netEl = document.getElementById("monthlyNet");
       netEl.textContent = `+$${monthlyNetProfit.toFixed(2)}`;
-      netEl.style.color = "#14f195";
+
+      const legacySummary = legacyTierLoss >= 0
+        ? `+$${legacyTierLoss.toFixed(2)}/mo`
+        : `<span style="color:#ef4444;">-$${Math.abs(legacyTierLoss).toFixed(2)}/mo net loss</span>`;
 
       document.getElementById("scaleComparison").innerHTML =
-        `<strong>Scale Economics (${swapsPerMo.toLocaleString("en-US")} swaps/mo):</strong> Swap.io <code>x402</code> costs just <code>$${monthlyX402Cost.toFixed(2)}/mo</code> (` +
-        `net bot profit <strong>+$${monthlyNetProfit.toFixed(2)}/mo</strong>) vs. a legacy <code>$99/mo</code> API plan (` +
-        `${legacyTierLoss >= 0 ? `+$${legacyTierLoss.toFixed(2)}/mo` : `<span style="color:#fb7185;">-$${Math.abs(legacyTierLoss).toFixed(2)}/mo net loss</span>`}). ` +
-        `Server-side Node.js/cURL queries <code>hermes.swap.io</code> directly with zero API keys (browser CORS <code>OPTIONS</code> is disabled by design).`;
+        `<strong>Scale Economics (${swapsPerMo.toLocaleString("en-US")} swaps/mo):</strong> Swap.io <code>x402</code> costs <code>$${monthlyX402Cost.toFixed(2)}/mo</code> (` +
+        `net bot profit <strong>+$${monthlyNetProfit.toFixed(2)}/mo</strong>) vs. a fixed <code>$99/mo</code> API plan (${legacySummary}). ` +
+        `Server-side Node.js/cURL queries <code>hermes.swap.io</code> directly without API keys (browser CORS <code>OPTIONS</code> is disabled by design).`;
 
       document.getElementById("traceOut").textContent = JSON.stringify(
         { quoteRequest: reqBody, http402PaymentRequired: CAPTURED_402 },
@@ -308,10 +345,10 @@
         chat.appendChild(d);
       };
 
-      addMsg("user", `<strong>Incoming Transfer Detected:</strong> <code>+${sol} SOL</code> landed in contributor wallet.`);
-      addMsg("bot", `🤖 <strong>FreelanceSplitBot:</strong> Applying <code>${Math.round(ratio * 100)}% USDC</code> treasury rule. Requesting Swap.io Hermes quote for <code>${swapSol} SOL (${Number(lamports).toLocaleString("en-US")} lamports) → USDC</code>...`);
-      addMsg("bot", `⚡ <strong>HTTP 402 Handshake:</strong> Authorized <code>$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Solana base gas sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas burn for agent).`);
-      addMsg("bot", `✅ <strong>Treasury Split Ready:</strong> Swapped <code>${swapSol} SOL → USDC</code>${keepSol > 0 ? ` + retained <code>${keepSol} SOL</code>` : " (100% converted)"}. Bot fee: <code>$0.0500</code> | Total x402 API cost (quote + build): <code>$0.006014</code> (<strong>+87.97% unit margin</strong>).`);
+      addMsg("user", `<strong>[INBOUND]</strong> <code>+${sol} SOL</code> detected on contributor wallet.`);
+      addMsg("bot", `<strong>[QUOTE]</strong> Rule <code>${Math.round(ratio * 100)}% USDC</code> applied. Requesting Swap.io Hermes quote for <code>${swapSol} SOL (${Number(lamports).toLocaleString("en-US")} lamports) -> USDC</code>.`);
+      addMsg("bot", `<strong>[X402-AUTH]</strong> Signed <code>$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Base fee sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas paid by bot).`);
+      addMsg("bot", `<strong>[SETTLED]</strong> Swapped <code>${swapSol} SOL -> USDC</code>${keepSol > 0 ? \` and retained <code>${keepSol} SOL</code>\` : " (100% converted)"}. Bot fee: <code>$0.0500</code> | x402 API cost: <code>$0.006014</code> (<strong>+87.97% margin</strong>).`);
     }
 
     document.getElementById("runBtn").addEventListener("click", runSimulation);
