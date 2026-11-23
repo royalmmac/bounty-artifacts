@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nosana DePIN GPU Grid — Interactive Job Definition Builder &amp; Inference Cost Benchmark</title>
   <meta name="description" content="Configure containerized AI inference workloads on Nosana (Solana DePIN), generate schema-compliant JSON Job Definitions (@nosana/cli & @nosana/kit), and benchmark GPU costs." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html" />
+  <meta property="og:title" content="Nosana GPU Inference Cost Benchmark &amp; Schema-Validated JSON Job Builder" />
+  <meta property="og:description" content="Interactive Solana DePIN tool: generate schema-valid container/run job.json specs (health_checks + VRAM guardrails) and compare GPU market burn." />
+  <meta property="og:image" content="https://royalmmac.github.io/bounty-artifacts/og-nosana-simulator.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nosana GPU Inference Benchmark &amp; JSON Job Builder (@Royalmmac)" />
+  <meta name="twitter:description" content="Generate schema-compliant Nosana job.json definitions (@nosana/cli &amp; @nosana/kit) and compare RTX 4090 / 3090 / A100 inference costs on Solana." />
+  <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-nosana-simulator.png" />
   <style>
     :root {
       --bg: #070b12;
@@ -313,8 +322,8 @@
       const rawNosUsd = Number(pEl.value);
       const nosUsd = Number.isFinite(rawNosUsd) && rawNosUsd > 0 ? Math.min(100, Math.max(0.01, rawNosUsd)) : 0.36;
 
-      document.getElementById("hrsLabel").textContent = hrs + " hr" + (hrs > 1 ? "s" : "") + " / day";
-      document.getElementById("nodesLabel").textContent = nodes + " GPU Node" + (nodes > 1 ? "s" : "");
+      document.getElementById("hrsLabel").textContent = `${hrs} hr${hrs > 1 ? "s" : ""} / day`;
+      document.getElementById("nodesLabel").textContent = `${nodes} GPU Node${nodes > 1 ? "s" : ""}`;
 
       const guardrail = document.getElementById("vramGuardrail");
       if (w.minVram > g.vram) {
@@ -330,11 +339,11 @@
       const pct = ((saved / cloudMonthly) * 100).toFixed(1);
       const nosTokens = Math.round(nosMonthly / nosUsd).toLocaleString("en-US");
 
-      document.getElementById("cloudCost").textContent = "$" + Math.round(cloudMonthly).toLocaleString("en-US") + "/mo";
-      document.getElementById("nosCost").textContent = "$" + Math.round(nosMonthly).toLocaleString("en-US") + "/mo";
-      document.getElementById("savedPct").textContent = pct + "% (-$" + Math.round(saved).toLocaleString("en-US") + ")";
+      document.getElementById("cloudCost").textContent = `$${Math.round(cloudMonthly).toLocaleString("en-US")}/mo`;
+      document.getElementById("nosCost").textContent = `$${Math.round(nosMonthly).toLocaleString("en-US")}/mo`;
+      document.getElementById("savedPct").textContent = `${pct}% (-$${Math.round(saved).toLocaleString("en-US")})`;
       document.getElementById("nosTokenNote").innerHTML =
-        "Settled per-job on Solana in <strong>$NOS</strong> (~<code>" + nosTokens + " NOS/mo</code> at $" + nosUsd.toFixed(2) + "/NOS across " + monthlyHrs.toLocaleString("en-US") + " total GPU hours: $" + g.nosRateHr.toFixed(2) + "/hr on Nosana vs. $" + g.cloudRateHr.toFixed(2) + "/hr legacy cloud GPU). Live market rates vary dynamically by supply on <a href=\"https://deploy.nosana.com\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#10f56c;\">deploy.nosana.com</a>.";
+        `Settled per-job on Solana in <strong>$NOS</strong> (~<code>${nosTokens} NOS/mo</code> at $${nosUsd.toFixed(2)}/NOS across ${monthlyHrs.toLocaleString("en-US")} total GPU hours: $${g.nosRateHr.toFixed(2)}/hr on Nosana vs. $${g.cloudRateHr.toFixed(2)}/hr legacy cloud GPU). Live market rates vary dynamically by supply on <a href="https://deploy.nosana.com" target="_blank" rel="noopener noreferrer" style="color:#10f56c;">deploy.nosana.com</a>.`;
 
       const runArgs = {
         image: w.image,
@@ -386,14 +395,14 @@
       if (activeTab === "cli") {
         if (nodes === 1) {
           document.getElementById("cliOut").textContent =
-            "# --timeout is specified in minutes (" + hrs + "h = " + timeoutMinutes + "m)\nnpx @nosana/cli job post \\\n  --file ./" + w.id + ".json \\\n  --market " + g.market + " \\\n  --timeout " + timeoutMinutes;
+            `# --timeout is specified in minutes (${hrs}h = ${timeoutMinutes}m)\nnpx @nosana/cli job post \\\n  --file ./${w.id}.json \\\n  --market ${g.market} \\\n  --timeout ${timeoutMinutes}`;
         } else {
           document.getElementById("cliOut").textContent =
-            "# Post " + nodes + " parallel GPU jobs to the " + g.market + " Solana market (--timeout in minutes)\nfor i in $(seq 1 " + nodes + "); do\n  npx @nosana/cli job post --file ./" + w.id + ".json --market " + g.market + " --timeout " + timeoutMinutes + "\ndone";
+            `# Post ${nodes} parallel GPU jobs to the ${g.market} Solana market (--timeout in minutes)\nfor i in $(seq 1 ${nodes}); do\n  npx @nosana/cli job post --file ./${w.id}.json --market ${g.market} --timeout ${timeoutMinutes}\ndone`;
         }
       } else {
         document.getElementById("cliOut").textContent =
-          "import { Client } from \"@nosana/kit\";\n\nconst nosana = new Client(\"mainnet\", process.env.SOLANA_WALLET_KEY);\nconst ipfsHash = await nosana.ipfs.pin(jobDefinition);\n// SDK timeout is specified in seconds (" + hrs + "h = " + timeoutSeconds + "s); post " + nodes + " node job(s)\nconst jobs = await Promise.all(\n  Array.from({ length: " + nodes + " }, () => nosana.jobs.list(ipfsHash, " + timeoutSeconds + ", \"" + g.market + "\"))\n);";
+          `import { Client } from "@nosana/kit";\n\nconst nosana = new Client("mainnet", process.env.SOLANA_WALLET_KEY);\nconst ipfsHash = await nosana.ipfs.pin(jobDefinition);\n// SDK timeout is specified in seconds (${hrs}h = ${timeoutSeconds}s); post ${nodes} node job(s)\nconst jobs = await Promise.all(\n  Array.from({ length: ${nodes} }, () => nosana.jobs.list(ipfsHash, ${timeoutSeconds}, "${g.market}"))\n);`;
       }
     }
 
