@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Raenest + Solana Cross-Border Freelancer Savings &amp; 7% APY Vault Simulator</title>
   <meta name="description" content="Compare legacy SWIFT cross-border wires against Raenest Solana USDC/USDT (1:1 wallet credit), transparent conversion fees, SOL/BTC/ETH custody, and daily-compounded Stablecoin Vaults." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/raenest-freelancer-calculator.html" />
+  <meta property="og:title" content="Raenest + Solana Cross-Border Freelancer Savings &amp; 7% APY Vault Calculator" />
+  <meta property="og:description" content="Model 12-month net FX savings across Brazil, Nigeria, Argentina &amp; Philippines with Raenest 1:1 USDC/USDT wallets and daily-compounded Stablecoin Vaults." />
+  <meta property="og:image" content="https://royalmmac.github.io/bounty-artifacts/og-raenest-calculator.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Raenest + Solana Cross-Border Freelancer Calculator (@Royalmmac)" />
+  <meta name="twitter:description" content="Compare SWIFT wire drag vs. Raenest 1:1 Solana USDC/USDT credit, transparent USD fees, and up to 7% variable APY Stablecoin Vaults." />
+  <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-raenest-calculator.png" />
   <style>
     :root {
       --bg: #090d16;
@@ -334,9 +343,9 @@
       const monthlySaved = monthly * saveRatio;
       const monthlySpent = monthly - monthlySaved;
 
-      document.getElementById("invoiceVal").textContent = "$" + monthly.toLocaleString("en-US") + " / mo";
-      document.getElementById("saveVal").textContent = savePctEl.value + "% ($" + Math.round(monthlySaved).toLocaleString("en-US") + "/mo)";
-      document.getElementById("apyVal").textContent = (apyDecimal * 100).toFixed(2) + "% APY";
+      document.getElementById("invoiceVal").textContent = `$${monthly.toLocaleString("en-US")} / mo`;
+      document.getElementById("saveVal").textContent = `${savePctEl.value}% ($${Math.round(monthlySaved).toLocaleString("en-US")}/mo)`;
+      document.getElementById("apyVal").textContent = `${(apyDecimal * 100).toFixed(2)}% APY`;
 
       // Legacy annual drag: 12 monthly wires with FX spread + correspondent cut
       const annualSwiftLoss = 12 * (monthly * c.spreadPct + c.wireFixed);
@@ -365,25 +374,25 @@
 
       document.getElementById("swiftLoss").textContent = "-" + fmt(annualSwiftLoss);
       document.getElementById("raenestFeeNote").textContent =
-        "vs. -" + fmt(annualRaenestFees) + " Raenest USD conversion fees (net +" + fmt(netFxSaved) + " FX saved)";
+        `vs. -${fmt(annualRaenestFees)} Raenest USD conversion fees (net +${fmt(netFxSaved)} FX saved)`;
       document.getElementById("vaultYield").textContent = "+" + fmt(vaultYield);
       document.getElementById("vaultPrincipalNote").textContent = isStable
-        ? "On " + fmt(principal) + " cumulative " + selectedAsset + " reserve ($0 lock-up)"
-        : "0% Vault APY on volatile " + selectedAsset + " (convert to USDC/USDT to earn)";
-      document.getElementById("totalGain").textContent = "+" + fmt(netAdvantage) + " / year";
-      document.getElementById("legacySpreadCell").textContent = (c.spreadPct * 100).toFixed(2) + "% FX + $" + c.wireFixed + "/wire";
+        ? `On ${fmt(principal)} cumulative ${selectedAsset} reserve ($0 lock-up)`
+        : `0% Vault APY on volatile ${selectedAsset} (convert to USDC/USDT to earn)`;
+      document.getElementById("totalGain").textContent = `+${fmt(netAdvantage)} / year`;
+      document.getElementById("legacySpreadCell").textContent = `${(c.spreadPct * 100).toFixed(2)}% FX + $${c.wireFixed}/wire`;
       document.getElementById("corridorSummary").textContent = c.note;
 
       const noteBox = document.getElementById("assetNote");
       const apyCell = document.getElementById("apyCell");
       if (isStable) {
         noteBox.className = "note-box";
-        noteBox.innerHTML = "<strong>Eligible for Raenest Vaults (Up to 7% APY):</strong> Incoming <strong>" + selectedAsset + "</strong> on Solana credits <strong>1:1</strong> into your " + selectedAsset + " wallet (no forced fiat conversion) and earns daily-compounded yield inside Raenest Vaults ($100 min, 24/7 withdrawal).";
-        apyCell.innerHTML = "<strong>" + (apyDecimal * 100).toFixed(2) + "% Variable APY</strong> (Daily Payout, No Lock-Up)";
+        noteBox.innerHTML = `<strong>Eligible for Raenest Vaults (Up to 7% APY):</strong> Incoming <strong>${selectedAsset}</strong> on Solana credits <strong>1:1</strong> into your ${selectedAsset} wallet (no forced fiat conversion) and earns daily-compounded yield inside Raenest Vaults ($100 min, 24/7 withdrawal).`;
+        apyCell.innerHTML = `<strong>${(apyDecimal * 100).toFixed(2)}% Variable APY</strong> (Daily Payout, No Lock-Up)`;
       } else {
         noteBox.className = "note-box warn";
-        noteBox.innerHTML = "<strong>Unified Crypto Custody Rule:</strong> You can deposit and hold <strong>" + selectedAsset + "</strong> directly in your Raenest wallet alongside BTC, ETH &amp; SOL—note that <strong>Stablecoin Vault APY (up to 7%) applies specifically to eligible USDT &amp; USDC balances</strong> (convert idle reserves to USDC/USDT to activate Vault yield).";
-        apyCell.innerHTML = "0% on raw " + selectedAsset + " (Convert to USDC/USDT for up to 7% APY)";
+        noteBox.innerHTML = `<strong>Unified Crypto Custody Rule:</strong> You can deposit and hold <strong>${selectedAsset}</strong> directly in your Raenest wallet alongside BTC, ETH &amp; SOL—note that <strong>Stablecoin Vault APY (up to 7%) applies specifically to eligible USDT &amp; USDC balances</strong> (convert idle reserves to USDC/USDT to activate Vault yield).`;
+        apyCell.innerHTML = `0% on raw ${selectedAsset} (Convert to USDC/USDT for up to 7% APY)`;
       }
     }
 
