@@ -298,7 +298,7 @@
 
       const ratio = Number(splitRuleEl.value) || 0.8;
       const swapsPerMo = Math.max(10, Math.min(5000, Number(monthlySwapsEl.value) || 250));
-      document.getElementById("swapsVal").textContent = `${swapsPerMo.toLocaleString("en-US")} swaps / mo`;
+      document.getElementById("swapsVal").textContent = swapsPerMo.toLocaleString("en-US") + " swaps / mo";
 
       const swapSol = +(sol * ratio).toFixed(4);
       const keepSol = +(sol - swapSol).toFixed(4);
@@ -311,7 +311,7 @@
         slippageBps: 50
       };
 
-      latestCurl = `curl -i -X POST https://hermes.swap.io/v1/swap/quote \\\\\n  -H 'Content-Type: application/json' \\\\\n  -d '${JSON.stringify(reqBody)}'`;
+      latestCurl = "curl -i -X POST https://hermes.swap.io/v1/swap/quote \\\n  -H 'Content-Type: application/json' \\\n  -d '" + JSON.stringify(reqBody) + "'";
 
       const monthlyRevenue = swapsPerMo * 0.05;
       const monthlyX402Cost = swapsPerMo * 0.006014;
@@ -319,16 +319,16 @@
       const legacyTierLoss = monthlyRevenue - 99;
 
       const netEl = document.getElementById("monthlyNet");
-      netEl.textContent = `+$${monthlyNetProfit.toFixed(2)}`;
+      netEl.textContent = "+$" + monthlyNetProfit.toFixed(2);
 
       const legacySummary = legacyTierLoss >= 0
-        ? `+$${legacyTierLoss.toFixed(2)}/mo`
-        : `<span style="color:#ef4444;">-$${Math.abs(legacyTierLoss).toFixed(2)}/mo net loss</span>`;
+        ? "+$" + legacyTierLoss.toFixed(2) + "/mo"
+        : '<span style="color:#ef4444;">-$' + Math.abs(legacyTierLoss).toFixed(2) + '/mo net loss</span>';
 
       document.getElementById("scaleComparison").innerHTML =
-        `<strong>Scale Economics (${swapsPerMo.toLocaleString("en-US")} swaps/mo):</strong> Swap.io <code>x402</code> costs <code>$${monthlyX402Cost.toFixed(2)}/mo</code> (` +
-        `net bot profit <strong>+$${monthlyNetProfit.toFixed(2)}/mo</strong>) vs. a fixed <code>$99/mo</code> API plan (${legacySummary}). ` +
-        `Server-side Node.js/cURL queries <code>hermes.swap.io</code> directly without API keys (browser CORS <code>OPTIONS</code> is disabled by design).`;
+        "<strong>Scale Economics (" + swapsPerMo.toLocaleString("en-US") + " swaps/mo):</strong> Swap.io <code>x402</code> costs <code>$" + monthlyX402Cost.toFixed(2) + "/mo</code> (" +
+        "net bot profit <strong>+$" + monthlyNetProfit.toFixed(2) + "/mo</strong>) vs. a fixed <code>$99/mo</code> API plan (" + legacySummary + "). " +
+        "Server-side Node.js/cURL queries <code>hermes.swap.io</code> directly without API keys (browser CORS <code>OPTIONS</code> is disabled by design).";
 
       document.getElementById("traceOut").textContent = JSON.stringify(
         { quoteRequest: reqBody, http402PaymentRequired: CAPTURED_402 },
@@ -345,10 +345,11 @@
         chat.appendChild(d);
       };
 
-      addMsg("user", `<strong>[INBOUND]</strong> <code>+${sol} SOL</code> detected on contributor wallet.`);
-      addMsg("bot", `<strong>[QUOTE]</strong> Rule <code>${Math.round(ratio * 100)}% USDC</code> applied. Requesting Swap.io Hermes quote for <code>${swapSol} SOL (${Number(lamports).toLocaleString("en-US")} lamports) -> USDC</code>.`);
-      addMsg("bot", `<strong>[X402-AUTH]</strong> Signed <code>$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Base fee sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas paid by bot).`);
-      addMsg("bot", `<strong>[SETTLED]</strong> Swapped <code>${swapSol} SOL -> USDC</code>${keepSol > 0 ? \` and retained <code>${keepSol} SOL</code>\` : " (100% converted)"}. Bot fee: <code>$0.0500</code> | x402 API cost: <code>$0.006014</code> (<strong>+87.97% margin</strong>).`);
+      addMsg("user", "<strong>[INBOUND]</strong> <code>+" + sol + " SOL</code> detected on contributor wallet.");
+      addMsg("bot", "<strong>[QUOTE]</strong> Rule <code>" + Math.round(ratio * 100) + "% USDC</code> applied. Requesting Swap.io Hermes quote for <code>" + swapSol + " SOL (" + Number(lamports).toLocaleString("en-US") + " lamports) -> USDC</code>.");
+      addMsg("bot", "<strong>[X402-AUTH]</strong> Signed <code>$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Base fee sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas paid by bot).");
+      const retainSnippet = keepSol > 0 ? (" and retained <code>" + keepSol + " SOL</code>") : " (100% converted)";
+      addMsg("bot", "<strong>[SETTLED]</strong> Swapped <code>" + swapSol + " SOL -> USDC</code>" + retainSnippet + ". Bot fee: <code>$0.0500</code> | x402 API cost: <code>$0.006014</code> (<strong>+87.97% margin</strong>).");
     }
 
     document.getElementById("runBtn").addEventListener("click", runSimulation);
