@@ -16,18 +16,14 @@
   <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-ssrfun-simulator.png" />
   <style>
     :root {
-      --bg: #0d0f12;
-      --panel: #14171c;
-      --card: #1a1e25;
-      --border: #262c36;
-      --border-strong: #374151;
-      --accent: #e2e8f0;
-      --green: #10b981;
-      --red: #ef4444;
-      --amber: #d97706;
-      --text: #f1f5f9;
-      --secondary: #cbd5e1;
-      --muted: #64748b;
+      --bg: #0c0c0e;
+      --panel: #131316;
+      --card: #19191d;
+      --border: #27272a;
+      --border-strong: #3f3f46;
+      --text: #ededef;
+      --secondary: #a1a1aa;
+      --muted: #71717a;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -94,57 +90,78 @@
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
       font-weight: 600;
     }
-    input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+    input[type="range"] { width: 100%; accent-color: var(--text); cursor: pointer; }
     .scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
     @media (max-width: 540px) { .scenarios { grid-template-columns: 1fr; } }
     .sc-btn {
       background: var(--card);
       border: 1px solid var(--border);
-      color: var(--secondary);
+      color: var(--muted);
       padding: 10px 11px;
       border-radius: 5px;
-      font-weight: 600;
+      font-weight: 500;
       font-size: 12.5px;
       cursor: pointer;
       text-align: left;
       line-height: 1.35;
     }
-    .sc-btn:hover { border-color: var(--border-strong); color: var(--text); }
-    .sc-btn.active { border-color: var(--accent); background: #222731; color: var(--text); }
+    .sc-btn:hover { border-color: var(--border-strong); color: var(--secondary); }
+    .sc-btn.active { border-color: var(--border-strong); background: #222226; color: var(--text); font-weight: 600; }
     .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     @media (max-width: 520px) { .kpis { grid-template-columns: 1fr; } }
-    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 13px; }
+    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 5px; padding: 13px; }
     .kpi .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.03em; }
-    .kpi .val { font-size: 21px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin-top: 4px; }
+    .kpi .val { font-size: 21px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin-top: 4px; color: var(--text); }
+    .kpi.baseline .val { color: var(--secondary); font-weight: 600; }
+    .sc-footnote {
+      padding-top: 11px;
+      border-top: 1px solid var(--border);
+      font-size: 12.5px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+    .sc-footnote strong { color: var(--text); }
     .oracle-box {
-      background: #0f1217;
+      background: #0e0e11;
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 5px;
       padding: 15px;
     }
     .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
     .switch-btn {
       background: var(--text);
-      color: #0d0f12;
+      color: #0c0c0e;
       border: none;
       padding: 7px 12px;
-      border-radius: 5px;
+      border-radius: 4px;
       font-weight: 600;
       font-size: 12px;
       cursor: pointer;
     }
     .switch-btn:hover { opacity: 0.9; }
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 12.8px; margin-top: 6px; }
-    th, td { padding: 8px 6px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
-    th { color: var(--muted); font-size: 11px; text-transform: uppercase; font-weight: 600; }
-    td a { color: #93c5fd; text-decoration: none; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
-    td a:hover { text-decoration: underline; }
-    .cors-box {
-      margin-top: 12px;
+    .status-line {
       padding: 9px 11px;
-      border-radius: 5px;
+      border-radius: 4px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
       font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 6px; }
+    th, td { padding: 8px 6px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; color: var(--secondary); }
+    td:first-child, td strong { color: var(--text); }
+    th { color: var(--muted); font-size: 11px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.03em; }
+    td a { color: var(--secondary); text-decoration: underline; text-underline-offset: 2px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
+    td a:hover { color: var(--text); }
+    .cors-footnote {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 11.8px;
+      color: var(--muted);
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
       line-height: 1.45;
     }
@@ -159,8 +176,8 @@
       justify-content: space-between;
       gap: 10px;
     }
-    footer a { color: var(--secondary); text-decoration: none; }
-    footer a:hover { color: var(--text); text-decoration: underline; }
+    footer a { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
+    footer a:hover { color: var(--text); }
   </style>
 </head>
 <body>
@@ -198,26 +215,26 @@
         </div>
 
         <div class="kpis">
-          <div class="kpi">
+          <div class="kpi baseline">
             <div class="lbl">100% High-Beta Crypto Basket</div>
-            <div class="val" id="pureVal" style="color:#ef4444;">$6,000 (-40.0%)</div>
+            <div class="val" id="pureVal">$6,000 (-40.0%)</div>
           </div>
           <div class="kpi">
             <div class="lbl" id="barbellLbl">SSR.FUN 60/40 Barbell Reserve</div>
-            <div class="val" id="barbellVal" style="color:#f1f5f9;">$8,760 (-12.4%)</div>
+            <div class="val" id="barbellVal">$8,760 (-12.4%)</div>
           </div>
         </div>
-        <div style="font-size:13px; color:var(--secondary);" id="scNote"></div>
+        <div class="sc-footnote" id="scNote"></div>
       </div>
 
       <div class="panel">
         <h2>2. Mainnet Bug #4 &amp; #5 Reproduction: Reserve #93 (<code>$KING</code>)</h2>
         <div class="oracle-box">
           <div class="toggle-row">
-            <span style="font-size:12.8px; font-weight:600; color:var(--secondary);" id="modeTitle">Current SSR.FUN UI (Reserve #93 $KING — Unpatched)</span>
-            <button type="button" class="switch-btn" id="patchBtn">Apply Proposed Fallback Patch &rarr;</button>
+            <span style="font-size:12.5px; font-weight:600; color:var(--secondary);" id="modeTitle">Current SSR.FUN UI (Reserve #93 $KING — Unpatched)</span>
+            <button type="button" class="switch-btn" id="patchBtn">Apply Proposed Fallback Patch →</button>
           </div>
-          <div id="mcapBanner" style="padding:9px 11px; border-radius:5px; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:12.3px; margin-bottom:10px;"></div>
+          <div id="mcapBanner" class="status-line"></div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -226,7 +243,7 @@
               <tbody id="vaultRows"></tbody>
             </table>
           </div>
-          <div id="corsBanner" class="cors-box"></div>
+          <div id="corsBanner" class="cors-footnote"></div>
         </div>
       </div>
     </div>
@@ -243,10 +260,10 @@
 
   <script>
     const SCENARIOS = {
-      drawdown: { eq: 0.06, sol: -0.40, title: "Risk-Off Cushion" },
-      bull: { eq: 0.18, sol: 0.85, title: "Bull Cycle Capture" },
-      chop: { eq: 0.11, sol: -0.12, title: "Range-Bound Compounding" },
-      crash: { eq: -0.08, sol: -0.55, title: "Tail-Risk Preservation" }
+      drawdown: { eq: 0.06, sol: -0.40, title: "Risk-off cushion" },
+      bull: { eq: 0.18, sol: 0.85, title: "Bull cycle capture" },
+      chop: { eq: 0.11, sol: -0.12, title: "Range-bound compounding" },
+      crash: { eq: -0.08, sol: -0.55, title: "Tail-risk preservation" }
     };
 
     let scKey = "drawdown";
@@ -289,13 +306,8 @@
       const bRel = (barb - cap) / cap;
       const delta = barb - pure;
 
-      const pureEl = document.getElementById("pureVal");
-      pureEl.textContent = `$${Math.round(pure).toLocaleString("en-US")} (${fmtPct(pRel)})`;
-      pureEl.style.color = pure >= cap ? "#10b981" : "#ef4444";
-
-      const barbEl = document.getElementById("barbellVal");
-      barbEl.textContent = `$${Math.round(barb).toLocaleString("en-US")} (${fmtPct(bRel)})`;
-      barbEl.style.color = barb >= cap ? "#10b981" : "#f1f5f9";
+      document.getElementById("pureVal").textContent = `$${Math.round(pure).toLocaleString("en-US")} (${fmtPct(pRel)})`;
+      document.getElementById("barbellVal").textContent = `$${Math.round(barb).toLocaleString("en-US")} (${fmtPct(bRel)})`;
 
       const signDelta = delta >= 0 ? `+$${Math.round(delta).toLocaleString("en-US")}` : `-$${Math.round(Math.abs(delta)).toLocaleString("en-US")}`;
       if (delta >= 0) {
@@ -318,39 +330,26 @@
       if (!patched) {
         title.textContent = "Current SSR.FUN UI (Reserve #93 $KING — Unpatched)";
         btn.textContent = "Apply Proposed Fallback Patch →";
-        banner.style.background = "#1f1215";
-        banner.style.border = "1px solid #7f1d1d";
-        banner.style.color = "#fca5a5";
-        banner.textContent = "Market Cap: Price unavailable  |  All-Time Volume: Loading...";
-
-        corsBanner.style.background = "#1c1315";
-        corsBanner.style.border = "1px solid #5f1e24";
-        corsBanner.style.color = "#fda4af";
+        banner.textContent = "[UNPATCHED] Market Cap: Price unavailable  |  All-Time Volume: Loading...";
         corsBanner.textContent = "Bug #5 (CORS Block): GET https://ssr-mnfjzp7pd-ssr14.vercel.app/api/mainnet/reserve-metadata blocked from origin https://ssr.fun";
 
         rows.innerHTML = `
-          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5...SE7K</a></td><td style="color:#10b981;">Pyth Live</td><td>$8.52</td></tr>
-          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp...8HvC</a></td><td style="color:#10b981;">Jupiter Live</td><td>$5.14</td></tr>
-          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH...fATn</a></td><td style="color:#ef4444; font-weight:600;">Missing Feed</td><td style="color:#ef4444;">Breaks Total NAV</td></tr>
-          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C...2dTP</a></td><td style="color:#10b981;">Pyth Live</td><td>$2.00</td></tr>
+          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5...SE7K</a></td><td>Pyth Live</td><td>$8.52</td></tr>
+          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp...8HvC</a></td><td>Jupiter Live</td><td>$5.14</td></tr>
+          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH...fATn</a></td><td><strong>Missing Feed</strong></td><td><strong>Breaks Total NAV</strong></td></tr>
+          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C...2dTP</a></td><td>Pyth Live</td><td>$2.00</td></tr>
         `;
       } else {
         title.textContent = "Patched SSR.FUN UI (Jupiter Quote Fallback + Relative API Origin)";
         btn.textContent = "← Revert to Unpatched State";
-        banner.style.background = "#0c1f17";
-        banner.style.border = "1px solid #14532d";
-        banner.style.color = "#86efac";
-        banner.textContent = "Market Cap: $18.38 ($15.66 Verified + $2.72 JTO Fallback)  |  Volume: Resolved";
-
-        corsBanner.style.background = "#0c1f17";
-        corsBanner.style.border = "1px solid #14532d";
-        corsBanner.style.color = "#86efac";
+        banner.textContent = "[PATCHED] Market Cap: $18.38 ($15.66 Verified + $2.72 JTO Fallback)  |  Volume: Resolved";
         corsBanner.textContent = "Bug #5 Fixed: Same-origin fetch('/api/mainnet/reserve-metadata') resolves HTTP 200 without preview-deployment CORS failure.";
+
         rows.innerHTML = `
-          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5...SE7K</a></td><td style="color:#10b981;">Pyth Live</td><td>$8.52</td></tr>
-          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp...8HvC</a></td><td style="color:#10b981;">Jupiter Live</td><td>$5.14</td></tr>
-          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH...fATn</a></td><td style="color:#f59e0b; font-weight:600;">Jupiter Quote Fallback</td><td style="color:#10b981;">$2.72</td></tr>
-          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C...2dTP</a></td><td style="color:#10b981;">Pyth Live</td><td>$2.00</td></tr>
+          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5...SE7K</a></td><td>Pyth Live</td><td>$8.52</td></tr>
+          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp...8HvC</a></td><td>Jupiter Live</td><td>$5.14</td></tr>
+          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH...fATn</a></td><td><strong>Jupiter Quote Fallback</strong></td><td><strong>$2.72</strong></td></tr>
+          <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C...2dTP</a></td><td>Pyth Live</td><td>$2.00</td></tr>
         `;
       }
     }
