@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreelanceSplitBot — Swap.io x402 Protocol Inspector &amp; Telegram Agent Economics</title>
   <meta name="description" content="Interactive Telegram treasury agent simulator and Mainnet HTTP 402 Payment Required payload inspector for Swap.io's Hermes x402 API on Solana and Base." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/freelance-split-bot-demo.html" />
+  <meta property="og:title" content="FreelanceSplitBot — Swap.io x402 Wire Inspector &amp; Telegram Agent Economics" />
+  <meta property="og:description" content="Simulate Solana contributor splits, inspect verbatim HTTP 402 Payment Required payloads (Solana + Base), and benchmark monthly bot margins." />
+  <meta property="og:image" content="https://royalmmac.github.io/bounty-artifacts/og-swap-x402-demo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FreelanceSplitBot — Swap.io x402 Inspector (@Royalmmac)" />
+  <meta name="twitter:description" content="Interactive Telegram treasury agent &amp; HTTP 402 wire inspector on Solana and Base." />
+  <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-swap-x402-demo.png" />
   <style>
     :root {
       --bg: #080c14;
@@ -177,7 +186,6 @@
       <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/swap_x402_demo.mjs" target="_blank" rel="noopener noreferrer">Runnable <code>swap_x402_demo.mjs</code></a>
     </footer>
   </div>
-
   <script>
     // Exact verbatim HTTP 402 Payment Required payload returned by https://hermes.swap.io/v1/swap/quote
     const CAPTURED_402 = {
@@ -253,7 +261,7 @@
 
       const ratio = Number(splitRuleEl.value) || 0.8;
       const swapsPerMo = Math.max(10, Math.min(5000, Number(monthlySwapsEl.value) || 250));
-      document.getElementById("swapsVal").textContent = swapsPerMo.toLocaleString("en-US") + " swaps / mo";
+      document.getElementById("swapsVal").textContent = `${swapsPerMo.toLocaleString("en-US")} swaps / mo`;
 
       const swapSol = +(sol * ratio).toFixed(4);
       const keepSol = +(sol - swapSol).toFixed(4);
@@ -266,7 +274,9 @@
         slippageBps: 50
       };
 
-      latestCurl = 'curl -i -X POST https://hermes.swap.io/v1/swap/quote \\\n  -H \'Content-Type: application/json\' \\\n  -d \'' + JSON.stringify(reqBody) + '\'';
+      latestCurl = `curl -i -X POST https://hermes.swap.io/v1/swap/quote \
+  -H 'Content-Type: application/json' \
+  -d '${JSON.stringify(reqBody)}'`;
 
       const monthlyRevenue = swapsPerMo * 0.05;
       const monthlyX402Cost = swapsPerMo * 0.006014;
@@ -274,18 +284,14 @@
       const legacyTierLoss = monthlyRevenue - 99;
 
       const netEl = document.getElementById("monthlyNet");
-      netEl.textContent = "+$" + monthlyNetProfit.toFixed(2);
+      netEl.textContent = `+$${monthlyNetProfit.toFixed(2)}`;
       netEl.style.color = "#14f195";
 
-      const legacyLossHtml = legacyTierLoss >= 0
-        ? "+$" + legacyTierLoss.toFixed(2) + "/mo"
-        : '<span style="color:#fb7185;">-$' + Math.abs(legacyTierLoss).toFixed(2) + '/mo net loss</span>';
-
       document.getElementById("scaleComparison").innerHTML =
-        '<strong>Scale Economics (' + swapsPerMo.toLocaleString("en-US") + ' swaps/mo):</strong> Swap.io <code>x402</code> costs just <code>$' + monthlyX402Cost.toFixed(2) + '/mo</code> (' +
-        'net bot profit <strong>+$' + monthlyNetProfit.toFixed(2) + '/mo</strong>) vs. a legacy <code>$99/mo</code> API plan (' +
-        legacyLossHtml + '). ' +
-        'Server-side Node.js/cURL queries <code>hermes.swap.io</code> directly with zero API keys (browser CORS <code>OPTIONS</code> is disabled by design).';
+        `<strong>Scale Economics (${swapsPerMo.toLocaleString("en-US")} swaps/mo):</strong> Swap.io <code>x402</code> costs just <code>$${monthlyX402Cost.toFixed(2)}/mo</code> (` +
+        `net bot profit <strong>+$${monthlyNetProfit.toFixed(2)}/mo</strong>) vs. a legacy <code>$99/mo</code> API plan (` +
+        `${legacyTierLoss >= 0 ? `+$${legacyTierLoss.toFixed(2)}/mo` : `<span style="color:#fb7185;">-$${Math.abs(legacyTierLoss).toFixed(2)}/mo net loss</span>`}). ` +
+        `Server-side Node.js/cURL queries <code>hermes.swap.io</code> directly with zero API keys (browser CORS <code>OPTIONS</code> is disabled by design).`;
 
       document.getElementById("traceOut").textContent = JSON.stringify(
         { quoteRequest: reqBody, http402PaymentRequired: CAPTURED_402 },
@@ -302,10 +308,10 @@
         chat.appendChild(d);
       };
 
-      addMsg("user", "<strong>Incoming Transfer Detected:</strong> <code>+" + sol + " SOL</code> landed in contributor wallet.");
-      addMsg("bot", "🤖 <strong>FreelanceSplitBot:</strong> Applying <code>" + Math.round(ratio * 100) + "% USDC</code> treasury rule. Requesting Swap.io Hermes quote for <code>" + swapSol + " SOL (" + Number(lamports).toLocaleString("en-US") + " lamports) → USDC</code>...");
-      addMsg("bot", "⚡ <strong>HTTP 402 Handshake:</strong> Authorized <code>$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Solana base gas sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas burn for agent).");
-      addMsg("bot", "✅ <strong>Treasury Split Ready:</strong> Swapped <code>" + swapSol + " SOL → USDC</code>" + (keepSol > 0 ? " + retained <code>" + keepSol + " SOL</code>" : " (100% converted)") + ". Bot fee: <code>$0.0500</code> | Total x402 API cost (quote + build): <code>$0.006014</code> (<strong>+87.97% unit margin</strong>).");
+      addMsg("user", `<strong>Incoming Transfer Detected:</strong> <code>+${sol} SOL</code> landed in contributor wallet.`);
+      addMsg("bot", `🤖 <strong>FreelanceSplitBot:</strong> Applying <code>${Math.round(ratio * 100)}% USDC</code> treasury rule. Requesting Swap.io Hermes quote for <code>${swapSol} SOL (${Number(lamports).toLocaleString("en-US")} lamports) → USDC</code>...`);
+      addMsg("bot", `⚡ <strong>HTTP 402 Handshake:</strong> Authorized <code>$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Solana base gas sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas burn for agent).`);
+      addMsg("bot", `✅ <strong>Treasury Split Ready:</strong> Swapped <code>${swapSol} SOL → USDC</code>${keepSol > 0 ? ` + retained <code>${keepSol} SOL</code>` : " (100% converted)"}. Bot fee: <code>$0.0500</code> | Total x402 API cost (quote + build): <code>$0.006014</code> (<strong>+87.97% unit margin</strong>).`);
     }
 
     document.getElementById("runBtn").addEventListener("click", runSimulation);
