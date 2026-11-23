@@ -18,14 +18,12 @@
     :root {
       --bg: #0a0a0a;
       --panel: #111111;
-      --card: #161616;
+      --card: #171717;
       --border: #262626;
-      --border-light: #363636;
-      --brand: #22c55e;
+      --border-light: #3f3f46;
       --text: #ededed;
       --secondary: #a1a1aa;
       --muted: #71717a;
-      --warn: #d97706;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -102,41 +100,49 @@
       color: var(--text);
       border: 1px solid var(--border-light);
       padding: 9px 11px;
-      border-radius: 6px;
+      border-radius: 5px;
       font-size: 13.5px;
     }
-    input[type="range"] { accent-color: var(--brand); cursor: pointer; }
+    input[type="range"] { accent-color: var(--text); cursor: pointer; }
     .inline-two { display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 12px; }
     @media (max-width: 560px) { .inline-two { grid-template-columns: 1fr; } }
     .guardrail {
       display: none;
       margin-bottom: 16px;
       padding: 12px 14px;
-      border-radius: 6px;
-      background: #1c1507;
-      border: 1px solid #573b08;
-      border-left: 3px solid var(--warn);
-      color: #fcd34d;
-      font-size: 12.8px;
+      border-radius: 5px;
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      color: var(--secondary);
+      font-size: 12.5px;
+      line-height: 1.5;
     }
+    .guardrail strong { color: var(--text); }
     .guardrail.show { display: block; }
     .guardrail button {
       margin-top: 8px;
-      background: #f59e0b;
+      background: var(--text);
       color: #0a0a0a;
       border: none;
       padding: 6px 11px;
-      border-radius: 5px;
+      border-radius: 4px;
       font-weight: 600;
       font-size: 12px;
       cursor: pointer;
     }
     .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
     @media (max-width: 620px) { .kpis { grid-template-columns: 1fr; } }
-    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 13px; }
+    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 5px; padding: 13px; }
     .kpi .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
     .kpi .val { font-size: 20px; font-weight: 700; margin-top: 4px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; color: var(--text); }
-    .meta-note { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+    .kpi.baseline .val { color: var(--secondary); font-weight: 600; }
+    .meta-note {
+      padding-top: 11px;
+      border-top: 1px solid var(--border);
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
     .meta-note code { color: var(--secondary); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
     .copy-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
     .btn {
@@ -144,29 +150,36 @@
       color: #0a0a0a;
       border: 1px solid var(--text);
       padding: 6px 12px;
-      border-radius: 5px;
+      border-radius: 4px;
       font-weight: 600;
       font-size: 12.5px;
       cursor: pointer;
     }
     .btn:hover { opacity: 0.9; }
     .btn.secondary { background: var(--card); color: var(--text); border: 1px solid var(--border-light); }
-    .tabs { display: flex; gap: 6px; }
+    .tabs {
+      display: inline-flex;
+      gap: 2px;
+      padding: 2px;
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+    }
     .tab-btn {
       background: transparent;
       color: var(--muted);
-      border: 1px solid var(--border);
+      border: none;
       padding: 5px 10px;
-      border-radius: 5px;
+      border-radius: 4px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
     }
-    .tab-btn.active { background: var(--card); color: var(--text); border-color: var(--border-light); }
+    .tab-btn.active { background: var(--border); color: var(--text); font-weight: 600; }
     pre {
       background: #080808;
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 5px;
       padding: 13px;
       overflow-x: auto;
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
@@ -186,8 +199,8 @@
       justify-content: space-between;
       gap: 10px;
     }
-    footer a { color: var(--secondary); text-decoration: none; }
-    footer a:hover { color: var(--text); text-decoration: underline; }
+    footer a { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
+    footer a:hover { color: var(--text); }
   </style>
 </head>
 <body>
@@ -227,9 +240,9 @@
         </div>
 
         <div id="vramGuardrail" class="guardrail" role="alert">
-          <strong>VRAM Capacity Mismatch:</strong> <code>Meta-Llama-3.3-70B-Instruct-AWQ</code> requires ~39–42 GB VRAM (weights + KV cache) and exceeds a single 24 GB card. Select an 80 GB market queue to satisfy <code>required_vram: 42</code>:
+          <strong>VRAM capacity constraint:</strong> <code>Meta-Llama-3.3-70B-Instruct-AWQ</code> requires ~39–42 GB VRAM (weights + KV cache) and exceeds a single 24 GB card. Switch to an 80 GB market queue to satisfy <code>required_vram: 42</code>:
           <br />
-          <button type="button" id="upgradeGpuBtn">Select NVIDIA A100 (80 GB VRAM) &rarr;</button>
+          <button type="button" id="upgradeGpuBtn">Select NVIDIA A100 (80 GB VRAM) →</button>
         </div>
 
         <div class="field">
@@ -249,13 +262,13 @@
         </div>
 
         <div class="kpis">
-          <div class="kpi">
+          <div class="kpi baseline">
             <div class="lbl">On-Demand Cloud</div>
-            <div class="val" id="cloudCost" style="color:#a1a1aa;">$1,498/mo</div>
+            <div class="val" id="cloudCost">$1,498/mo</div>
           </div>
           <div class="kpi">
             <div class="lbl">Nosana Grid</div>
-            <div class="val" id="nosCost" style="color:#22c55e;">$336/mo</div>
+            <div class="val" id="nosCost">$336/mo</div>
           </div>
           <div class="kpi">
             <div class="lbl">Estimated Delta</div>
@@ -480,7 +493,7 @@
       if (activeTab === "cli") {
         if (nodes === 1) {
           document.getElementById("cliOut").textContent =
-            `# --timeout is specified in minutes (${hrs}h = ${timeoutMinutes}m)\nnpx @nosana/cli job post \\\\\n  --file ./${w.id}.json \\\\\n  --market ${g.market} \\\\\n  --timeout ${timeoutMinutes}`;
+            `# --timeout is specified in minutes (${hrs}h = ${timeoutMinutes}m)\nnpx @nosana/cli job post \\\n  --file ./${w.id}.json \\\n  --market ${g.market} \\\n  --timeout ${timeoutMinutes}`;
         } else {
           document.getElementById("cliOut").textContent =
             `# Post ${nodes} parallel GPU jobs to the ${g.market} Solana market (--timeout in minutes)\nfor i in $(seq 1 ${nodes}); do\n  npx @nosana/cli job post --file ./${w.id}.json --market ${g.market} --timeout ${timeoutMinutes}\ndone`;
