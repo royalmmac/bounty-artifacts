@@ -16,12 +16,11 @@
   <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-swap-x402-demo.png" />
   <style>
     :root {
-      --bg: #0b0c0e;
-      --panel: #121418;
-      --card: #181b21;
-      --border: #252932;
-      --border-light: #353b47;
-      --green: #16a34a;
+      --bg: #0b0b0d;
+      --panel: #121215;
+      --card: #18181b;
+      --border: #27272a;
+      --border-light: #3f3f46;
       --text: #ededef;
       --secondary: #a1a1aa;
       --muted: #71717a;
@@ -80,52 +79,60 @@
     .slider-field label span { color: var(--text); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-weight: 600; }
     input[type="number"], select {
       width: 100%; background: var(--card); border: 1px solid var(--border-light); color: var(--text);
-      padding: 9px 11px; border-radius: 6px; font-size: 13.5px;
+      padding: 9px 11px; border-radius: 5px; font-size: 13.5px;
     }
     input[type="range"] { width: 100%; accent-color: var(--text); cursor: pointer; }
     .btn {
-      width: 100%; background: var(--text); color: #0b0c0e; border: none;
-      padding: 10px 16px; border-radius: 6px; font-weight: 600; font-size: 13.5px; cursor: pointer;
+      width: 100%; background: var(--text); color: #0b0b0d; border: none;
+      padding: 10px 16px; border-radius: 5px; font-weight: 600; font-size: 13.5px; cursor: pointer;
     }
     .btn:hover { opacity: 0.92; }
     .btn-sm {
       background: var(--card); color: var(--text); border: 1px solid var(--border-light);
-      padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer;
+      padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;
     }
-    .tg-window {
-      background: #0d0f13; border: 1px solid var(--border); border-radius: 6px; padding: 14px; min-height: 255px;
-      display: flex; flex-direction: column; gap: 8px; margin-top: 14px;
+    .log-window {
+      background: #0d0d10; border: 1px solid var(--border); border-radius: 5px; padding: 12px 14px; min-height: 240px;
+      display: flex; flex-direction: column; margin-top: 14px;
     }
-    .msg { padding: 9px 12px; border-radius: 6px; font-size: 12.8px; max-width: 96%; word-break: break-word; }
+    .msg {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12.5px;
+      color: var(--secondary);
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .msg:last-child { border-bottom: none; padding-bottom: 0; }
+    .msg:first-child { padding-top: 0; }
+    .msg strong { color: var(--text); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11.8px; }
     .msg code { color: var(--text); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
-    .msg.user { align-self: flex-end; background: #1e2430; border: 1px solid #334155; }
-    .msg.bot { align-self: flex-start; background: var(--card); border: 1px solid var(--border); color: var(--secondary); }
-    .msg.bot strong { color: var(--text); }
     .toolbar {
       display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;
       padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--border);
     }
     pre {
-      background: #08090b; border: 1px solid var(--border); border-radius: 6px; padding: 13px;
+      background: #08080a; border: 1px solid var(--border); border-radius: 5px; padding: 13px;
       overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; color: #d4d4d8;
       max-height: 315px; line-height: 1.46;
     }
     .econ { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
     @media (max-width: 680px) { .econ { grid-template-columns: 1fr 1fr; } }
-    .econ .box { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px 11px; }
-    .econ .lbl { font-size: 10.5px; color: var(--muted); text-transform: uppercase; font-weight: 600; }
+    .econ .box { background: var(--card); border: 1px solid var(--border); border-radius: 5px; padding: 10px 11px; }
+    .econ .lbl { font-size: 10.5px; color: var(--muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.03em; }
     .econ .val { font-size: 17px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin-top: 3px; color: var(--text); }
+    .econ .box.baseline .val { color: var(--secondary); font-weight: 600; }
     .arch-note {
-      margin-top: 12px; padding: 10px 12px; border-radius: 6px; font-size: 12.2px;
-      background: var(--card); border: 1px solid var(--border); color: var(--secondary);
+      margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--border);
+      font-size: 12.2px; color: var(--secondary); line-height: 1.5;
     }
     .arch-note strong { color: var(--text); }
     footer {
       margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--border);
       font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;
     }
-    footer a { color: var(--secondary); text-decoration: none; }
-    footer a:hover { color: var(--text); text-decoration: underline; }
+    footer a { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
+    footer a:hover { color: var(--text); }
   </style>
 </head>
 <body>
@@ -166,7 +173,7 @@
 
         <button type="button" class="btn" id="runBtn">Run Deposit Simulation &amp; Build x402 Payload</button>
 
-        <div class="tg-window" id="chatLog"></div>
+        <div class="log-window" id="chatLog"></div>
       </div>
 
       <div class="panel">
@@ -183,21 +190,21 @@
         <pre id="traceOut"></pre>
 
         <div class="econ">
-          <div class="box">
+          <div class="box baseline">
             <div class="lbl">Bot Fee / Swap</div>
             <div class="val">$0.0500</div>
           </div>
-          <div class="box">
+          <div class="box baseline">
             <div class="lbl">x402 Quote+Build</div>
             <div class="val">$0.006014</div>
           </div>
           <div class="box">
             <div class="lbl">Unit Margin</div>
-            <div class="val" style="color:#22c55e;">+87.97%</div>
+            <div class="val">+87.97%</div>
           </div>
           <div class="box">
             <div class="lbl">Monthly Net Profit</div>
-            <div class="val" id="monthlyNet" style="color:#22c55e;">+$11.00</div>
+            <div class="val" id="monthlyNet">+$11.00</div>
           </div>
         </div>
 
@@ -298,7 +305,7 @@
 
       const ratio = Number(splitRuleEl.value) || 0.8;
       const swapsPerMo = Math.max(10, Math.min(5000, Number(monthlySwapsEl.value) || 250));
-      document.getElementById("swapsVal").textContent = swapsPerMo.toLocaleString("en-US") + " swaps / mo";
+      document.getElementById("swapsVal").textContent = `${swapsPerMo.toLocaleString("en-US")} swaps / mo`;
 
       const swapSol = +(sol * ratio).toFixed(4);
       const keepSol = +(sol - swapSol).toFixed(4);
@@ -311,7 +318,7 @@
         slippageBps: 50
       };
 
-      latestCurl = "curl -i -X POST https://hermes.swap.io/v1/swap/quote \\\n  -H 'Content-Type: application/json' \\\n  -d '" + JSON.stringify(reqBody) + "'";
+      latestCurl = `curl -i -X POST https://hermes.swap.io/v1/swap/quote \\\n  -H 'Content-Type: application/json' \\\n  -d '${JSON.stringify(reqBody)}'`;
 
       const monthlyRevenue = swapsPerMo * 0.05;
       const monthlyX402Cost = swapsPerMo * 0.006014;
@@ -319,16 +326,16 @@
       const legacyTierLoss = monthlyRevenue - 99;
 
       const netEl = document.getElementById("monthlyNet");
-      netEl.textContent = "+$" + monthlyNetProfit.toFixed(2);
+      netEl.textContent = `+\$${monthlyNetProfit.toFixed(2)}`;
 
       const legacySummary = legacyTierLoss >= 0
-        ? "+$" + legacyTierLoss.toFixed(2) + "/mo"
-        : '<span style="color:#ef4444;">-$' + Math.abs(legacyTierLoss).toFixed(2) + '/mo net loss</span>';
+        ? `+\$${legacyTierLoss.toFixed(2)}/mo`
+        : `-\$${Math.abs(legacyTierLoss).toFixed(2)}/mo net loss`;
 
       document.getElementById("scaleComparison").innerHTML =
-        "<strong>Scale Economics (" + swapsPerMo.toLocaleString("en-US") + " swaps/mo):</strong> Swap.io <code>x402</code> costs <code>$" + monthlyX402Cost.toFixed(2) + "/mo</code> (" +
-        "net bot profit <strong>+$" + monthlyNetProfit.toFixed(2) + "/mo</strong>) vs. a fixed <code>$99/mo</code> API plan (" + legacySummary + "). " +
-        "Server-side Node.js/cURL queries <code>hermes.swap.io</code> directly without API keys (browser CORS <code>OPTIONS</code> is disabled by design).";
+        `<strong>Scale economics (${swapsPerMo.toLocaleString("en-US")} swaps/mo):</strong> Swap.io <code>x402</code> costs <code>\$${monthlyX402Cost.toFixed(2)}/mo</code> (` +
+        `net bot profit <strong>+\$${monthlyNetProfit.toFixed(2)}/mo</strong>) vs. a fixed <code>\$99/mo</code> API plan (${legacySummary}). ` +
+        `Server-side Node.js/cURL queries <code>hermes.swap.io</code> directly without API keys (browser CORS <code>OPTIONS</code> is disabled by design).`;
 
       document.getElementById("traceOut").textContent = JSON.stringify(
         { quoteRequest: reqBody, http402PaymentRequired: CAPTURED_402 },
@@ -338,18 +345,17 @@
 
       const chat = document.getElementById("chatLog");
       chat.innerHTML = "";
-      const addMsg = (cls, html) => {
+      const addMsg = (html) => {
         const d = document.createElement("div");
-        d.className = "msg " + cls;
+        d.className = "msg";
         d.innerHTML = html;
         chat.appendChild(d);
       };
 
-      addMsg("user", "<strong>[INBOUND]</strong> <code>+" + sol + " SOL</code> detected on contributor wallet.");
-      addMsg("bot", "<strong>[QUOTE]</strong> Rule <code>" + Math.round(ratio * 100) + "% USDC</code> applied. Requesting Swap.io Hermes quote for <code>" + swapSol + " SOL (" + Number(lamports).toLocaleString("en-US") + " lamports) -> USDC</code>.");
-      addMsg("bot", "<strong>[X402-AUTH]</strong> Signed <code>$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Base fee sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas paid by bot).");
-      const retainSnippet = keepSol > 0 ? (" and retained <code>" + keepSol + " SOL</code>") : " (100% converted)";
-      addMsg("bot", "<strong>[SETTLED]</strong> Swapped <code>" + swapSol + " SOL -> USDC</code>" + retainSnippet + ". Bot fee: <code>$0.0500</code> | x402 API cost: <code>$0.006014</code> (<strong>+87.97% margin</strong>).");
+      addMsg(`<strong>[INBOUND]</strong> <code>+${sol} SOL</code> detected on contributor wallet.`);
+      addMsg(`<strong>[QUOTE]</strong> Rule <code>${Math.round(ratio * 100)}% USDC</code> applied. Requesting Swap.io Hermes quote for <code>${swapSol} SOL (${Number(lamports).toLocaleString("en-US")} lamports) -> USDC</code>.`);
+      addMsg(`<strong>[X402-AUTH]</strong> Signed <code>\$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Base fee sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas paid by bot).`);
+      addMsg(`<strong>[SETTLED]</strong> Swapped <code>${swapSol} SOL -> USDC</code>${keepSol > 0 ? ` and retained <code>${keepSol} SOL</code>` : " (100% converted)"}. Bot fee: <code>\$0.0500</code> | x402 API cost: <code>\$0.006014</code> (<strong>+87.97% margin</strong>).`);
     }
 
     document.getElementById("runBtn").addEventListener("click", runSimulation);
