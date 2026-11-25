@@ -5,7 +5,7 @@
 *By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac)) • Beta Key Verified: `SSR-HE1S-FDVT-P5NV-C16G`*
 
 - **Live Interactive 60/40 Barbell & Oracle Patch Simulator:** [`ssrfun-barbell-simulator.html`](https://royalmmac.github.io/bounty-artifacts/ssrfun-barbell-simulator.html)
-- **1080p Live Simulator & Patch Walkthrough on X:** [`https://x.com/Royalmmac/status/2124983746273427661`](https://x.com/Royalmmac/status/2124983746273427661)
+- **1080p Live Simulator & Patch Walkthrough on X:** [`https://x.com/Royalmmac/status/2125497694106091547`](https://x.com/Royalmmac/status/2125497694106091547)
 - **X Investment Thesis & QA Thread (`@strategicsuperr`):** [`https://x.com/Royalmmac/status/2121123929565569133`](https://x.com/Royalmmac/status/2121123929565569133)
 - **Canonical Reserve Audited (`Reserve #93 - $KING`):** [`https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb`](https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb)
 - **Longitudinal Mainnet Telemetry (`20 Wallets · 9 Reserves` across 4 Checkpoints: `Nov 13 → Nov 18 → Nov 23 → Nov 25, 2026`):** [`https://ssr.fun/leaderboard`](https://ssr.fun/leaderboard)

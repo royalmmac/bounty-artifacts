@@ -5,7 +5,7 @@
 *By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac))*
 
 - **Interactive JSON Job Builder & Cost Benchmark:** [`nosana-gpu-job-simulator.html`](https://royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html)
-- **1080p Live Tool Walkthrough on X:** [`https://x.com/Royalmmac/status/2124983029164638712`](https://x.com/Royalmmac/status/2124983029164638712)
+- **1080p Live Tool Walkthrough on X:** [`https://x.com/Royalmmac/status/2125495228308328733`](https://x.com/Royalmmac/status/2125495228308328733)
 - **Full X Explainer Thread (`@nosana_ai` · `@solana`):** [`https://x.com/Royalmmac/status/2121298173377364185`](https://x.com/Royalmmac/status/2121298173377364185)
 - **Ecosystem:** [https://nosana.com](https://nosana.com) • [https://deploy.nosana.com](https://deploy.nosana.com) • `#NOSvember` `#CreatorChallenge`
 

@@ -6,7 +6,7 @@
 
 - **Interactive 7-Corridor FX & Vault Calculator:** [`raenest-freelancer-calculator.html`](https://royalmmac.github.io/bounty-artifacts/raenest-freelancer-calculator.html)
 - **Published Long-Form Article (Substack):** [`https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote`](https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote)
-- **1080p Live Calculator Walkthrough on X:** [`https://x.com/Royalmmac/status/2124993539004412025`](https://x.com/Royalmmac/status/2124993539004412025)
+- **1080p Live Calculator Walkthrough on X:** [`https://x.com/Royalmmac/status/2125499292131430560`](https://x.com/Royalmmac/status/2125499292131430560)
 - **X Distribution Thread (`@RaenestApp` · `@SuperteamBR`):** [`https://x.com/Royalmmac/status/2123191082259259621`](https://x.com/Royalmmac/status/2123191082259259621)
 - **LinkedIn Distribution Post:** [`https://www.linkedin.com/feed/update/urn:li:share:7528980300274561024/`](https://www.linkedin.com/feed/update/urn:li:share:7528980300274561024/)
 
