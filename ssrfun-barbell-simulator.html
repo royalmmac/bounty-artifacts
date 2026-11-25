@@ -4,16 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SSR.FUN Onchain Barbell NAV Model &amp; Reserve #93 Oracle Diagnostics</title>
-  <meta name="description" content="Interactive stress-test of our 60/40 Onchain Barbell Reserve thesis on SSR.FUN plus live reproduction of Mainnet Reserve #93 ($KING) JTO oracle & CORS fixes." />
+  <meta name="description" content="Interactive stress-test of our 60/40 Onchain Barbell Reserve thesis on SSR.FUN plus Nov 18 -> Nov 25 Mainnet QA verification on Reserve #93 ($KING)." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/ssrfun-barbell-simulator.html" />
-  <meta property="og:title" content="SSR.FUN Onchain Barbell Stress-Tester &amp; Reserve #93 Oracle/CORS Patch Demo" />
-  <meta property="og:description" content="Stress-test customizable Macro Equity + Solana Barbell allocations and inspect live Mainnet patches for Reserve #93 ($KING) JTO oracle &amp; CORS bugs." />
-  <meta property="og:image" content="https://royalmmac.github.io/bounty-artifacts/og-ssrfun-simulator.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SSR.FUN Onchain Barbell &amp; Oracle Patch Simulator (@Royalmmac)" />
-  <meta name="twitter:description" content="Interactive 60/40 Macro Barbell stress-tester + Mainnet Reserve #93 ($KING) Jupiter fallback &amp; CORS fix simulator." />
-  <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-ssrfun-simulator.png" />
+  <meta property="og:title" content="SSR.FUN Onchain Barbell Stress-Tester &amp; Mainnet QA Verification Demo" />
+  <meta property="og:description" content="Stress-test customizable Macro Equity + Solana Barbell allocations and inspect Nov 18 -> Nov 25 verified Mainnet fixes on Reserve #93 ($KING)." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="SSR.FUN Onchain Barbell &amp; Mainnet QA Simulator (@Royalmmac)" />
+  <meta name="twitter:description" content="Interactive 60/40 Macro Barbell stress-tester + Nov 18 -> Nov 25 Mainnet Reserve #93 ($KING) QA verification &amp; patch kit." />
   <style>
     :root {
       --bg: #0c0c0e;
@@ -55,7 +53,7 @@
       letter-spacing: -0.02em;
       margin-bottom: 8px;
     }
-    .sub { color: var(--secondary); max-width: 880px; margin-bottom: 24px; font-size: 14.5px; }
+    .sub { color: var(--secondary); max-width: 900px; margin-bottom: 24px; font-size: 14.5px; }
     .sub code {
       color: var(--text);
       background: var(--card);
@@ -65,7 +63,7 @@
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
       font-size: 13px;
     }
-    .grid { display: grid; grid-template-columns: 1.04fr 1fr; gap: 20px; align-items: start; }
+    .grid { display: grid; grid-template-columns: 1.02fr 1.02fr; gap: 20px; align-items: start; }
     @media (max-width: 920px) { .grid { grid-template-columns: 1fr; } }
     .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 20px; min-width: 0; }
     .panel h2 {
@@ -127,16 +125,22 @@
       border-radius: 5px;
       padding: 15px;
     }
-    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .btn-row { display: flex; gap: 6px; flex-wrap: wrap; }
     .switch-btn {
       background: var(--text);
       color: #0c0c0e;
-      border: none;
-      padding: 7px 12px;
+      border: 1px solid var(--text);
+      padding: 6px 11px;
       border-radius: 4px;
       font-weight: 600;
       font-size: 12px;
       cursor: pointer;
+    }
+    .switch-btn.secondary {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
     }
     .switch-btn:hover { opacity: 0.9; }
     .status-line {
@@ -146,7 +150,7 @@
       border: 1px solid var(--border);
       color: var(--text);
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      font-size: 12px;
+      font-size: 11.9px;
       margin-bottom: 10px;
     }
     .table-wrap { overflow-x: auto; }
@@ -163,7 +167,7 @@
       font-size: 11.8px;
       color: var(--muted);
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      line-height: 1.45;
+      line-height: 1.48;
     }
     footer {
       margin-top: 28px;
@@ -183,13 +187,13 @@
 <body>
   <div class="container">
     <div class="topbar">
-      <div><strong>SSR.FUN Beta Research</strong> &nbsp;/&nbsp; Barbell Allocation Model &amp; Mainnet Bug #4/#5 Diagnostics</div>
-      <div>Target Audited: Reserve #93 (<code>$KING</code>)</div>
+      <div><strong>SSR.FUN Beta Research</strong> &nbsp;/&nbsp; Barbell Model &amp; Longitudinal Mainnet QA (Nov 13 – Nov 25)</div>
+      <div>Audited: Reserve #93 (<code>$KING</code>) &middot; 20 Wallets / 9 Reserves</div>
     </div>
 
-    <h1>Onchain Barbell NAV &amp; Resilient Oracle Diagnostics</h1>
+    <h1>Onchain Barbell NAV &amp; Mainnet QA Verification</h1>
     <p class="sub">
-      Left: stress-test customizable <strong>Tokenized Equities/T-Bills + Solana Growth</strong> Reserve weights across market regimes. Right: reproduce the live <strong>Reserve #93 (<code>$KING</code>) JTO oracle cascade &amp; Vercel preview CORS block</strong> identified on Mainnet and inspect our proposed engineering patches.
+      Left: stress-test customizable <strong>Tokenized Equities/T-Bills + Solana Growth</strong> Reserve weights across market regimes. Right: toggle between the <strong>Nov 18 Mainnet bugs</strong> we reported (<code>JTO</code> oracle failure + preview-URL CORS block) and the <strong>Nov 25 verified production fixes</strong> shipped on <code>ssr.fun</code> (+ CSS patch for the remaining <code>MINT/REDEEM</code> overlap).
     </p>
 
     <div class="grid">
@@ -228,11 +232,14 @@
       </div>
 
       <div class="panel">
-        <h2>2. Mainnet Bug #4 &amp; #5 Reproduction: Reserve #93 (<code>$KING</code>)</h2>
+        <h2>2. Reserve #93 (<code>$KING</code>): Nov 18 Bug State vs. Nov 25 Production Fix</h2>
         <div class="oracle-box">
           <div class="toggle-row">
-            <span style="font-size:12.5px; font-weight:600; color:var(--secondary);" id="modeTitle">Current SSR.FUN UI (Reserve #93 $KING — Unpatched)</span>
-            <button type="button" class="switch-btn" id="patchBtn">Apply Proposed Fallback Patch →</button>
+            <span style="font-size:12.4px; font-weight:600; color:var(--secondary);" id="modeTitle">Nov 18 Reported State (Reserve #93 $KING — Unpatched)</span>
+            <div class="btn-row">
+              <button type="button" class="switch-btn secondary" id="copyPatchBtn">Copy UI CSS Patch</button>
+              <button type="button" class="switch-btn" id="patchBtn">Inspect Nov 25 Live Fix →</button>
+            </div>
           </div>
           <div id="mcapBanner" class="status-line"></div>
           <div class="table-wrap">
@@ -252,7 +259,9 @@
       <div>Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank" rel="noopener noreferrer">@Royalmmac</a>)</div>
       <div>
         <a href="https://x.com/Royalmmac/status/2121123929565569133" target="_blank" rel="noopener noreferrer">X Thesis Thread</a> &nbsp;&middot;&nbsp;
+        <a href="https://x.com/Royalmmac/status/2124983746273427661" target="_blank" rel="noopener noreferrer">1080p Demo Video</a> &nbsp;&middot;&nbsp;
         <a href="https://ssr.fun/r/FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb" target="_blank" rel="noopener noreferrer">Reserve #93 (<code>$KING</code>)</a> &nbsp;&middot;&nbsp;
+        <a href="https://ssr.fun/leaderboard" target="_blank" rel="noopener noreferrer">Live Leaderboard</a> &nbsp;&middot;&nbsp;
         <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/ssrfun-beta-qa-and-thesis.md" target="_blank" rel="noopener noreferrer">Mainnet QA Report (GitHub)</a>
       </div>
     </footer>
@@ -265,6 +274,15 @@
       chop: { eq: 0.11, sol: -0.12, title: "Range-bound compounding" },
       crash: { eq: -0.08, sol: -0.55, title: "Tail-risk preservation" }
     };
+
+    const REMAINING_CSS_PATCH = `/* Bug #4b Fix: Prevent fixed bottom MINT / REDEEM bar from occluding All-Time PNL (%) & vault rows */
+.dtr-detail-scroll-container {
+  padding-bottom: 104px;
+  scroll-padding-bottom: 104px;
+}
+
+// Degraded-mode NAV guard for illiquid meme vaults (e.g. Reserve #95 $GAME):
+// Render known partial vault TVL + stale-feed indicator instead of blanking total Reserve Market Cap.`;
 
     let scKey = "drawdown";
     let patched = false;
@@ -282,6 +300,30 @@
     });
 
     [capEl, eqEl].forEach((el) => el.addEventListener("input", renderScenario));
+
+    function copyText(text, btn, defaultLabel) {
+      const done = () => {
+        btn.textContent = "Copied";
+        setTimeout(() => { btn.textContent = defaultLabel; }, 1400);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+      } else {
+        fallbackCopy(text, done);
+      }
+    }
+
+    function fallbackCopy(text, cb) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (_) {}
+      document.body.removeChild(ta);
+      cb();
+    }
 
     function fmtPct(num) {
       const clean = Math.abs(num) < 0.0005 ? 0 : num;
@@ -328,10 +370,10 @@
       const btn = document.getElementById("patchBtn");
 
       if (!patched) {
-        title.textContent = "Current SSR.FUN UI (Reserve #93 $KING — Unpatched)";
-        btn.textContent = "Apply Proposed Fallback Patch →";
-        banner.textContent = "[UNPATCHED] Market Cap: Price unavailable  |  All-Time Volume: Loading...";
-        corsBanner.textContent = "Bug #5 (CORS Block): GET https://ssr-mnfjzp7pd-ssr14.vercel.app/api/mainnet/reserve-metadata blocked from origin https://ssr.fun";
+        title.textContent = "Nov 18 Reported State (Reserve #93 $KING — Unpatched)";
+        btn.textContent = "Inspect Nov 25 Live Fix →";
+        banner.textContent = "[NOV 18 BUG] Market Cap: Price unavailable  |  All-Time Volume: Loading...";
+        corsBanner.textContent = "Bug #5 (Nov 18): GET https://ssr-mnfjzp7pd-ssr14.vercel.app/api/mainnet/reserve-metadata blocked by CORS  |  Bug #2: CSP frame-ancestors missing.";
 
         rows.innerHTML = `
           <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5...SE7K</a></td><td>Pyth Live</td><td>$8.52</td></tr>
@@ -340,15 +382,15 @@
           <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C...2dTP</a></td><td>Pyth Live</td><td>$2.00</td></tr>
         `;
       } else {
-        title.textContent = "Patched SSR.FUN UI (Jupiter Quote Fallback + Relative API Origin)";
-        btn.textContent = "← Revert to Unpatched State";
-        banner.textContent = "[PATCHED] Market Cap: $18.38 ($15.66 Verified + $2.72 JTO Fallback)  |  Volume: Resolved";
-        corsBanner.textContent = "Bug #5 Fixed: Same-origin fetch('/api/mainnet/reserve-metadata') resolves HTTP 200 without preview-deployment CORS failure.";
+        title.textContent = "Nov 25 Verified Production State (4 Fixes Shipped Live)";
+        btn.textContent = "← View Nov 18 Bug State";
+        banner.textContent = "[NOV 25 LIVE] Market Cap: $17.56 ($18.38 at Nov 18 spot)  |  Volume: $18.00 Resolved";
+        corsBanner.textContent = "Verified Nov 25: /api/mainnet/* resolves 0 CORS errors + X-Frame-Options: DENY & CSP frame-ancestors 'none' live. Open UI item (#4b): fixed MINT/REDEEM bar still overlaps All-Time PNL.";
 
         rows.innerHTML = `
-          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5...SE7K</a></td><td>Pyth Live</td><td>$8.52</td></tr>
-          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp...8HvC</a></td><td>Jupiter Live</td><td>$5.14</td></tr>
-          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH...fATn</a></td><td><strong>Jupiter Quote Fallback</strong></td><td><strong>$2.72</strong></td></tr>
+          <tr><td>SOL</td><td>50.00%</td><td><a href="https://solscan.io/account/AMqco5d3qGWeo3m1gEoQ5LeZqsNVPdaCHDfvRNmvSE7K" target="_blank" rel="noopener noreferrer">AMqco5...SE7K</a></td><td>Pyth Live</td><td>$8.38</td></tr>
+          <tr><td>JUP</td><td>25.00%</td><td><a href="https://solscan.io/account/mgkzBp2M3yRAEPhA78hMY1ggHRVdSHB98h4TbW88HvC" target="_blank" rel="noopener noreferrer">mgkzBp...8HvC</a></td><td>Jupiter Live</td><td>$4.94</td></tr>
+          <tr><td>JTO</td><td>15.00%</td><td><a href="https://solscan.io/account/3mtXnH792HSQz4uw9bQ9hbpaznDAEQvgqfPZzqUffATn" target="_blank" rel="noopener noreferrer">3mtXnH...fATn</a></td><td><strong>Restored ($0.228)</strong></td><td><strong>$2.24</strong></td></tr>
           <tr><td>USDC</td><td>10.00%</td><td><a href="https://solscan.io/account/Dk6d7CDNYGwxUdnz3NVJWwbexB7mgbZGkQj6wweu2dTP" target="_blank" rel="noopener noreferrer">Dk6d7C...2dTP</a></td><td>Pyth Live</td><td>$2.00</td></tr>
         `;
       }
@@ -357,6 +399,10 @@
     document.getElementById("patchBtn").addEventListener("click", () => {
       patched = !patched;
       renderOracle();
+    });
+
+    document.getElementById("copyPatchBtn").addEventListener("click", (e) => {
+      copyText(REMAINING_CSS_PATCH, e.currentTarget, "Copy UI CSS Patch");
     });
 
     renderScenario();

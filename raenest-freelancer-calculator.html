@@ -8,12 +8,10 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/raenest-freelancer-calculator.html" />
   <meta property="og:title" content="Raenest + Solana Cross-Border Freelancer Savings &amp; 7% APY Vault Calculator" />
-  <meta property="og:description" content="Model 12-month net FX savings across Brazil, Nigeria, Argentina &amp; Philippines with Raenest 1:1 USDC/USDT wallets and daily-compounded Stablecoin Vaults." />
-  <meta property="og:image" content="https://royalmmac.github.io/bounty-artifacts/og-raenest-calculator.png" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:description" content="Model 12-month net FX savings across Brazil, Nigeria, Argentina, Philippines, Colombia, India &amp; Kenya with Raenest 1:1 USDC/USDT wallets and Stablecoin Vaults." />
+  <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Raenest + Solana Cross-Border Freelancer Calculator (@Royalmmac)" />
   <meta name="twitter:description" content="Compare SWIFT wire drag vs. Raenest 1:1 Solana USDC/USDT credit, transparent USD fees, and up to 7% variable APY Stablecoin Vaults." />
-  <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-raenest-calculator.png" />
   <style>
     :root {
       --bg: #fafafa;
@@ -59,7 +57,7 @@
     .subtitle {
       color: var(--text-secondary);
       font-size: 14.8px;
-      max-width: 820px;
+      max-width: 840px;
       margin-bottom: 24px;
     }
     .subtitle code {
@@ -80,14 +78,37 @@
       padding: 22px;
       min-width: 0;
     }
-    .panel h2 {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
       padding-bottom: 12px;
       margin-bottom: 18px;
       border-bottom: 1px solid var(--border);
     }
+    .panel h2 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .panel > h2 {
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .btn-ghost {
+      background: var(--subtle);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-ghost:hover { background: var(--border); }
     .field { margin-bottom: 18px; }
     .field label {
       display: flex;
@@ -117,6 +138,7 @@
     }
     select:focus { outline: 1px solid var(--text); outline-offset: 1px; }
     input[type="range"] { accent-color: var(--text); cursor: pointer; }
+    input[type="range"]:disabled { opacity: 0.4; cursor: not-allowed; }
     .segmented {
       display: inline-flex;
       flex-wrap: wrap;
@@ -239,7 +261,7 @@
 <body>
   <div class="container">
     <div class="topbar">
-      <div><strong>Raenest Cross-Border Research</strong> &nbsp;/&nbsp; Interactive FX &amp; Stablecoin Vault Model</div>
+      <div><strong>Raenest Cross-Border Research</strong> &nbsp;/&nbsp; Interactive 7-Corridor FX &amp; Stablecoin Vault Model</div>
       <div>Author: Marco Aurélio Sugamele (<code>@Royalmmac</code>)</div>
     </div>
 
@@ -250,7 +272,10 @@
 
     <div class="grid">
       <div class="panel">
-        <h2>1. Remote Billing Parameters</h2>
+        <div class="panel-head">
+          <h2>1. Remote Billing Parameters</h2>
+          <button type="button" class="btn-ghost" id="shareScenarioBtn">Copy Scenario Link</button>
+        </div>
 
         <div class="field">
           <label for="corridor">Freelancer Settlement Corridor</label>
@@ -259,6 +284,9 @@
             <option value="NG">NG — Nigeria (Lagos: Intermediary Wire Cuts vs. Raenest)</option>
             <option value="AR">AR — Argentina (Buenos Aires: Correspondent Spread vs. Raenest)</option>
             <option value="PH">PH — Philippines (Manila: Contractor Wire Deductions vs. Raenest)</option>
+            <option value="CO">CO — Colombia (Bogotá: SWIFT Intermediary + FX Spread vs. Raenest)</option>
+            <option value="IN">IN — India (Bengaluru: Inward Remittance FX Markup vs. Raenest)</option>
+            <option value="KE">KE — Kenya (Nairobi: USD Wire &amp; Settlement Spread vs. Raenest)</option>
           </select>
         </div>
 
@@ -362,7 +390,7 @@
         </div>
       </div>
       <a class="btn" href="https://referral.raenest.com/WzbV/i?referral_code=community" target="_blank" rel="noopener noreferrer">
-        Create Raenest Account &rarr;
+        Create Raenest Account →
       </a>
     </div>
 
@@ -371,6 +399,7 @@
       <div>
         <a href="https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote" target="_blank" rel="noopener noreferrer">Substack Article</a> &nbsp;&middot;&nbsp;
         <a href="https://x.com/Royalmmac/status/2123191082259259621" target="_blank" rel="noopener noreferrer">X Thread</a> &nbsp;&middot;&nbsp;
+        <a href="https://x.com/Royalmmac/status/2124993539004412025" target="_blank" rel="noopener noreferrer">1080p Video</a> &nbsp;&middot;&nbsp;
         <a href="https://www.linkedin.com/feed/update/urn:li:share:7528980300274561024/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;&middot;&nbsp;
         <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/raenest-cross-border-guide.md" target="_blank" rel="noopener noreferrer">GitHub Documentation</a>
       </div>
@@ -398,6 +427,21 @@
         spreadPct: 0.0390,
         wireFixed: 15,
         note: "Models Manila international contractor wire deductions ($15 + ~3.90% FX spread) vs. instant Solana settlement and Vault yield on Raenest."
+      },
+      CO: {
+        spreadPct: 0.0410,
+        wireFixed: 18,
+        note: "Models Bogotá international SWIFT intermediary deductions ($18 + ~4.10% FX spread) vs. Solana 1:1 USDC/USDT credit and Raenest Vaults."
+      },
+      IN: {
+        spreadPct: 0.0350,
+        wireFixed: 14,
+        note: "Models Bengaluru inward remittance bank FX markup ($14 + ~3.50% conversion spread) vs. direct Solana stablecoin settlement on Raenest."
+      },
+      KE: {
+        spreadPct: 0.0400,
+        wireFixed: 18,
+        note: "Models Nairobi correspondent wire deductions ($18 + ~4.00% FX spread) vs. instant Solana USDC/USDT wallets and daily Vault compounding."
       }
     };
 
@@ -406,6 +450,52 @@
     const invoiceEl = document.getElementById("invoice");
     const savePctEl = document.getElementById("savePct");
     const vaultApyEl = document.getElementById("vaultApy");
+
+    function copyText(text, btn, defaultLabel) {
+      const done = () => {
+        btn.textContent = "Copied";
+        setTimeout(() => { btn.textContent = defaultLabel; }, 1400);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+      } else {
+        fallbackCopy(text, done);
+      }
+    }
+
+    function fallbackCopy(text, cb) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (_) {}
+      document.body.removeChild(ta);
+      cb();
+    }
+
+    if (typeof window !== "undefined" && window.location && window.location.search) {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const qCorr = params.get("corridor");
+        if (qCorr && CORRIDORS[qCorr]) corridorEl.value = qCorr;
+        const qInv = Number(params.get("invoice"));
+        if (qInv >= 500 && qInv <= 15000) invoiceEl.value = String(qInv);
+        const qSave = Number(params.get("save"));
+        if (qSave >= 10 && qSave <= 70) savePctEl.value = String(qSave);
+        const qApy = Number(params.get("apy"));
+        if (qApy >= 2 && qApy <= 7) vaultApyEl.value = String(qApy);
+        const qAsset = params.get("asset");
+        if (qAsset && ["USDC", "USDT", "SOL", "BTC", "ETH"].includes(qAsset)) {
+          selectedAsset = qAsset;
+          document.querySelectorAll("#assetPills .pill").forEach((b) => {
+            if (b.dataset.asset === qAsset) b.classList.add("active");
+            else b.classList.remove("active");
+          });
+        }
+      } catch (_) {}
+    }
 
     document.querySelectorAll("#assetPills .pill").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -418,30 +508,40 @@
 
     [corridorEl, invoiceEl, savePctEl, vaultApyEl].forEach((el) => el.addEventListener("input", recalc));
 
+    document.getElementById("shareScenarioBtn").addEventListener("click", (e) => {
+      const base = (typeof window !== "undefined" && window.location && window.location.origin && window.location.pathname)
+        ? window.location.origin + window.location.pathname
+        : "https://royalmmac.github.io/bounty-artifacts/raenest-freelancer-calculator.html";
+      const qs = `?corridor=${corridorEl.value}&invoice=${invoiceEl.value}&save=${savePctEl.value}&apy=${vaultApyEl.value}&asset=${selectedAsset}`;
+      copyText(base + qs, e.currentTarget, "Copy Scenario Link");
+    });
+
     function fmt(n) {
       return "$" + Math.round(n).toLocaleString("en-US");
     }
 
     function recalc() {
-      const c = CORRIDORS[corridorEl.value];
+      const c = CORRIDORS[corridorEl.value] || CORRIDORS.BR;
       const monthly = Number(invoiceEl.value) || 2500;
       const saveRatio = (Number(savePctEl.value) || 30) / 100;
       const apyDecimal = (Number(vaultApyEl.value) || 7) / 100;
+      const isStable = selectedAsset === "USDC" || selectedAsset === "USDT";
 
       const monthlySaved = monthly * saveRatio;
       const monthlySpent = monthly - monthlySaved;
 
+      vaultApyEl.disabled = !isStable;
       document.getElementById("invoiceVal").textContent = `$${monthly.toLocaleString("en-US")} / mo`;
       document.getElementById("saveVal").textContent = `${savePctEl.value}% ($${Math.round(monthlySaved).toLocaleString("en-US")}/mo)`;
-      document.getElementById("apyVal").textContent = `${(apyDecimal * 100).toFixed(2)}% APY`;
+      document.getElementById("apyVal").textContent = isStable
+        ? `${(apyDecimal * 100).toFixed(2)}% APY`
+        : "0.00% APY (USDC/USDT only)";
 
       const annualSwiftLoss = 12 * (monthly * c.spreadPct + c.wireFixed);
       const annualRaenestFees = 12 * (1 + monthlySpent * 0.005);
       const netFxSaved = Math.max(0, annualSwiftLoss - annualRaenestFees);
 
-      const isStable = selectedAsset === "USDC" || selectedAsset === "USDT";
-      const dailyFactor = Math.pow(1 + apyDecimal, 1 / 365);
-      const monthGrowthFactor = Math.pow(dailyFactor, 365 / 12);
+      const monthGrowthFactor = Math.pow(1 + apyDecimal, 1 / 12);
 
       let vaultBalance = 0;
       let principal = 0;

@@ -9,11 +9,9 @@
   <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/freelance-split-bot-demo.html" />
   <meta property="og:title" content="FreelanceSplitBot — Swap.io x402 Wire Inspector &amp; Telegram Agent Economics" />
   <meta property="og:description" content="Simulate Solana contributor splits, inspect verbatim HTTP 402 Payment Required payloads (Solana + Base), and benchmark monthly bot margins." />
-  <meta property="og:image" content="https://royalmmac.github.io/bounty-artifacts/og-swap-x402-demo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="FreelanceSplitBot — Swap.io x402 Inspector (@Royalmmac)" />
   <meta name="twitter:description" content="Interactive Telegram treasury agent &amp; HTTP 402 wire inspector on Solana and Base." />
-  <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-swap-x402-demo.png" />
   <style>
     :root {
       --bg: #0b0b0d;
@@ -326,15 +324,15 @@
       const legacyTierLoss = monthlyRevenue - 99;
 
       const netEl = document.getElementById("monthlyNet");
-      netEl.textContent = `+\$${monthlyNetProfit.toFixed(2)}`;
+      netEl.textContent = `+$${monthlyNetProfit.toFixed(2)}`;
 
       const legacySummary = legacyTierLoss >= 0
-        ? `+\$${legacyTierLoss.toFixed(2)}/mo`
-        : `-\$${Math.abs(legacyTierLoss).toFixed(2)}/mo net loss`;
+        ? `+$${legacyTierLoss.toFixed(2)}/mo`
+        : `-$${Math.abs(legacyTierLoss).toFixed(2)}/mo net loss`;
 
       document.getElementById("scaleComparison").innerHTML =
-        `<strong>Scale economics (${swapsPerMo.toLocaleString("en-US")} swaps/mo):</strong> Swap.io <code>x402</code> costs <code>\$${monthlyX402Cost.toFixed(2)}/mo</code> (` +
-        `net bot profit <strong>+\$${monthlyNetProfit.toFixed(2)}/mo</strong>) vs. a fixed <code>\$99/mo</code> API plan (${legacySummary}). ` +
+        `<strong>Scale economics (${swapsPerMo.toLocaleString("en-US")} swaps/mo):</strong> Swap.io <code>x402</code> costs <code>$${monthlyX402Cost.toFixed(2)}/mo</code> (` +
+        `net bot profit <strong>+$${monthlyNetProfit.toFixed(2)}/mo</strong>) vs. a fixed <code>$99/mo</code> API plan (${legacySummary}). ` +
         `Server-side Node.js/cURL queries <code>hermes.swap.io</code> directly without API keys (browser CORS <code>OPTIONS</code> is disabled by design).`;
 
       document.getElementById("traceOut").textContent = JSON.stringify(
@@ -354,8 +352,8 @@
 
       addMsg(`<strong>[INBOUND]</strong> <code>+${sol} SOL</code> detected on contributor wallet.`);
       addMsg(`<strong>[QUOTE]</strong> Rule <code>${Math.round(ratio * 100)}% USDC</code> applied. Requesting Swap.io Hermes quote for <code>${swapSol} SOL (${Number(lamports).toLocaleString("en-US")} lamports) -> USDC</code>.`);
-      addMsg(`<strong>[X402-AUTH]</strong> Signed <code>\$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Base fee sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas paid by bot).`);
-      addMsg(`<strong>[SETTLED]</strong> Swapped <code>${swapSol} SOL -> USDC</code>${keepSol > 0 ? ` and retained <code>${keepSol} SOL</code>` : " (100% converted)"}. Bot fee: <code>\$0.0500</code> | x402 API cost: <code>\$0.006014</code> (<strong>+87.97% margin</strong>).`);
+      addMsg(`<strong>[X402-AUTH]</strong> Signed <code>$0.003007 USDC</code> (<code>3007</code> atomic units) via <code>x402-solana</code>. Base fee sponsored by PayAI facilitator (<code>2wKupL...xHDBg4</code> = <code>0 SOL</code> gas paid by bot).`);
+      addMsg(`<strong>[SETTLED]</strong> Swapped <code>${swapSol} SOL -> USDC</code>${keepSol > 0 ? ` and retained <code>${keepSol} SOL</code>` : " (100% converted)"}. Bot fee: <code>$0.0500</code> | x402 API cost: <code>$0.006014</code> (<strong>+87.97% margin</strong>).`);
     }
 
     document.getElementById("runBtn").addEventListener("click", runSimulation);

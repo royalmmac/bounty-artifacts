@@ -9,11 +9,9 @@
   <meta property="og:url" content="https://royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html" />
   <meta property="og:title" content="Nosana GPU Inference Cost Benchmark &amp; Schema-Validated JSON Job Builder" />
   <meta property="og:description" content="Interactive Solana DePIN tool: generate schema-valid container/run job.json specs (health_checks + VRAM guardrails) and compare GPU market burn." />
-  <meta property="og:image" content="https://royalmmac.github.io/bounty-artifacts/og-nosana-simulator.png" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Nosana GPU Inference Benchmark &amp; JSON Job Builder (@Royalmmac)" />
   <meta name="twitter:description" content="Generate schema-compliant Nosana job.json definitions (@nosana/cli &amp; @nosana/kit) and compare RTX 4090 / 3090 / A100 inference costs on Solana." />
-  <meta name="twitter:image" content="https://royalmmac.github.io/bounty-artifacts/og-nosana-simulator.png" />
   <style>
     :root {
       --bg: #0a0a0a;
@@ -145,6 +143,7 @@
     }
     .meta-note code { color: var(--secondary); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
     .copy-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+    .btn-group { display: flex; gap: 6px; flex-wrap: wrap; }
     .btn {
       background: var(--text);
       color: #0a0a0a;
@@ -212,7 +211,7 @@
 
     <h1>GPU Inference Cost Benchmark &amp; JSON Job Builder</h1>
     <p class="sub">
-      Configure an OCI AI container below to generate a schema-compliant <strong>Nosana Job Definition</strong> (<code>ops[].type = "container/run"</code>, HTTP <code>health_checks</code>, and <code>meta.system_requirements.required_vram</code>) alongside <code>@nosana/cli</code> and <code>@nosana/kit</code> deployment commands.
+      Configure an OCI AI container below to generate or download a schema-compliant <strong>Nosana Job Definition</strong> (<code>ops[].type = "container/run"</code>, HTTP <code>health_checks</code>, and <code>meta.system_requirements.required_vram</code>) alongside <code>@nosana/cli</code> and <code>@nosana/kit</code> deployment commands.
     </p>
 
     <div class="grid">
@@ -283,7 +282,10 @@
       <div class="panel">
         <div class="copy-row" style="padding-bottom:10px; margin-bottom:12px; border-bottom:1px solid var(--border);">
           <h2 style="margin:0; padding:0; border:none;">2. Nosana Job Definition (<code>job.json</code>)</h2>
-          <button type="button" class="btn" id="copyJsonBtn">Copy job.json</button>
+          <div class="btn-group">
+            <button type="button" class="btn secondary" id="downloadJsonBtn">Download .json</button>
+            <button type="button" class="btn" id="copyJsonBtn">Copy job.json</button>
+          </div>
         </div>
         <pre id="jsonOut"></pre>
 
@@ -304,7 +306,9 @@
       <div>Built by Marco Aurélio Sugamele (<a href="https://x.com/Royalmmac" target="_blank" rel="noopener noreferrer">@Royalmmac</a>)</div>
       <div>
         <a href="https://x.com/Royalmmac/status/2121298173377364185" target="_blank" rel="noopener noreferrer">#NOSvember X Thread</a> &nbsp;&middot;&nbsp;
+        <a href="https://x.com/Royalmmac/status/2124983029164638712" target="_blank" rel="noopener noreferrer">1080p Demo Video</a> &nbsp;&middot;&nbsp;
         <a href="https://github.com/royalmmac/bounty-artifacts/blob/main/nosana-depin-gpu-compute-explainer.md" target="_blank" rel="noopener noreferrer">Architecture Notes (GitHub)</a> &nbsp;&middot;&nbsp;
+        <a href="https://deploy.nosana.com" target="_blank" rel="noopener noreferrer">deploy.nosana.com</a> &nbsp;&middot;&nbsp;
         <a href="https://nosana.com" target="_blank" rel="noopener noreferrer">nosana.com</a>
       </div>
     </footer>
@@ -373,6 +377,13 @@
     const pEl = document.getElementById("nosPrice");
 
     [wEl, gEl, hEl, nEl, pEl].forEach((el) => el.addEventListener("input", render));
+    pEl.addEventListener("change", () => {
+      const v = Number(pEl.value);
+      if (!Number.isFinite(v) || v <= 0 || v > 100) {
+        pEl.value = "0.36";
+      }
+      render();
+    });
 
     document.getElementById("upgradeGpuBtn").addEventListener("click", () => {
       gEl.value = "a100";
@@ -506,6 +517,25 @@
 
     document.getElementById("copyJsonBtn").addEventListener("click", (e) => {
       copyText(document.getElementById("jsonOut").textContent, e.currentTarget, "Copy job.json");
+    });
+
+    document.getElementById("downloadJsonBtn").addEventListener("click", (e) => {
+      const w = WORKLOADS[wEl.value];
+      const content = document.getElementById("jsonOut").textContent;
+      if (typeof Blob !== "undefined" && typeof URL !== "undefined" && URL.createObjectURL) {
+        const blob = new Blob([content], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${w.id}.json`;
+        document.body.appendChild(a);
+        if (typeof a.click === "function") a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+      const btn = e.currentTarget;
+      btn.textContent = "Downloaded";
+      setTimeout(() => { btn.textContent = "Download .json"; }, 1400);
     });
 
     document.getElementById("copyCmdBtn").addEventListener("click", (e) => {
