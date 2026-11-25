@@ -1,69 +1,132 @@
-![Nosana DePIN GPU Compute Grid on Solana](./nosana_depin_gpu_grid_infographic.png)
+![Nosana DePIN GPU Compute Grid Architecture on Solana](./nosana_depin_gpu_grid_architecture.svg)
 
 # Explaining Nosana (`#NOSvember`): How Idle GPUs Become an AI Inference Grid on Solana
 
 *By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac))*
 
-- **5-Part X Thread (`@Royalmmac`):** [`https://x.com/Royalmmac/status/2121298173377364185`](https://x.com/Royalmmac/status/2121298173377364185) -> [`https://x.com/Royalmmac/status/2121299476488822915`](https://x.com/Royalmmac/status/2121299476488822915)
-- **Live Interactive GPU Cost & JSON Job Builder:** [`https://royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html`](https://royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html)
-- **Website:** Nosana (`https://nosana.com`) • **Network:** Solana (`@nosana_ai` • `@solana`)
-- **Campaign Tags:** `#NOSvember` • `#CreatorChallenge`
+- **Interactive JSON Job Builder & Cost Benchmark:** [`nosana-gpu-job-simulator.html`](https://royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html)
+- **1080p Live Tool Walkthrough on X:** [`https://x.com/Royalmmac/status/2124983029164638712`](https://x.com/Royalmmac/status/2124983029164638712)
+- **Full X Explainer Thread (`@nosana_ai` · `@solana`):** [`https://x.com/Royalmmac/status/2121298173377364185`](https://x.com/Royalmmac/status/2121298173377364185)
+- **Ecosystem:** [https://nosana.com](https://nosana.com) • [https://deploy.nosana.com](https://deploy.nosana.com) • `#NOSvember` `#CreatorChallenge`
 
 ---
 
 ## 1. Explaining Nosana to a Friend in 30 Seconds
 
-If a friend who is new to crypto and DePIN asks me what **Nosana (`@nosana_ai`)** actually does, here is the simplest way to put it:
+If a friend who is new to crypto and DePIN asks what **Nosana (`@nosana_ai`)** actually does, here is the simplest mental model:
 
-> **Think of how Airbnb let people rent out spare bedrooms instead of building new hotels. Nosana does the same thing for AI compute: it connects idle GPUs sitting in gaming PCs, studios, and independent data centers around the world into a peer-to-peer GPU grid on Solana.**
+> **Think of how Airbnb let people rent out spare bedrooms instead of building new hotels. Nosana does the same thing for AI compute: it connects idle GPUs sitting in gaming PCs, studios, and independent data centers around the world into a peer-to-peer AI inference grid coordinated on Solana.**
 
 ---
 
 ## 2. Why AI Inference Needs a Decentralized Grid
 
-Most people talk about the cost of *training* giant AI models, but for 99% of startups and indie developers, the real ongoing expense is **AI inference**—actually running open-source LLMs (like Llama, DeepSeek, or Mistral), image generators, and autonomous agents 24/7 for users.
+Most headlines focus on *training* frontier models, which happens once in massive clusters. For 99% of startups, indie developers, and AI agent teams, the real recurring cost is **AI inference** — serving open-source LLMs (`Qwen2.5`, `Llama-3.3`, `DeepSeek-R1`), image/video pipelines (`Flux.1`, `ComfyUI`), and tool-calling agents 24/7.
 
-Right now, builders face two connected problems:
-1. **Cloud GPU Lock-In and Markups:** Renting dedicated GPU instances from legacy cloud providers is expensive, often gated by regional quotas, and locks small teams into rigid monthly contracts.
-2. **Millions of Idle Consumer & Studio GPUs:** At the exact same time, millions of powerful GPUs around the world sit completely unused for 16+ hours a day.
+Builders run into two structural bottlenecks:
+1. **Hyperscaler GPU Markups & Quota Gates:** On-demand cloud GPU instances carry steep hourly markups, regional quota approvals, and rigid billing commitments.
+2. **Untapped Global GPU Supply:** Millions of high-VRAM consumer and datacenter GPUs (`RTX 3090`, `RTX 4090`, `A100 80GB`) sit idle for 14–18 hours a day worldwide.
 
 ---
 
-## 3. How Nosana Connects the Two Sides
+## 3. How Nosana Matches Supply and Demand on Solana
 
-Nosana is a **DePIN (Decentralized Physical Infrastructure Network)** project built on **Solana (`@solana`)** that matches GPU supply with AI demand in three steps:
+Nosana is a **DePIN (Decentralized Physical Infrastructure Network)** protocol on **Solana (`@solana`)** that coordinates container execution in three stages:
 
-| Step | Who Is Involved | What Happens on Nosana |
+| Stage | Participant | What Happens Under the Hood |
 | :--- | :--- | :--- |
-| **1. Contribute Hardware** | **GPU Hosts** | Node operators connect their idle consumer or enterprise GPUs to the Nosana grid to earn rewards when their hardware runs jobs. |
-| **2. Submit AI Workloads** | **Builders & AI Agents** | Developers package open-source AI models or agent inference tasks into containers and deploy them on demand. |
-| **3. Coordinate & Settle** | **Solana + `$NOS`** | Nosana matches the workload to an available GPU node, runs the inference job, and settles payment on Solana using **`$NOS`**. |
+| **1. Supply Hardware** | **GPU Node Operators** | Hosts register consumer (`24 GB`) or enterprise (`80 GB`) GPUs into specialized Nosana market queues (`nvidia-3090`, `nvidia-4090`, `nvidia-a100-80gb`). |
+| **2. Post Container Spec** | **AI Builders & Agents** | Developers pin an OCI container Job Definition (`container/run`) to IPFS and post the job to a Solana market queue with `$NOS` locked in escrow. |
+| **3. Verify & Settle** | **Solana + `$NOS`** | An available GPU node pulls the container, passes continuous HTTP `health_checks`, serves inference traffic, and receives per-job settlement in `$NOS`. |
 
 ---
 
-## 4. Why Solana Is the Right Home for DePIN Compute
+## 4. Reference Cost Benchmark Across Nosana GPU Queues
 
-Coordinating thousands of independent GPU nodes requires fast state updates, job queuing, and frequent micro-payments.
+Running **2 parallel GPU nodes for 16 hours/day (`960 GPU hours/month`)** serving `Qwen2.5-32B-Instruct-AWQ` (`20 GB` minimum VRAM):
 
-Because Solana processes transactions in milliseconds for fractions of a cent, Nosana can match and settle on-demand inference jobs without eating up the cost savings in network fees. Even better, autonomous AI agents that already live on Solana can pay for their own GPU compute programmatically without needing a human credit card.
+| GPU Market Queue | Hardware VRAM | Ref. Nosana Rate | Comparable Cloud Rate | Monthly Burn (`960h`) | Estimated Savings |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| `nvidia-3090` | `24 GB` | `~$0.20 / hr` | `~$1.05 / hr` | `$192/mo` vs. `$1,008/mo` | **81.0% (`-$816/mo`)** |
+| `nvidia-4090` | `24 GB` | `~$0.35 / hr` | `~$1.56 / hr` | `$336/mo` vs. `$1,498/mo` | **77.6% (`-$1,162/mo`)** |
+| `nvidia-a100-80gb` | `80 GB` | `~$0.85 / hr` | `~$3.67 / hr` | `$816/mo` vs. `$3,523/mo` | **76.8% (`-$2,707/mo`)** |
 
----
-
-## 5. Learn More
-
-- **Website:** [https://nosana.com](https://nosana.com)
-- **Official X:** [`@nosana_ai`](https://x.com/nosana_ai)
-- **Hashtags:** `#NOSvember` `#CreatorChallenge`
+*(Interactive model with VRAM guardrails for `70B` workloads available at [`nosana-gpu-job-simulator.html`](https://royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html); check live market queue rates at [deploy.nosana.com](https://deploy.nosana.com)).*
 
 ---
 
-## 6. Beyond the Analogy: What Actually Happens Under the Hood When a Builder Clicks "Deploy"
+## 5. Under the Hood: Schema-Validated `job.json` & SDK Orchestration
 
-Analogies help newcomers get the big picture, but as an engineer, what makes Nosana compelling is how actual AI inference workloads execute on the grid:
+Unlike proprietary inference APIs, Nosana executes standard OCI Docker images defined by a declarative JSON specification:
 
-1. **Declarative JSON Job Definitions (Container-Native):**
-   - Instead of rewriting ML code for a proprietary cloud API, a builder defines an inference workload (such as `vLLM`, `Ollama`, `Llama-3`, `DeepSeek`, or a custom FastAPI container) in a clean **JSON Job Definition** specifying the Docker image, exposed ports, VRAM requirements, and model weights.
-2. **GPU Market Selection on Solana:**
-   - Not every inference task needs an enterprise H100. Nosana segments hardware into specialized **GPU Markets** (from high-VRAM consumer RTX 4090s to studio-grade GPUs), letting builders match the exact price/performance tier to their latency and throughput budget—measuring **cost per completed inference task** rather than raw hourly cloud markups.
-3. **Programmatic Orchestration via SDK & Agent Tooling:**
-   - Using Nosana's developer tooling (`@nosana/kit` SDK, CLI, and OpenAI-compatible inference endpoints), both human dev teams and autonomous onchain AI agents can spin up inference deployments, monitor node health, and settle compute micro-payments in `$NOS` directly on Solana.
+### A. Official Container Job Definition (`qwen25-32b-vllm-openai.json`)
+```json
+{
+  "version": "0.1",
+  "type": "container",
+  "ops": [
+    {
+      "id": "qwen25-32b-vllm-openai",
+      "type": "container/run",
+      "args": {
+        "image": "docker.io/vllm/vllm-openai:latest",
+        "gpu": true,
+        "cmd": [
+          "--model", "Qwen/Qwen2.5-32B-Instruct-AWQ",
+          "--quantization", "awq",
+          "--max-model-len", "8192",
+          "--port", "8000"
+        ],
+        "env": {
+          "VLLM_LOGGING_LEVEL": "INFO"
+        },
+        "expose": [
+          {
+            "port": 8000,
+            "health_checks": [
+              {
+                "type": "http",
+                "path": "/health",
+                "method": "GET",
+                "expected_status": 200,
+                "continuous": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "meta": {
+    "trigger": "cli",
+    "system_requirements": {
+      "required_vram": 20
+    }
+  }
+}
+```
+
+### B. Posting via `@nosana/cli` (`--timeout` in minutes) vs. `@nosana/kit` SDK (`timeout` in seconds)
+```bash
+# CLI: --timeout is specified in minutes (16 hours = 960 minutes)
+npx @nosana/cli job post \
+  --file ./qwen25-32b-vllm-openai.json \
+  --market nvidia-4090 \
+  --timeout 960
+```
+
+```typescript
+import { Client } from "@nosana/kit";
+
+const nosana = new Client("mainnet", process.env.SOLANA_WALLET_KEY);
+const ipfsHash = await nosana.ipfs.pin(jobDefinition);
+
+// SDK: timeout is specified in seconds (16 hours = 57,600 seconds)
+const job = await nosana.jobs.list(ipfsHash, 57600, "nvidia-4090");
+```
+
+---
+
+## 6. Why Solana Is Essential for Autonomous Agent Compute
+
+Coordinating thousands of independent GPU hosts requires fast queue state transitions, escrow accounting, and frequent micro-settlements. Because Solana finalizes transactions in sub-second slots for fractions of a cent, autonomous AI agents living on Solana can programmatically rent GPU containers via `@nosana/kit` and settle compute bills in `$NOS` without relying on corporate credit cards or centralized cloud accounts.
