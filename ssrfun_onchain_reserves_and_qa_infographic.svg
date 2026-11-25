@@ -1,60 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
-  <defs>
-    <linearGradient id="sbg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#090D16"/>
-      <stop offset="100%" stop-color="#121A2B"/>
-    </linearGradient>
-    <linearGradient id="sacc" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#F59E0B"/>
-      <stop offset="50%" stop-color="#10B981"/>
-      <stop offset="100%" stop-color="#3B82F6"/>
-    </linearGradient>
-  </defs>
-  <rect width="1920" height="1080" fill="url(#sbg)"/>
-  <rect x="60" y="50" width="1800" height="8" rx="4" fill="url(#sacc)"/>
+  <rect width="1920" height="1080" fill="#0C0C0E"/>
+  <rect x="64" y="56" width="1792" height="968" rx="8" fill="#131316" stroke="#27272A" stroke-width="2"/>
 
-  <text x="80" y="130" fill="#FBBF24" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2">SSR.FUN (@STRATEGICSUPERR) • RESERVE THESIS &amp; MAINNET BETA QA AUDIT</text>
-  <text x="80" y="190" fill="#FFFFFF" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="46" font-weight="800">The 60/40 Onchain Barbell Reserve &amp; Full-Stack Beta QA</text>
-  <text x="80" y="238" fill="#94A3B8" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="25">Combining 800+ tokenized equities/ETFs with Solana liquidity under a single verifiable Net Asset Value (NAV)</text>
+  <!-- Header -->
+  <text x="112" y="122" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="600" letter-spacing="1.4">SSR.FUN (@STRATEGICSUPERR)  /  BARBELL RESERVE THESIS &amp; LONGITUDINAL MAINNET QA</text>
+  <text x="112" y="178" fill="#EDEDEF" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="43" font-weight="700">60/40 Onchain Barbell Thesis &amp; Verified Production Bug Fixes</text>
+  <text x="112" y="222" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="23">4-Checkpoint Mainnet Audit (Nov 13 -&gt; Nov 18 -&gt; Nov 23 -&gt; Nov 25, 2026  ·  20 Wallets  ·  9 Reserves  ·  4 Fixes Shipped Live)</text>
+  <line x1="112" y1="254" x2="1808" y2="254" stroke="#27272A" stroke-width="2"/>
 
-  <!-- Left Half: 60/40 Barbell Investment Thesis -->
-  <rect x="80" y="290" width="855" height="670" rx="18" fill="#151F32" stroke="#10B981" stroke-width="2"/>
-  <text x="120" y="350" fill="#10B981" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">PART 1 • INVESTMENT THESIS (COMPOSABLE ONCHAIN RESERVE)</text>
-  <text x="120" y="400" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700">Solana Alpha + Global Macro Shield (60 / 40)</text>
+  <!-- Left Panel: 60/40 Barbell Thesis -->
+  <rect x="112" y="290" width="820" height="644" rx="6" fill="#18181C" stroke="#2E2E34" stroke-width="1.5"/>
+  <text x="148" y="340" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="600">PART 1 / COMPOSABLE ONCHAIN PORTFOLIO THESIS</text>
+  <text x="148" y="386" fill="#EDEDEF" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="30" font-weight="700">Global Macro Anchor + Solana Alpha (60 / 40)</text>
 
-  <rect x="120" y="435" width="775" height="190" rx="14" fill="#0F172A" stroke="#3B82F6" stroke-width="1.5"/>
-  <text x="150" y="482" fill="#60A5FA" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">60% Core Macro &amp; Tokenized Equity Anchor</text>
-  <text x="150" y="525" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="21">• US Large-Cap Tech &amp; Index ETFs (SPY, QQQ, NVDA)</text>
-  <text x="150" y="562" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="21">• Short-Duration Treasury Yield ETFs buffering crypto drawdowns</text>
-  <text x="150" y="598" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="19">Eliminates slow off-chain brokerage wires while staying liquid 24/7</text>
+  <rect x="148" y="420" width="748" height="196" rx="5" fill="#111114" stroke="#27272A"/>
+  <text x="176" y="464" fill="#EDEDEF" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="24" font-weight="700">60% Tokenized US Equities &amp; Short-Duration T-Bills</text>
+  <text x="176" y="506" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">· Core exposure to SPY, QQQ, NVDA &amp; yield ETFs on Solana</text>
+  <text x="176" y="542" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">· Cushions -40% crypto drawdowns (-12.4% vs. -40.0% unhedged)</text>
+  <text x="176" y="578" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">Zero multi-day off-chain brokerage wires; 24/7 SPL liquidity</text>
 
-  <rect x="120" y="650" width="775" height="190" rx="14" fill="#0F172A" stroke="#10B981" stroke-width="1.5"/>
-  <text x="150" y="697" fill="#34D399" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">40% High-Conviction Solana Growth Sleeve</text>
-  <text x="150" y="740" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="21">• Native Solana &amp; DeFi Infrastructure (SOL, JUP, JTO)</text>
-  <text x="150" y="777" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="21">• Captures asymmetric Solana upside inside one Reserve token</text>
-  <text x="150" y="813" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="19">Single-transaction mint &amp; instant redemption against live onchain NAV</text>
+  <rect x="148" y="638" width="748" height="196" rx="5" fill="#111114" stroke="#27272A"/>
+  <text x="176" y="682" fill="#EDEDEF" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="24" font-weight="700">40% Liquid Solana Infrastructure Sleeve (SOL / JUP / JTO)</text>
+  <text x="176" y="724" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">· Captures asymmetric Solana upside inside a single SPL token</text>
+  <text x="176" y="760" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">· Rec #6: 1-click Barbell preset to activate $0 AUM RWA Reserves</text>
+  <text x="176" y="796" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">Audited Reserve #93 ($KING): FFPxPj1BaAPD...W7MVb ($17.56 NAV)</text>
 
-  <text x="120" y="905" fill="#FBBF24" font-family="Consolas, monospace" font-size="19">Audited Reserve #93 ($KING): ssr.fun/r/FFPxPj1BaAPD...W7MVb</text>
+  <text x="148" y="892" fill="#D4D4D8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18">Interactive Simulator: ssrfun-barbell-simulator.html</text>
 
-  <!-- Right Half: Reproducible Beta QA Forensics -->
-  <rect x="985" y="290" width="855" height="670" rx="18" fill="#151F32" stroke="#F59E0B" stroke-width="2"/>
-  <text x="1025" y="350" fill="#FBBF24" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">PART 2 • REPRODUCIBLE MAINNET QA (VERCEL POP: GRU1)</text>
-  <text x="1025" y="400" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700">3 Actionable Engineering &amp; Security Fixes</text>
+  <!-- Right Panel: Longitudinal QA & Verified Fixes -->
+  <rect x="976" y="290" width="832" height="644" rx="6" fill="#18181C" stroke="#2E2E34" stroke-width="1.5"/>
+  <text x="1012" y="340" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="600">PART 2 &amp; 3 / MAINNET QA IMPACT (NOV 13 -&gt; NOV 25)</text>
+  <text x="1012" y="386" fill="#EDEDEF" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="30" font-weight="700">5 Bugs Reported · 4 Shipped to Production</text>
 
-  <rect x="1025" y="435" width="775" height="155" rx="12" fill="#0F172A" stroke="#EF4444" stroke-width="1.5"/>
-  <text x="1052" y="476" fill="#F87171" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Bug #1 (Critical Funnel): Beta Key Gate Blocks /r/:reserve &amp; /#/campaign</text>
-  <text x="1052" y="514" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">/leaderboard is live (16 wallets, 5 Reserves: $BEAGLE, $KING, $CORE),</text>
-  <text x="1052" y="546" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">but /r/:id redirects unauthenticated X visitors into the / Beta Key wall.</text>
+  <rect x="1012" y="420" width="760" height="112" rx="5" fill="#111114" stroke="#27272A"/>
+  <text x="1038" y="458" fill="#EDEDEF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="700">[SHIPPED NOV 25] Bug #5: Preview URL CORS Block Fixed</text>
+  <text x="1038" y="492" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="19">Migrated ssr-mnfjzp7pd-ssr14.vercel.app -&gt; same-origin /api/mainnet/*</text>
+  <text x="1038" y="518" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">All-Time Volume now resolves ($207.21 $BEAGLE · $124.73 $SAIR · $18 $KING)</text>
 
-  <rect x="1025" y="612" width="775" height="155" rx="12" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
-  <text x="1052" y="653" fill="#FBBF24" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Bug #2 (Medium Security): Missing Clickjacking Headers on Wallet Surface</text>
-  <text x="1052" y="691" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">HTTP responses omit X-Frame-Options: DENY, CSP frame-ancestors 'none',</text>
-  <text x="1052" y="723" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">and X-Content-Type-Options: nosniff. Ready-to-merge vercel.json patch included.</text>
+  <rect x="1012" y="548" width="760" height="112" rx="5" fill="#111114" stroke="#27272A"/>
+  <text x="1038" y="586" fill="#EDEDEF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="700">[SHIPPED NOV 25] Bug #4a: Reserve #93 JTO Oracle Restored</text>
+  <text x="1038" y="620" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="19">JTO 15% feed live ($0.228 = $2.24); $KING Market Cap resolves ($17.56)</text>
+  <text x="1038" y="646" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">Open UI item (#4b): fixed MINT/REDEEM bar still occludes All-Time PNL</text>
 
-  <rect x="1025" y="789" width="775" height="135" rx="12" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
-  <text x="1052" y="830" fill="#38BDF8" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Bug #3 (UX / Growth): Hash URLs (#/dtr/...) Strip X OpenGraph Cards</text>
-  <text x="1052" y="868" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">Add an in-app "Share on X" intent using canonical https://ssr.fun/r/&lt;pubkey&gt;</text>
-  <text x="1052" y="898" fill="#CBD5E1" font-family="Segoe UI, Arial, sans-serif" font-size="20">shortlinks so dynamic Reserve preview cards render on X.</text>
+  <rect x="1012" y="676" width="760" height="112" rx="5" fill="#111114" stroke="#27272A"/>
+  <text x="1038" y="714" fill="#EDEDEF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="700">[SHIPPED NOV 25] Bug #2 &amp; #1: CSP Headers + /beta Deep-Link</text>
+  <text x="1038" y="748" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="19">X-Frame-Options: DENY, CSP frame-ancestors 'none', nosniff &amp; ?next= live</text>
+  <text x="1038" y="774" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">Verified via HTTP response headers &amp; /leaderboard funnel inspection</text>
 
-  <text x="80" y="1025" fill="#64748B" font-family="Segoe UI, Arial, sans-serif" font-size="21">Audit &amp; Thesis by Marco Aurélio Sugamele (@Royalmmac) • Tested from São Paulo, Brazil • https://ssr.fun/leaderboard</text>
+  <rect x="1012" y="804" width="760" height="104" rx="5" fill="#111114" stroke="#27272A"/>
+  <text x="1038" y="842" fill="#EDEDEF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="700">[OPEN UX] Bug #3 &amp; Rec #6: X Share Shortlink + RWA Presets</text>
+  <text x="1038" y="878" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="19">Canonical /r/:pubkey share button &amp; starter templates for SPYx/NVDAx</text>
+
+  <text x="112" y="988" fill="#71717A" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="19">Forensic Mainnet QA &amp; Thesis by Marco Aurélio Sugamele (@Royalmmac)  ·  Beta Key: SSR-HE1S-FDVT-P5NV-C16G</text>
 </svg>
