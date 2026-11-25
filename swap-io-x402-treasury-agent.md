@@ -2,16 +2,15 @@
 
 # FreelanceSplitBot: Building a Pay-Per-Quote Telegram Treasury Agent on Solana with Swap.io's x402 API
 
-*By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac)) • Published on [Substack](https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay)*
+*By Marco Aurélio Sugamele ([\`@Royalmmac\`](https://x.com/Royalmmac)) • Published on [Substack](https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay)*
 
-- **2-Minute Narrated Video Pitch on X (`@swapdotio` & `@Superteam`):** [`https://x.com/Royalmmac/status/2121123499494256753`](https://x.com/Royalmmac/status/2121123499494256753)
-- **Live Interactive Telegram Bot & x402 Inspector Web App:** [`https://royalmmac.github.io/bounty-artifacts/freelance-split-bot-demo.html`](https://royalmmac.github.io/bounty-artifacts/freelance-split-bot-demo.html)
-- **Published Blog Article (Substack):** [`https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay`](https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay)
-- **Try Swap.io on Solana:** [`https://swap.io`](https://swap.io)
-- **Standalone Runnable Script in This Repo:** [`./swap_x402_demo.mjs`](./swap_x402_demo.mjs) (`node swap_x402_demo.mjs`)
-- **Onchain Verification (Solscan Mainnet Accounts Captured from Live `HTTP 402` Handshake):**
-  - x402 USDC Recipient (`payTo`): [`https://solscan.io/account/BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD`](https://solscan.io/account/BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD)
-  - Gasless Facilitator (`extra.feePayer`): [`https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4`](https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4)
+- **Live Interactive Telegram Bot & x402 Inspector Web App:** [\`https://royalmmac.github.io/bounty-artifacts/freelance-split-bot-demo.html\`](https://royalmmac.github.io/bounty-artifacts/freelance-split-bot-demo.html)
+- **Published Blog Article (Substack):** [\`https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay\`](https://royalmmac.substack.com/p/freelancesplitbot-building-a-pay)
+- **Try Swap.io on Solana:** [\`https://swap.io\`](https://swap.io)
+- **Standalone Runnable Script in This Repo:** [\`./swap_x402_demo.mjs\`](./swap_x402_demo.mjs) (`node swap_x402_demo.mjs`)
+- **Onchain Verification (Solscan Mainnet Accounts Captured from Live \`HTTP 402\` Handshake):**
+  - x402 USDC Recipient (`payTo`): [\`https://solscan.io/account/BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD\`](https://solscan.io/account/BPz2u6eoWLervxEqfpsMCVmKk7h6fEVsd7L5rvEibMfD)
+  - Gasless Facilitator (`extra.feePayer`): [\`https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4\`](https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4)
 
 ---
 
@@ -88,13 +87,13 @@ Look closely at line 15 of the Solana rail above:
 ```json
 "extra": { "feePayer": "2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4" }
 ```
-Because Swap.io sponsors the Solana base transaction fee via the PayAI facilitator ([`2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4`](https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4)), **our agent only needs `USDC` to pay for API calls**. It never gets bricked by an empty `SOL` gas balance while negotiating an `x402` quote.
+Because Swap.io sponsors the Solana base transaction fee via the PayAI facilitator ([\`2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4\`](https://solscan.io/account/2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4)), **our agent only needs `USDC` to pay for API calls**. It never gets bricked by an empty `SOL` gas balance while negotiating an `x402` quote.
 
 ---
 
-## 3. Runnable Node.js Implementation ([`swap_x402_demo.mjs`](./swap_x402_demo.mjs))
+## 3. Runnable Node.js Implementation ([\`swap_x402_demo.mjs\`](./swap_x402_demo.mjs))
 
-You can run [`node swap_x402_demo.mjs`](./swap_x402_demo.mjs) directly with Node.js 18+ (zero external dependencies required for the live handshake benchmark):
+You can run [\`node swap_x402_demo.mjs\`](./swap_x402_demo.mjs) directly with Node.js 18+ (zero external dependencies required for the live handshake benchmark):
 
 ```javascript
 #!/usr/bin/env node
@@ -121,15 +120,15 @@ async function verifySwapIoX402() {
   });
   const latencyMs = Date.now() - t0;
 
-  if (res.status !== 402) throw new Error("Expected HTTP 402, got " + res.status);
+  if (res.status !== 402) throw new Error(\`Expected HTTP 402, got \${res.status}\`);
 
   const x402Spec = await res.json();
   const solanaRail = x402Spec.accepts.find((r) => r.network === "solana");
   const quoteCostUsdc = Number(solanaRail.maxAmountRequired) / 1e6;
 
-  console.log("HTTP " + res.status + " (" + latencyMs + "ms) | Price: $" + quoteCostUsdc.toFixed(6) + " USDC");
-  console.log("Recipient : https://solscan.io/account/" + solanaRail.payTo);
-  console.log("Fee Payer : https://solscan.io/account/" + solanaRail.extra.feePayer);
+  console.log(\`HTTP \${res.status} (\${latencyMs}ms) | Price: $\${quoteCostUsdc.toFixed(6)} USDC\`);
+  console.log(\`Recipient : https://solscan.io/account/\${solanaRail.payTo}\`);
+  console.log(\`Fee Payer : https://solscan.io/account/\${solanaRail.extra.feePayer}\`);
 }
 
 verifySwapIoX402().catch(console.error);
