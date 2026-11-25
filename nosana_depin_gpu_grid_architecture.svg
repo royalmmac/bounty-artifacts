@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+  <rect x="64" y="56" width="1792" height="968" rx="8" fill="#111111" stroke="#262626" stroke-width="2"/>
+
+  <!-- Top Header -->
+  <text x="112" y="122" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20" font-weight="600" letter-spacing="1.5">NOSANA DEPIN COMPUTE ARCHITECTURE  /  SOLANA MAINNET</text>
+  <text x="112" y="178" fill="#EDEDED" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="44" font-weight="700">Containerized AI Inference Grid &amp; Job Execution Flow</text>
+  <text x="112" y="222" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="24">Connecting idle consumer &amp; datacenter GPUs to OCI container workloads with sub-second $NOS settlement (#NOSvember #CreatorChallenge)</text>
+  <line x1="112" y1="254" x2="1808" y2="254" stroke="#262626" stroke-width="2"/>
+
+  <!-- Column 1: Workload Spec -->
+  <rect x="112" y="292" width="532" height="430" rx="6" fill="#161616" stroke="#2E2E32" stroke-width="1.5"/>
+  <text x="144" y="340" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="600">01 / DECLARATIVE JOB SPEC</text>
+  <text x="144" y="384" fill="#EDEDED" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="28" font-weight="700">AI Builder or Autonomous Agent</text>
+  <text x="144" y="426" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">Packages open-source LLM or image pipeline</text>
+  <text x="144" y="456" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">into a schema-validated JSON Job Definition:</text>
+  <rect x="144" y="486" width="468" height="202" rx="5" fill="#0A0A0A" stroke="#262626"/>
+  <text x="166" y="524" fill="#D4D4D8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">"type": "container/run",</text>
+  <text x="166" y="556" fill="#D4D4D8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">"image": "docker.io/vllm/vllm-openai",</text>
+  <text x="166" y="588" fill="#D4D4D8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">"expose": [{"port": 8000, "health_checks": ...}],</text>
+  <text x="166" y="620" fill="#D4D4D8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">"system_requirements": {"required_vram": 20}</text>
+  <text x="166" y="660" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">CLI (--timeout min)  |  @nosana/kit SDK (sec)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="644" y1="507" x2="694" y2="507" stroke="#52525B" stroke-width="2.5"/>
+  <polygon points="694,500 708,507 694,514" fill="#71717A"/>
+
+  <!-- Column 2: Solana Market Queue -->
+  <rect x="708" y="292" width="504" height="430" rx="6" fill="#161616" stroke="#2E2E32" stroke-width="1.5"/>
+  <text x="740" y="340" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="600">02 / SOLANA COORDINATION</text>
+  <text x="740" y="384" fill="#EDEDED" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="28" font-weight="700">GPU Market Queue &amp; Escrow</text>
+  <text x="740" y="426" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">IPFS-pinned spec posts to target Solana</text>
+  <text x="740" y="456" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">hardware market with $NOS escrow lock:</text>
+  <rect x="740" y="486" width="440" height="202" rx="5" fill="#0A0A0A" stroke="#262626"/>
+  <text x="762" y="526" fill="#EDEDED" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18">nvidia-3090      (24 GB)   ~$0.20/hr</text>
+  <text x="762" y="564" fill="#EDEDED" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18">nvidia-4090      (24 GB)   ~$0.35/hr</text>
+  <text x="762" y="602" fill="#EDEDED" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18">nvidia-a100-80gb (80 GB)   ~$0.85/hr</text>
+  <line x1="762" y1="624" x2="1158" y2="624" stroke="#262626"/>
+  <text x="762" y="658" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">Sub-second Solana state + per-job billing</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="1212" y1="507" x2="1262" y2="507" stroke="#52525B" stroke-width="2.5"/>
+  <polygon points="1262,500 1276,507 1262,514" fill="#71717A"/>
+
+  <!-- Column 3: DePIN GPU Host -->
+  <rect x="1276" y="292" width="532" height="430" rx="6" fill="#161616" stroke="#2E2E32" stroke-width="1.5"/>
+  <text x="1308" y="340" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="600">03 / VERIFIED EXECUTION</text>
+  <text x="1308" y="384" fill="#EDEDED" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="28" font-weight="700">DePIN GPU Node Operator</text>
+  <text x="1308" y="426" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">Pulls container image, allocates GPU VRAM,</text>
+  <text x="1308" y="456" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="20">serves HTTPS inference &amp; settles $NOS:</text>
+  <rect x="1308" y="486" width="468" height="202" rx="5" fill="#0A0A0A" stroke="#262626"/>
+  <text x="1330" y="526" fill="#D4D4D8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">[1] Pull OCI image &amp; mount CUDA runtime</text>
+  <text x="1330" y="562" fill="#D4D4D8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">[2] Continuous GET /health -&gt; HTTP 200</text>
+  <text x="1330" y="598" fill="#D4D4D8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">[3] Expose OpenAI-compatible endpoint</text>
+  <text x="1330" y="634" fill="#D4D4D8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">[4] Release $NOS payout to host on Solana</text>
+  <text x="1330" y="666" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">Zero vendor lock-in  |  Permissionless supply</text>
+
+  <!-- Bottom Benchmark Summary -->
+  <rect x="112" y="756" width="1696" height="168" rx="6" fill="#161616" stroke="#262626" stroke-width="1.5"/>
+  <text x="144" y="802" fill="#EDEDED" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="25" font-weight="700">30-Second Analogy &amp; Quantitative Inference Benchmark (2x RTX 4090 · 16h/day · Qwen2.5-32B-AWQ)</text>
+  <text x="144" y="844" fill="#A1A1AA" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="21">Just as Airbnb unlocked spare bedrooms, Nosana turns idle global GPUs into an on-demand AI inference grid — cutting comparable</text>
+  <text x="144" y="876" fill="#EDEDED" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20">cloud GPU burn from ~$1,498/mo ($1.56/hr) to ~$336/mo ($0.35/hr = 77.6% saved, settled in $NOS on Solana).</text>
+
+  <text x="112" y="986" fill="#71717A" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, sans-serif" font-size="19">Architecture &amp; Interactive Job Builder by Marco Aurélio Sugamele (@Royalmmac)  ·  royalmmac.github.io/bounty-artifacts/nosana-gpu-job-simulator.html</text>
+</svg>
