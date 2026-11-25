@@ -2,13 +2,19 @@
 
 # How Brazilian Freelancers and Remote Engineers Are Using Raenest + Solana Stablecoins to Beat Cross-Border Banking Friction
 
-*By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac)) • Published on [Substack](https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote) • **Interactive Calculator:** [`raenest-freelancer-calculator.html`](https://royalmmac.github.io/bounty-artifacts/raenest-freelancer-calculator.html)*
+*By Marco Aurélio Sugamele ([`@Royalmmac`](https://x.com/Royalmmac))*
+
+- **Interactive 7-Corridor FX & Vault Calculator:** [`raenest-freelancer-calculator.html`](https://royalmmac.github.io/bounty-artifacts/raenest-freelancer-calculator.html)
+- **Published Long-Form Article (Substack):** [`https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote`](https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote)
+- **1080p Live Calculator Walkthrough on X:** [`https://x.com/Royalmmac/status/2124993539004412025`](https://x.com/Royalmmac/status/2124993539004412025)
+- **X Distribution Thread (`@RaenestApp` · `@SuperteamBR`):** [`https://x.com/Royalmmac/status/2123191082259259621`](https://x.com/Royalmmac/status/2123191082259259621)
+- **LinkedIn Distribution Post:** [`https://www.linkedin.com/feed/update/urn:li:share:7528980300274561024/`](https://www.linkedin.com/feed/update/urn:li:share:7528980300274561024/)
 
 ---
 
 ## The "Friday Afternoon Wire Trap" I Learned the Hard Way
 
-If you work remotely from São Paulo, Buenos Aires, Lagos, or Manila for international clients, you already know the Friday afternoon wire trap.
+If you work remotely from São Paulo, Buenos Aires, Lagos, Bogota, or Manila for international clients, you already know the Friday afternoon wire trap.
 
 You wrap up a two-week engineering sprint on Friday at 4:00 PM. Your client sends an invoice payment across borders. With traditional correspondent banking, that transfer sits in limbo over the weekend, loses 3% to 6% in opaque FX spreads and intermediary bank deductions, and finally lands the following Wednesday.
 
@@ -16,90 +22,82 @@ Working from Brazil and collaborating with global Web3 and software teams, I got
 
 **Raenest** is a global financial platform built to help individuals and businesses manage money without borders. By combining multi-currency financial accounts with fast crypto and stablecoin rails (**USDT, USDC, SOL, BTC, and ETH**), Raenest replaces a fragmented stack of wallets, exchanges, and cards with one practical hub.
 
-Here is my hands-on breakdown of how I set up Raenest (signing up with campaign code **`community`** via [my referral link](https://referral.raenest.com/WzbV/i?referral_code=community)) and how the workflow operates in practice.
+Here is my hands-on breakdown of how I set up Raenest (signing up with campaign code **`community`** via [my referral link](https://referral.raenest.com/WzbV/i?referral_code=community)), how the fee and Vault mechanics work quantitatively, and what I found testing the localized `/pt-BR/` flow.
 
 ---
 
-## 1. Receiving Client Invoices in USDC & USDT via Solana (1:1 USD Conversion)
+## 1. Receiving Client Invoices in USDC & USDT via Solana (1:1 Wallet Credit & Transparent Fees)
 
-Take a concrete scenario: billing $2,500/month to an international startup plus bounty payouts from Web3 ecosystems.
+Take a concrete scenario: billing **$2,500/month** (`$30,000/year`) to an international startup while retaining **30% (`$750/month`)** in an operating/tax reserve.
 
-Instead of waiting days for an international SWIFT wire, the flow inside the **Raenest Crypto Wallet** is straightforward:
+Instead of waiting 3–5 business days for an international SWIFT wire, the flow inside the **Raenest Crypto Wallet** is straightforward:
 
-1. **Fast Deposits on Supported Networks:** Inside Raenest, open the Crypto Wallet and select **USDC** or **USDT**. Raenest supports fast, low-cost networks like **Solana**, where settlement takes seconds and network fees cost a fraction of a cent.
-2. **Clean 1:1 USD Conversion:** When USDT or USDC arrives in Raenest via Solana, it credits with transparent **1:1 USD conversion**, with zero surprise correspondent bank deductions.
-3. **Direct Withdrawals:** Sending **USDT or USDC** out to contractors, suppliers, or external wallets across supported networks (or cashing out to local currency corridors) works the same way.
+1. **Seconds-Level Settlement on Solana:** Inside Raenest, open the Crypto Wallet and select **USDC** or **USDT** on **Solana**, where network finality takes seconds for fractions of a cent.
+2. **1:1 Stablecoin Wallet Credit + Transparent Conversion Schedule:** Incoming USDT or USDC credits **1:1 into your dedicated USDT/USDC wallet** without forced local-currency FX conversion (published `$1` stablecoin deposit fee, plus a transparent **`0.50%` fee** only on the portion you convert from USDC/USDT into fiat USD for card or bank spending).
+3. **Direct Global Withdrawals:** Sending **USDT or USDC** out to contractors, suppliers, or external wallets across supported networks (or cashing out to supported local corridors) works from the same balance.
 
 ---
 
 ## 2. Depositing SOL and Managing BTC & ETH Under One Roof
 
-Most remote engineers, designers, and crypto-native contractors don't just hold stablecoins. Within the same Raenest dashboard, you can:
+Most remote engineers, designers, and crypto-native contributors don't just hold stablecoins. Within the same Raenest dashboard, you can:
 
-- **Deposit SOL directly** into your Raenest Solana wallet address, which is especially convenient when you earn native SOL from hackathons, grants, or ecosystem bounties.
-- **Manage BTC, ETH, and SOL alongside your stablecoins:** Instead of jumping between multiple browser extensions and centralized exchanges to check balances, Raenest keeps **BTC, ETH, SOL, USDT, and USDC** in a single unified interface.
-
----
-
-## 3. Putting Idle Working Capital to Work: Up to 7% APY in Raenest Vaults
-
-When an invoice arrives on the 1st of the month, I don't spend all of it on day one. Rent, local taxes, and software bills are spread across the month, and part of every payout stays in a dollar emergency reserve.
-
-Leaving stablecoins sitting in a standard wallet earns 0%. Inside **Raenest Vaults**:
-
-- **How it works:** You transfer eligible **USDT or USDC** balances from your main Raenest wallet into a **Raenest Vault**.
-- **Earn up to 7% APY:** Eligible stablecoin balances stored in Raenest Vaults earn **up to 7% Annual Percentage Yield (APY)**, generating predictable dollar-denominated returns on working capital.
-- **Important distinction to keep in mind:** The **up to 7% APY** applies specifically to **eligible USDT and USDC Vault deposits** (not to volatile assets like BTC, ETH, or SOL).
-
-For freelancers in Brazil, Argentina, Nigeria, or the Philippines, keeping working capital in dollar-pegged stablecoins while earning up to 7% APY in a Vault makes a real difference over a 12-month cycle.
+- **Deposit SOL directly** into your Raenest Solana wallet address when earning native SOL from hackathons, grants, or ecosystem bounties.
+- **Manage BTC, ETH, and SOL alongside your stablecoins:** Instead of jumping between multiple browser extensions and exchanges to check balances, Raenest keeps **BTC, ETH, SOL, USDT, and USDC** in a single unified interface.
 
 ---
 
-## 4. Paying for SaaS & Daily Expenses with Raenest Virtual & Physical Cards
+## 3. Putting Idle Working Capital to Work: Up to 7% Variable APY in Raenest Vaults
 
-Earning and saving is only half the loop. Remote builders still have to pay for AWS, Vercel, Cursor, Figma, flights, and everyday purchases at 150M+ merchants worldwide.
+When an invoice arrives on the 1st of the month, rent, local taxes, and cloud bills are spread across the month, and part of every payout stays in a dollar emergency reserve.
 
-With **Raenest Virtual and Physical USD Cards** (where supported, including Apple Pay and Google Pay integration):
+Leaving stablecoins sitting in a standard checking or wallet balance earns 0%. Inside **Raenest Stablecoin Vaults**:
 
-- **Spend directly from available balances:** Fund your Raenest virtual or physical card from your available wallet balance and pay online, in-store, or at ATMs globally.
-- **Separate work and personal spend:** Keep a dedicated virtual card for cloud infrastructure and SaaS subscriptions while your reserve balance keeps earning up to 7% APY inside a Raenest Vault.
+- **How it works:** Transfer eligible **USDT or USDC** balances (`$100` minimum threshold) from your main Raenest wallet into a **Raenest Vault**.
+- **Daily Compounding, Zero Lock-Up:** Eligible stablecoin balances earn **up to 7% variable Annual Percentage Yield (APY)**, accrued and compounded daily with 24/7 withdrawal flexibility (`$0` lock-up penalty).
+- **Asset Eligibility Distinction:** Vault yield applies specifically to **eligible USDT and USDC balances** (volatile assets like `SOL`, `BTC`, and `ETH` are supported for custody/wallets, not Stablecoin Vault APY).
 
 ---
 
-## Side-by-Side: My Old Fragmented Stack vs. Raenest
+## 4. Paying for SaaS & Daily Expenses with Raenest Virtual & Physical USD Cards
 
-| Everyday Financial Need | Old Fragmented Workflow | The Raenest Workflow |
+Remote builders still have to pay for AWS, Vercel, Cursor, Figma, flights, and everyday purchases at 150M+ merchants worldwide. With **Raenest Virtual and Physical USD Cards** (including Apple Pay and Google Pay support where available), you can separate SaaS infrastructure spend on a dedicated virtual card while your reserve balance keeps compounding daily inside a Raenest Vault.
+
+---
+
+## 5. Worked 12-Month Quantitative Model (`$2,500/mo` Brazilian Remote Engineer)
+
+You can stress-test your own corridor (`BR`, `NG`, `AR`, `PH`, `CO`, `IN`, `KE`), invoice size, and Vault split live at [`raenest-freelancer-calculator.html`](https://royalmmac.github.io/bounty-artifacts/raenest-freelancer-calculator.html):
+
+| 12-Month Financial Metric (`$30,000/yr` Gross Billing) | Correspondent Bank SWIFT Wire (`BR`) | Raenest + Solana (`USDC` + Vault) |
 | :--- | :--- | :--- |
-| **Receiving international pay** | 3–5 business days + 4% FX spread | Seconds via **USDT/USDC on Solana** (1:1 USD) |
-| **Managing digital assets** | Separate apps for BTC, ETH, SOL, USD | Unified wallet for **USDC, USDT, SOL, BTC, ETH** |
-| **Saving idle working capital** | 0% yield in checking accounts | **Up to 7% APY** on eligible **USDT/USDC Vaults** |
-| **Paying for SaaS & daily life** | Manual off-ramp delays before card use | **Raenest Virtual & Physical USD Cards** |
+| **Settlement Window** | 3–5 business days | **Seconds on Solana** |
+| **Inbound Wire / Conversion Costs** | **`-$1,530 / yr`** (`~4.00%` FX + `0.38%` IOF + `$18`/wire) | **`-$117 / yr`** (`$1`/mo deposit + `0.50%` on `$1,750`/mo USD spend) |
+| **Yield on 30% Retained Reserve (`$750/mo` -> `$9,000`)** | `$0` (`0.00%` checking) | **`+$338 / yr`** (`7.00%` variable APY, daily compound, `$0` lock-up) |
+| **Net 12-Month Financial Advantage** | Baseline | **`+$1,751 / year`** (`+$1,413` net FX saved + `+$338` Vault yield) |
 
 ---
 
-## Hands-On Walkthrough & Engineering Notes from Brazil (`app.raenest.com/pt-BR/`)
+## 6. Hands-On Walkthrough & Engineering Notes from Brazil (`app.raenest.com/pt-BR/`)
 
-While setting up my account on **`https://app.raenest.com/pt-BR/`** (Account ID `ec0ab1a9-c496-4f5d-a2e4-9b430ac295ed`, tag `@royalmmac`, registered with campaign code **`community`**), I tested the localized onboarding flow and took a few technical notes for the Raenest product team:
+While setting up my account on **`https://app.raenest.com/pt-BR/`** (Account ID `ec0ab1a9-c496-4f5d-a2e4-9b430ac295ed`, tag `@royalmmac`, registered with campaign code **`community`**), I audited the localized onboarding flow and documented three product observations for the Raenest engineering team:
 
 1. **Portuguese (`pt-BR`) Localization & Freelancer Onboarding:**
    - The localized registration flow (`/pt-BR/register/individual` -> `/pt-BR/onboarding/individual/profile` -> `/pt-BR/onboarding/individual/phone-number`) is clean, defaults `membership_type` to `"Freelancer"`, and supports both email OTP (`EmailConfirmation`) and Google SSO.
 2. **Multi-Asset Documentation & Vault Clarity:**
-   - The documentation clearly separates **SOL, BTC, and ETH** wallet management from **USDT/USDC (1:1 USD)** funding and **Raenest Vaults (up to 7% APY on eligible USDT/USDC)**.
-3. **Constructive Engineering Note on the `/pt-BR/` Phone Validator for Brazilian Users:**
-   - While testing from Brazil on `/pt-BR/register/individual`, I inspected the network response from `GET https://api.v1.raenest.com/accounts/residence`. Right now, while **Argentina (`AR`)**, **Colombia (`CO`)**, **Nigeria (`NG`)**, and **Philippines (`PH`)** are active among the 17 returned residency countries (`NG, GH, KE, UG, EG, ZA, RW, IN, PH, CO, ID, TH, AR, CI, SN, BJ, VN`), **Brazil (`BR`)** is not yet enabled in that endpoint's payload even though the full `/pt-BR/` interface is live. Because `/onboarding/individual/phone-number` binds `react-phone-number-input`'s `defaultCountryCode` to the selected residency country, selecting a neighboring LATAM country like `AR` locks the phone prefix to `+54` and blocks Brazilian (`+55`) SMS/WhatsApp OTP verification. Enabling `BR` in `/accounts/residence` (or decoupling the phone country code selector from the residency dropdown) will make onboarding for Brazilian freelancers completely frictionless.
+   - The platform clearly separates **SOL, BTC, and ETH** wallet custody from **1:1 USDT/USDC** wallets and **Raenest Stablecoin Vaults (up to 7% APY)**.
+3. **Constructive Engineering Note on `/accounts/residence` for Brazilian (`+55`) Users:**
+   - While testing from Brazil on `/pt-BR/register/individual`, inspecting `GET https://api.v1.raenest.com/accounts/residence` shows 17 active residency countries (`NG, GH, KE, UG, EG, ZA, RW, IN, PH, CO, ID, TH, AR, CI, SN, BJ, VN`), including **Argentina (`AR`)**, **Colombia (`CO`)**, **Nigeria (`NG`)**, and **Philippines (`PH`)**, while **Brazil (`BR`)** is not yet enabled in that endpoint payload despite the live `/pt-BR/` interface. Because `/onboarding/individual/phone-number` binds `react-phone-number-input`'s `defaultCountryCode` to the selected residency country, choosing `AR` locks the phone prefix to `+54` and blocks `+55` OTP verification. Enabling `BR` in `/accounts/residence` (or decoupling the phone country prefix from residency) will make Brazilian freelancer onboarding completely seamless.
 
 ---
 
 ## Try Raenest Yourself
 
-If you want to simplify how you receive international payments, hold **USDT, USDC, SOL, BTC, and ETH**, earn **up to 7% APY** on eligible stablecoins in **Raenest Vaults**, and spend globally:
-
-1. **Create your Raenest account** using my campaign referral link (**code: `community`** | Tag: **`@royalmmac`**):  
-   👉 [**https://referral.raenest.com/WzbV/i?referral_code=community**](https://referral.raenest.com/WzbV/i?referral_code=community)
-2. **Deposit USDT, USDC, or SOL** into your Raenest crypto wallet via supported networks like Solana.
-3. **Move idle USDT/USDC into a Raenest Vault** (up to 7% APY) and set up your **Raenest Virtual or Physical Card** for everyday global spending.
+1. **Create your Raenest account** using my campaign referral link (**code: `community`** | Creator tag: **`@royalmmac`**):  
+   [**https://referral.raenest.com/WzbV/i?referral_code=community**](https://referral.raenest.com/WzbV/i?referral_code=community)
+2. **Deposit USDT, USDC, or SOL** into your Raenest crypto wallet via Solana.
+3. **Allocate idle USDT/USDC into a Raenest Vault** (`$100` minimum, up to 7% variable APY) and set up your **Raenest Virtual or Physical USD Card** for everyday global spending.
 
 ---
 
-**Campaign References:** `#StablecoinsonRaenest` `#RaenestBounty` • [`@RaenestApp`](https://x.com/RaenestApp) • [`@SuperteamBR`](https://x.com/SuperteamBR)  
-**Substack Article:** [`https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote`](https://royalmmac.substack.com/p/how-brazilian-freelancers-and-remote)
+**Campaign References:** `#StablecoinsonRaenest` `#RaenestBounty` • [`@RaenestApp`](https://x.com/RaenestApp) • [`@SuperteamBR`](https://x.com/SuperteamBR)
